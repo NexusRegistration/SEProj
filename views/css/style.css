@@ -11,17 +11,22 @@
     --color-dark: #363949;
     --color-light: rgba(132,139,200,0.18);
     --color-background: #f6f6f9;
+    --color-green: green;
 
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
+    --circle-btn-border-radius: 50%;
 
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
+    --form-padding: 2.5rem;
     --button-padding: 0.83rem;
+    --button-2-padding: 0.35rem 0.42rem;
 
     --box-shadow: 0 2rem 3rem var(--color-info-light);
+    --btn-shadow: 0 0.3rem 0.5rem var(--color-info-light);
 
 }
 
@@ -111,7 +116,7 @@ p{
 
 
 
-    /* ======================== HEADER VARIABLES ======================= */
+    /* ======================== HEADER ======================= */
 
 .fixed-header {
     width: 100%;
@@ -146,6 +151,13 @@ nav .logo{
 
 nav .logo:hover{
   padding: 12px 17px;
+}
+
+    /* ======================== FOOTER ======================= */
+
+footer{
+    margin-top: auto;
+    text-align: center;
 }
 
     /* ======================== WELCOME-BAR ======================= */
@@ -350,7 +362,7 @@ main .recent-activities a{
     margin: 5rem 32%;
     display: flex;
     flex-direction: column;
-    padding: var(--card-padding);
+    padding: var(--form-padding);
     border: none;
     background: white;
     border-radius: var(--border-radius-3);
@@ -429,7 +441,14 @@ textarea:focus{
     text-align: center;
 }
 
-.btn-primary{
+.search-form .pathways{
+    margin-top: 1rem;
+    align-items: center;
+}
+
+    /* ======================== BUTTONS ======================= */
+
+.btn-primary, .btn-search{
     padding: var(--button-padding);
     border-radius: var(--border-radius-2);
     color: var(--color-white);
@@ -438,38 +457,79 @@ textarea:focus{
     transition: all 300ms ease;
 }
 
-.btn-primary:hover{
+.btn-primary:hover, .btn-search:hover{
     background: var(--color-light);
     color: var(--color-primary);
     box-shadow: var(--box-shadow);
 }
 
-.search-form .pathways{
-    margin-top: 1rem;
-    align-items: center;
+.btn-search{
+    border-radius: var(--circle-btn-border-radius);
+    padding: var(--button-2-padding);
+    margin: 1rem 93%;
+}
+
+.btn-edit{
+    padding: var(--button-2-padding);
+    border-radius: var(--circle-btn-border-radius);
+    background: var(--color-white);
+    box-shadow: var(--btn-shadow);
+    transition: all 300ms ease;
+}
+
+.btn-edit:hover{
+    background: transparent;
+    box-shadow: none;
+}
+
+.btn-edit span{
+    font-size: 1.2rem;
+    transition: all 300ms ease;
+}
+
+.btn-edit span:hover{
+    color: var(--color-primary);
 }
 
 
     /* ======================== SEARCH RESULTS ======================= */
 
-
     .search-form-result table{
         background: var(--color-white);
+        border-collapse: collapse;
         width: 90%;
         margin: auto;
         border-radius: var(--card-border-radius);
-        padding: var(--card-padding);
+        padding: var(--form-padding);
         text-align: center;
         box-shadow: var(--box-shadow);
         transform: all 300ms ease;
     }
-    
+
+    .search-form-result table thead th{
+        height: 3rem;
+        text-align: left;
+        padding: var(--padding-1);
+    }
+
     .search-form-result table tbody td{
-        height: 2.8rem;
+        height: 4rem;
+        text-align: left;
         border-bottom: 1px solid var(--color-light);
         color: var(--color-dark);
+        margin-left: 10px;
+        padding: var(--padding-1);
+        transition: all 300ms ease;
+    }
+
+    .search-form-result table tbody tr{
+        transition: all 300ms ease;
+    }
+
+    .search-form-result table tbody tr:hover > td{
+        color: var(--color-primary);
     }
     
     .search-form-result table tbody tr:last-child td{
-        border:none
+        border: none;
     }

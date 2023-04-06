@@ -11,6 +11,7 @@
         <% } %>
 
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
         <script type="text/javascript" src="/public/javascripts/subject-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/class-populator.js"></script>
@@ -136,17 +137,21 @@
 
             <!--Search Button-->
             <div class="form-group col-md-12">
-                <button type="submit" class="btn-primary">Find</button>
+                <button type="submit" class="btn-search">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
                 <!--Add search icon instead-->
             </div>
         </div>
     </form>
-    <div class="search-form-result">
-        <table>
+    <div class="search-form-result" id="classEntry-container">
+        <!--<table>
             <thread>
-                <tr>
+                <tr> -->
                     <!--Include role as well?-->
-                    <th>Class ID</th>
+                    <!--<th>Class ID</th>
                     <th>Name</th>
                     <th>Teacher</th>
                     <th>Location</th>
@@ -156,7 +161,7 @@
                 </tr>
             </thread>
             <tbody id="classEntry-container"></tbody>
-        </table>
+        </table>-->
     </div>
 
         <div class="container w-75" id="classEntry-container"></div>
