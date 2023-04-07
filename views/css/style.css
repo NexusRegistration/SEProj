@@ -17,11 +17,12 @@
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
-    --circle-btn-border-radius: 50%;
+    --circle-btn-border-radius: 48%;
 
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
     --form-padding: 2.5rem;
+    --table-padding: 1.8rem;
     --button-padding: 0.83rem;
     --button-2-padding: 0.35rem 0.42rem;
 
@@ -185,14 +186,14 @@ main{
     margin-top: 1rem;
 }
 
-main .insights{
+main .insights, .insights{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem;
     /*margin-left: 0.8rem;*/
 }
 
-main .insights > div {
+main .insights > div, .insights > div {
     background: var(--color-white);
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
@@ -201,7 +202,7 @@ main .insights > div {
     transition: all 300ms ease;
 }
 
-main .insights > div:hover {
+main .insights > div:hover, .insights > div:hover {
     box-shadow: none;
 }
 
@@ -211,7 +212,7 @@ main .insights > div .middle{
     justify-content: space-between;
 }
 
-main .insights h3{
+main .insights h3, .insights h3{
     margin: 1rem 0 0.6rem;
     font-size: 1rem;
 }
@@ -384,6 +385,7 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
     padding: 0.5rem 1rem;
     width: 100%;
     background: transparent;
+    font-family: poppins, sans-serif;
     color: var(--color-dark);
     border-radius: var(--border-radius-1);
     transition: all 500ms ease;
@@ -396,6 +398,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:foc
 select{
     padding: 0.5rem 1rem;
     background: transparent;
+    font-family: poppins, sans-serif;
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
@@ -409,6 +412,7 @@ select:focus{
 textarea{
     padding: 0.5rem 1rem;
     background: transparent;
+    font-family: poppins, sans-serif;
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
@@ -441,19 +445,36 @@ textarea:focus{
     text-align: center;
 }
 
-.search-form .pathways{
+.search-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+}
+
+.search-form h1{
+    margin-bottom: 1.2rem;
+}
+
+.search-form .form-input{
+    margin-top: 0;
+}
+
+.search-form .weekdays{
     margin-top: 1rem;
     align-items: center;
 }
 
     /* ======================== BUTTONS ======================= */
 
+button{
+    font-family: poppins, sans-serif;
+}
+
 .btn-primary, .btn-search{
     padding: var(--button-padding);
     border-radius: var(--border-radius-2);
     color: var(--color-white);
     background: var(--color-primary);
-    text-decoration: none;
     transition: all 300ms ease;
 }
 
@@ -463,10 +484,17 @@ textarea:focus{
     box-shadow: var(--box-shadow);
 }
 
+/*Fix search btton*/
 .btn-search{
-    border-radius: var(--circle-btn-border-radius);
-    padding: var(--button-2-padding);
-    margin: 1rem 93%;
+    display: flex;
+    align-items: center;
+    padding: var(--button-padding);
+    margin-left: 95%;
+    margin-top: 2rem;
+}
+
+.btn-search span{
+    font-size: 1.3rem;
 }
 
 .btn-edit{
@@ -494,42 +522,55 @@ textarea:focus{
 
     /* ======================== SEARCH RESULTS ======================= */
 
-    .search-form-result table{
-        background: var(--color-white);
-        border-collapse: collapse;
-        width: 90%;
-        margin: auto;
-        border-radius: var(--card-border-radius);
-        padding: var(--form-padding);
-        text-align: center;
-        box-shadow: var(--box-shadow);
-        transform: all 300ms ease;
-    }
+.search-form-result table{
+    background: var(--color-white);
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
 
-    .search-form-result table thead th{
-        height: 3rem;
-        text-align: left;
-        padding: var(--padding-1);
-    }
+.search-form-result table thead th{
+    height: 3rem;
+    text-align: left;
+    padding: var(--table-padding);
+}
 
-    .search-form-result table tbody td{
-        height: 4rem;
-        text-align: left;
-        border-bottom: 1px solid var(--color-light);
-        color: var(--color-dark);
-        margin-left: 10px;
-        padding: var(--padding-1);
-        transition: all 300ms ease;
-    }
+.search-form-result table tbody td{
+    height: 4rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark);
+    margin-left: 10px;
+    padding: var(--table-padding);
+    transition: all 300ms ease;
+}
 
-    .search-form-result table tbody tr{
-        transition: all 300ms ease;
-    }
+.search-form-result table tbody tr{
+    transition: all 300ms ease;
+}
 
-    .search-form-result table tbody tr:hover > td{
-        color: var(--color-primary);
-    }
+.search-form-result table tbody tr:hover > td{
+    color: var(--color-primary);
+}
     
-    .search-form-result table tbody tr:last-child td{
-        border: none;
-    }
+.search-form-result table tbody tr:last-child td{
+    border: none;
+}
+
+span{
+    align-items: center;
+}
+
+    /* ======================== Class Container ======================= */
+
+.class-container{
+    width: 95%;
+    margin: auto;
+}
+
+.wishlist-classEntry > div, .register-classEntry > div{
+    padding: 1rem 0;
+}

@@ -10,9 +10,11 @@
             <%- include('partials/headers/header-teacher.ejs') %>
         <% } %>
 
+        <!--Stylesheets-->
         <link rel="stylesheet" href="/css/style.css">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
+        
+        <!--Scripts-->
         <script type="text/javascript" src="/public/javascripts/subject-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/class-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
@@ -21,8 +23,10 @@
 
         <form role="form" class="search-form" action="/search-classes/classes" method="GET">
 
-        <div class="form-row">
+            <!--Class Search Title-->
+            <h1>Class Search</h1>
 
+        <div class="search-grid">
             <!--Subject Dropdown Menu-->
             <div class="form-input">
                 <select id="department" class="form-control" name="department">
@@ -31,17 +35,8 @@
                         <option value="<%= department %>"><%= department %></option>
                     <% }); %>
                 </select>
-                <!--Allow multiple selection?-->
             </div>
 
-            <!--Course ID Text Box-->
-            <div class="form-input">
-                <input type="number" class="form-control" id="classID" name="classID" min="1000" max="9999" placeholder="Course ID">
-                <!--Maybe have hover over note for fields to help student with format-->
-            </div>
-        </div>
-
-        <div class="form-row">
             <!--Pathway Dropdown Menu-->
             <div class="form-input">
                 <select id="pathway" name="pathway" class="form-control">
@@ -50,6 +45,11 @@
                         <option value="<%= pathway %>"><%= pathway %></option>
                     <% }); %>
                 </select>
+            </div>
+
+            <!--Course ID Text Box-->
+            <div class="form-input">
+                <input type="number" class="form-control" id="classID" name="classID" min="1000" max="9999" placeholder="Course ID">
             </div>
 
             <!--Credit Dropdown Menu-->
@@ -61,18 +61,32 @@
                     <% }); %>
                 </select>
             </div>
+               
+            <!--Professor-->
+            <div class="form-input">
+                <input type="text" class="form-control" id="inputProf" placeholder="Professor Name...">
+            </div>
 
             <!--Time Dropdown Menu-->
             <div class="form-input">
-                    <select class="form-control" id="schedule" name="schedule" required>
-                        <option selected>Time...</option>
-                        <% schedules.forEach(function(schedule) { %>
-                            <option value="<%= schedule._id %>"><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
-                        <% }); %>
-                    <!--functionality where if you choose certain days, different time options-->
+                <select class="form-control" id="schedule" name="schedule" required>
+                    <option selected>Time...</option>
+                    <% schedules.forEach(function(schedule) { %>
+                        <option value="<%= schedule._id %>"><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
+                    <% }); %>
                 </select>
             </div>
-               
+
+            <!--Class name-->
+            <div class="form-input">
+                <select class="form-control" id="className" name="subject">
+                    <option selected value="">Select a Class...</option>
+                    <% subjects.forEach(function(subject) { %>
+                        <option value="<%= subject.className %>"><%= subject.department %><%= subject.classID %> - <%= subject.className %></option>
+                    <% }); %>
+                </select>
+            </div>
+            
             <!--Course Level-->
             <div class="form-input">
                 <select id="inputLevel" name="inputLevel" class="form-control">
@@ -85,31 +99,10 @@
                         <option value="6">Capstone</option>
                 </select>
             </div>
-        </div>
 
-        <div class="form-row">
-            <!--Class name-->
-            <div class="form-input">
-                <select class="form-control" id="className" name="subject">
-                    <option selected value="">Select a Class...</option>
-                    <% subjects.forEach(function(subject) { %>
-                        <option value="<%= subject.className %>"><%= subject.department %><%= subject.classID %> - <%= subject.className %></option>
-                    <% }); %>
-                </select>
-            </div>
-
-            <!--Professor-->
-            <div class="form-input">
-                <input type="text" class="form-control" id="inputProf" placeholder="Professor Name...">
-            </div>
-        </div>
-
-            <div class="form-row">
             <!--Weekday Selection Checkboxes-->
-            <div class="form-group col-md-7">
-            </div>
 
-            <div class="pathways">
+            <div class="weekdays">
                 <label class="checkbox-inline">
                     <input type="checkbox" value="">
                     M
@@ -131,40 +124,21 @@
                     F
                 </label>
             </div>
+        </div>
             
-            <div class="form-group col-md-2">
-            </div>
 
             <!--Search Button-->
-            <div class="form-group col-md-12">
-                <button type="submit" class="btn-search">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </button>
-                <!--Add search icon instead-->
-            </div>
-        </div>
-    </form>
-    <div class="search-form-result" id="classEntry-container">
-        <!--<table>
-            <thread>
-                <tr> -->
-                    <!--Include role as well?-->
-                    <!--<th>Class ID</th>
-                    <th>Name</th>
-                    <th>Teacher</th>
-                    <th>Location</th>
-                    <th>Time</th>
-                    <th>Capacity</th>
-                    <th>Wishlist</th>
-                </tr>
-            </thread>
-            <tbody id="classEntry-container"></tbody>
-        </table>-->
-    </div>
+            <button type="submit" class="btn-search">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </button>
 
-        <div class="container w-75" id="classEntry-container"></div>
+    </form>
+
+    <!--Search Results are contained in div below-->
+    <div class="search-form-result" id="classEntry-container">
+    </div>
 
     </body>
 </html>
