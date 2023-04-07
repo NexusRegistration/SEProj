@@ -9,10 +9,12 @@
     </head>
 
     <body>
-        <p>Currently Registered Classes</p>
+        <div class="welcome-bar">
+            <h1>Currently Registered Classes</h1>
+        </div>
 
-        <div class="container  w-75">
-            <div class="panel panel-default" id="classEntry-container">
+        <div class="class-container">
+            <div id="classEntry-container">
                 <% if (registeredClasses.length > 0) { %>
                     <%- include('../partials/classEntries/studentRegisteredEntry', { classes: registeredClasses }) %>
                   <% } else { %>
@@ -20,9 +22,6 @@
                   <% } %>
             </div>
         </div>
-
-        <!--Add/Help Button-->
-	    <%- include('../partials/help-button.ejs')%>
 
     </body>
 </html>
