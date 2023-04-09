@@ -381,7 +381,7 @@ main .recent-activities a{
     border-radius: var(--border-radius-1);
 }
 
-input[type="text"], input[type="number"], input[type="password"], input[type="email"]{
+input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"]{
     padding: 0.5rem 1rem;
     width: 100%;
     background: transparent;
@@ -391,7 +391,7 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
     transition: all 500ms ease;
 }
 
-input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="email"]:focus{
+input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="date"]:focus{
     background: var(--color-light);
 }
 
