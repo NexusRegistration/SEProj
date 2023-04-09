@@ -10,9 +10,10 @@
     </head>
 
     <body>
-        <div class="container">
-            <form role="form" action="/search-audits/audits" method="GET">
-                <div class="form-group">
+        <form role="form" class="search-form" action="/search-audits/audits" method="GET">
+            <h1>Audit Search</h1>
+            <div class="search-grid">
+                <div class="form-input">
                     <select class="form-control" id="auditType" name="auditType">
                         <option selected value="">Select a Type of Change</option>
                         <% auditTypes.forEach(function(auditType) { %>
@@ -20,7 +21,15 @@
                         <% }); %>
                     </select>
                 </div>
-                <div class="form-group" id="class-fields">
+                <div class="form-input">
+                    <label for="dateRange">Date Range</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date">
+                        <span class="input-group-addon">to</span>
+                        <input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date">
+                    </div>
+                </div>
+                <div class="form-input" id="class-fields">
                     <!--Subject Dropdown Menu-->
                     <select class="form-control" id="department" name="department">
                         <option selected value="">Select a Department...</option>
@@ -39,24 +48,18 @@
                         <% }); %>
                     </select>
                 </div> 
-                <div class="form-group">
-                    <label for="dateRange">Date Range</label>
-                    <div class="input-group">
-                      <input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date">
-                      <span class="input-group-addon">to</span>
-                      <input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date">
-                    </div>
-                </div>
-                <!--Search Button-->
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Find</button>
-                </div>
-            </form>
-        </div>
-    
-        <div class="container  w-75">
-            <div class="panel panel-default" id="auditEntry-container">
             </div>
+            <!--Search Button-->
+            
+            <button type="submit" class="btn-search">
+                <span class="material-symbols-outlined">
+                    Find
+                </span>
+            </button>
+            
+        </form>
+    
+        <div class="search-form-result" id="auditEntry-container">
         </div>
     
         <!--Add/Help Button-->

@@ -74,6 +74,11 @@ router.get('/audits', async (req, res, next) => {
             .populate('student')
             .lean()
 
+        /* TODO Fix audit display
+        I will write a function here that adjusts the retrieved values so they are nicer to look at 
+        on the frontend
+        */
+
         res.render('partials/auditEntry', {audits: audits, layout: false}, function(err,html) {
             res.send('<div id="auditEntry-wrapper">' + html + '</div>');
         });
