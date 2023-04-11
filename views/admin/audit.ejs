@@ -12,51 +12,55 @@
     <body>
         <form role="form" class="search-form" action="/search-audits/audits" method="GET">
             <h1>Audit Search</h1>
-            <div class="search-grid">
-                <div class="form-input">
-                    <select class="form-control" id="auditType" name="auditType">
-                        <option selected value="">Select a Type of Change</option>
-                        <% auditTypes.forEach(function(auditType) { %>
-                            <option value="<%= auditType.value %>"><%= auditType.display %></option>
-                        <% }); %>
-                    </select>
-                </div>
-                <div class="form-input">
-                    <label for="dateRange">Date Range</label>
-                    <div class="input-group">
+            <div class="audit-search">
+                <div class="search-grid">
+                    <div>
+                        <select id="auditType" name="auditType">
+                            <option selected value="">Select a Type of Change</option>
+                            <% auditTypes.forEach(function(auditType) { %>
+                                <option value="<%= auditType.value %>"><%= auditType.display %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <!--<label for="dateRange">Date Range</label>-->
+                    <div class="date-input">
+                        <span class="date-addon">Date Range:</span>
+    
                         <input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date">
-                        <span class="input-group-addon">to</span>
+                            
+                        <span class="date-addon">to</span>
+                            
                         <input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date">
                     </div>
                 </div>
-                <div class="form-input" id="class-fields">
-                    <!--Subject Dropdown Menu-->
-                    <select class="form-control" id="department" name="department">
-                        <option selected value="">Select a Department...</option>
-                        <% departments.forEach(function(department) { %>
-                            <option value="<%= department %>"><%= department %></option>
-                        <% }); %>
-                    </select>
-                    <!--Course ID Text Box-->
-                    <div>
-                        <input type="number" class="form-control" id="classID" name="classID" min="1000" max="9999" placeholder="Course ID">
-                    </div>
-                    <select id="className" class="form-control" name="subject">
-                        <option selected value="">Select a Class...</option>
-                        <% subjects.forEach(function(subject) { %>
-                            <option value="<%= subject.className %>"><%= subject.department %><%= subject.classID %> - <%= subject.className %></option>
-                        <% }); %>
-                    </select>
-                </div> 
-            </div>
-            <!--Search Button-->
-            
-            <button type="submit" class="btn-search">
-                <span class="material-symbols-outlined">
-                    Find
-                </span>
-            </button>
-            
+    
+                    <div class="class-field-input" id="class-fields">   
+                        <!--Subject Dropdown Menu-->
+                        <select id="department" name="department">
+                            <option selected value="">Select a Department...</option>
+                            <% departments.forEach(function(department) { %>
+                                <option value="<%= department %>"><%= department %></option>
+                            <% }); %>
+                        </select>
+                        
+                        <!--Course ID Text Box-->
+                        <input type="number" id="classID" name="classID" min="1000" max="9999" placeholder="Course ID">
+                        
+                        <select id="className" name="subject">
+                            <option selected value="">Select a Class...</option>
+                            <% subjects.forEach(function(subject) { %>
+                                <option value="<%= subject.className %>"><%= subject.department %><%= subject.classID %> - <%= subject.className %></option>
+                            <% }); %>
+                        </select>
+                    </div> 
+                <!--Search Button-->
+                
+                <button type="submit" class="btn-search">
+                    <span class="material-symbols-outlined">
+                        Find
+                    </span>
+                </button>
+            </div> 
         </form>
     
         <div class="search-form-result" id="auditEntry-container">
