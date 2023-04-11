@@ -10,6 +10,7 @@
     --color-info-light: #dce1eb;
     --color-dark: #363949;
     --color-light: rgba(132,139,200,0.18);
+    --color-light-focus: rgba(132,139,200,0.36);
     --color-background: #f6f6f9;
     --color-green: green;
 
@@ -374,17 +375,17 @@ main .recent-activities a{
     margin: 5rem 10%;
 }
 
-.form-input{
+/*.form-input{
     margin-top: 1.5rem;
-    /*padding: 0.5rem 1rem;*/
+    /*padding: 0.5rem 1rem;
     background: var(--color-light);
     border-radius: var(--border-radius-1);
-}
+}*/
 
 input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"]{
     padding: 0.5rem 1rem;
     width: 100%;
-    background: transparent;
+    background: var(--color-light);
     font-family: poppins, sans-serif;
     color: var(--color-dark);
     border-radius: var(--border-radius-1);
@@ -392,12 +393,12 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
 }
 
 input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="date"]:focus{
-    background: var(--color-light);
+    background: var(--color-light-focus);
 }
 
 select{
     padding: 0.5rem 1rem;
-    background: transparent;
+    background: var(--color-light);
     font-family: poppins, sans-serif;
     color: var(--color-dark);
     width: 100%;
@@ -406,12 +407,12 @@ select{
 }
 
 select:focus{
-    background: var(--color-light);
+    background: var(--color-light-focus);
 }
 
 textarea{
     padding: 0.5rem 1rem;
-    background: transparent;
+    background: var(--color-light);
     font-family: poppins, sans-serif;
     color: var(--color-dark);
     width: 100%;
@@ -432,7 +433,7 @@ label{
 }
 
 textarea:focus{
-    background: var(--color-light);
+    background: var(--color-light-focus);
 }
 
 .create-user .btn-primary, .create-class .btn-primary, .create-subject .btn-primary, .search-form .btn-primary, .login-form .btn-primary{
@@ -455,13 +456,29 @@ textarea:focus{
     margin-bottom: 1.2rem;
 }
 
-.search-form .form-input{
-    margin-top: 0;
-}
-
 .search-form .weekdays{
     margin-top: 1rem;
     align-items: center;
+}
+
+.search-form .date-input{
+    display: grid;
+    grid-template-columns: 15% auto 3% auto;
+    gap: 0.5rem;
+}
+
+.search-form .date-addon{
+    margin: 0.7rem auto;
+}
+
+.search-form .class-field-input{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.audit-search div{
+    margin-bottom: 0.5rem;
 }
 
     /* ======================== BUTTONS ======================= */
