@@ -3,9 +3,12 @@ var router = express.Router();
 var mongoose = require('mongoose');
 const User = require('../../models/User');
 const Class = require('../../models/Class');
+const Schedule = require('../../models/Schedule');
 const Timestamp = require('../../models/Timestamp');
 
-router.post('/waitlist', isLoggedIn, async (req, res) => {
+const moment = require('moment');
+
+router.post('/wishlist', isLoggedIn, async (req, res) => {
     console.log(req.body);
     try {
         const classId  = mongoose.Types.ObjectId(req.body.classId);
@@ -63,8 +66,6 @@ function isLoggedIn(req, res, next) {
 // Add a class to the wishlist of a student
 async function addToWishlist(studentId, classId) {
   try {
-    console.log("\nLooking for user " + studentId + "\n");
-
     const student = await User.findById(studentId);
     const classObj = await Class.findById(classId).exec();
 
@@ -84,7 +85,7 @@ async function addToWishlist(studentId, classId) {
 
     return {
       success: true,
-      message: `The class ${classObj} has been added to the waitlist of ${student.name}.`
+      message: `The class ${classObj} has been added to the wishlist of ${student.name}.`
     };
   } catch (error) {
     return {
@@ -96,8 +97,6 @@ async function addToWishlist(studentId, classId) {
 
 async function addToList(studentId, classId) {
     try {
-      console.log("\nLooking for user " + studentId + "\n");
-  
       const student = await User.findById(studentId);
       const classObj = await Class.findById(classId);
       const newTimestamp = new Timestamp({
@@ -118,7 +117,12 @@ async function addToList(studentId, classId) {
       if (student.class && student.class.includes(classId)) {
         throw new Error('The class is already in the student\'s list.');
       }
-  
+
+      const hasConflict = await checkTimeConflict(studentId, classId);
+      if (hasConflict) {
+        throw new Error('This student already has a class at this time.');
+      }
+
       // Add the class ID to the student's class array
       student.class.push(classObj);
 
@@ -147,9 +151,7 @@ async function addToList(studentId, classId) {
   }
 
   async function removeFromList(studentId, classId) {
-    try {
-      console.log("\nLooking for user " + studentId + "\n");
-  
+    try { 
       const student = await User.findById(studentId);
       const classObj = await Class.findById(classId);
       const newTimestamp = new Timestamp({
@@ -192,4 +194,41 @@ async function addToList(studentId, classId) {
     }
   }
 
+  const checkTimeConflict = async (userId, classId) => {
+    const user = await User.findById(userId).populate('class');
+    const clss = await Class.findById(classId).lean();
+    const sched = await Schedule.findById(clss.schedule._id).populate('classTimes');
+    var classSchedules = await Promise.all(user.class.map(async (classId) => {
+      const classData = await Class.findById(classId).lean();
+      const schedule = await Schedule.findById(classData.schedule._id).populate('classTimes');
+      return schedule;
+    }));
+
+    if (classSchedules.length === 0) {
+      return false;
+    }
+    
+    // Flatten the array of class schedules and sort by day and start time
+    const flattenedSchedules = classSchedules.flatMap(schedule => schedule.classTimes);
+
+    for (let i = 0; i < sched.classTimes.length; i++) {
+      const newClassTime = sched.classTimes[i];
+      for (let j = 0; j < flattenedSchedules.length; j++) {
+        const existingClassTime = flattenedSchedules[j];
+        if (newClassTime.day === existingClassTime.day) {
+          const newStartTime = moment(`2023-01-01T${newClassTime.startTime}`, 'YYYY-MM-DDThh:mm A').toDate();
+          const newEndTime = moment(`2023-01-01T${newClassTime.endTime}`, 'YYYY-MM-DDThh:mm A').toDate();
+          const existingStartTime = moment(`2023-01-01T${existingClassTime.startTime}`, 'YYYY-MM-DDThh:mm A').toDate();
+          const existingEndTime = moment(`2023-01-01T${existingClassTime.endTime}`, 'YYYY-MM-DDThh:mm A').toDate();
+          if ((existingEndTime >= newStartTime && existingStartTime <= newStartTime) ||
+              (newEndTime >= existingStartTime && newStartTime <= existingStartTime)) {
+                return true; // There is a conflict
+          }
+        }
+      }
+    }
+    console.log("No conflicts");
+    return false; // There is no conflict
+  };
+  
 module.exports = router;

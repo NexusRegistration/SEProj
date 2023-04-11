@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexTher/SoftwareEngineering.git"
+    "url": "git+https://github.com/NexusRegistration/SEProj.git"
   },
   "author": "Cool People",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlexTher/SoftwareEngineering/issues"
+    "url": "https://github.com/NexusRegistration/SEProj"
   },
-  "homepage": "https://github.com/AlexTher/SoftwareEngineering#readme",
+  "homepage": "https://github.com/NexusRegistration/SEProj#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.3.0-alpha1",
@@ -26,6 +26,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-generator": "^4.2.0",
     "express-session": "^1.17.3",
+    "moment": "^2.29.4",
     "mongoose": "^6.9.2"
   },
   "devDependencies": {

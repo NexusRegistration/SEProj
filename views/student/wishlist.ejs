@@ -19,9 +19,9 @@
       </div>
 
         <div class="class-container">
-            <div class="row" id="waitlistEntry">
+            <div class="row" id="wishlistEntry">
               <% if (wishlist.length > 0) { %>
-                <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: wishlist }) %>
+                <%- include('../partials/classEntries/studentWishlistEntry', { wishlist: wishlist }) %>
               <% } else { %>
                 <p>You don't have any classes in your wishlist.</p>
               <% } %>
