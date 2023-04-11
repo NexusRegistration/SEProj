@@ -2,8 +2,9 @@ const express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 const User = require('../../models/User');
-const Class = require('../../models/Class');
+const Clss = require('../../models/Class');
 const Schedule = require('../../models/Schedule');
+const Room = require('../../models/Room');
 const Timestamp = require('../../models/Timestamp');
 
 const moment = require('moment');
@@ -37,6 +38,21 @@ router.post('/add', isLoggedIn, async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+router.post('/waitlist', isLoggedIn, async (req, res) => {
+  console.log(req.body);
+  try {
+    const classId  = mongoose.Types.ObjectId(req.body.classId);
+    const userId = req.session.user._id;
+
+    const savedUser = await addToWaitlist(userId, classId);
+    console.log(savedUser.message);
+    res.send(savedUser.message);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 router.post('/remove', isLoggedIn, async (req, res) => {
@@ -79,11 +95,139 @@ function isLoggedIn(req, res, next) {
     }
   }
 
+async function addToList(studentId, classId) {
+    try {
+      const student = await User.findById(studentId);
+      const classObj = await Clss.findById(classId);
+      const newTimestamp = new Timestamp({
+        user: student._id,
+        class: classObj._id,
+        student: student._id,
+        description: 'student_registered'
+    });
+  
+      console.log("\nAdding " + classObj + " to " + student.name + "'s Class List\n");
+
+      // Check if the class is already in the student's wishlist
+      if (student.wishlist && !student.wishlist.includes(classId)) {
+        throw new Error('The class is somehow not in the student\'s wishlist.');
+      }
+  
+      // Check if the class is already in the student's class list
+      if (student.class && student.class.includes(classId)) {
+        throw new Error('The class is already in the student\'s list.');
+      }
+
+      const hasConflict = await checkTimeConflict(studentId, classId);
+      if (hasConflict) {
+        throw new Error('This student already has a class at this time.');
+      }
+
+      const classFull = await isClassFull(classId);
+      if (classFull) {
+        throw new Error('The class is full.');
+      }
+      console.log("classFull: " + classFull);
+
+      // Add the class ID to the student's class array
+      student.class.push(classObj);
+
+      classObj.students.push(student._id);
+
+      //Remove the class from the wishlist
+      student.wishlist.pull(classObj);
+      
+      // Save timestamp
+      await newTimestamp.save();
+  
+      // Save the updated student document to the User collection
+      await student.save().catch(err => {
+        console.error('Error saving student:', err);
+        throw err;
+      });
+
+      // console.log('classObj before save:', JSON.stringify(classObj, null, 2));
+      // await classObj.save().catch(err => {
+      //   console.error('Error saving class:', err);
+      //   throw err;
+      // });
+      await Clss.findByIdAndUpdate(classId, { $addToSet: { students: studentId } }, { new: true });
+
+      // window.location.reload();
+      // alert(`The class ${classObj} has been added to ${student.name}'s class list.`);
+  
+      return {
+        success: true,
+        message: `The class ${classObj} has been added to ${student.name}'s class list.`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
+  async function removeFromList(studentId, classId) {
+    try { 
+      const student = await User.findById(studentId);
+      const classObj = await Clss.findById(classId);
+      const newTimestamp = new Timestamp({
+        user: student._id,
+        class: classObj._id,
+        student: student._id,
+        description: 'student_unregistered'
+      });
+  
+      console.log("\nRemoving " + classObj + " from " + student.name + "'s Class List\n");
+  
+      // Check if the class is already in the student's wishlist
+      if (student.wishlist && student.wishlist.includes(classId)) {
+        throw new Error('The class is in the student\'s wishlist.');
+      }
+  
+      // Check if the class is already in the student's class list
+      if (!student.class || !student.class.includes(classId)) {
+        throw new Error('The class is not in the student\'s list.');
+      }
+  
+      // Remove the class ID from the student's class array
+      student.class.pull(classObj._id);
+
+      Clss.findByIdAndUpdate(classId, { $pull: { students: studentId } }, { new: true })
+      .then(updatedClass => {
+        console.log(`Student with ID ${studentId} has been removed from class with ID ${classId}`);
+        console.log(updatedClass);
+      })
+      .catch(err => {
+        console.error(`Error removing student with ID ${studentId} from class with ID ${classId}`);
+        console.error(err);
+      });
+  
+      // Save timestamp
+      await newTimestamp.save();
+  
+      // Save the updated student document to the User collection
+      await student.save();
+      //await classObj.save();
+  
+      return {
+        success: true,
+        message: `The class ${classObj} has been removed from ${student.name}'s class list.`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
 // Add a class to the wishlist of a student
 async function addToWishlist(studentId, classId) {
   try {
     const student = await User.findById(studentId);
-    const classObj = await Class.findById(classId).exec();
+    const classObj = await Clss.findById(classId).exec();
 
     console.log("\nAdding " + classObj + " to " + student.name + "'s Wishlist\n");
 
@@ -111,109 +255,72 @@ async function addToWishlist(studentId, classId) {
   }
 }
 
-async function addToList(studentId, classId) {
-    try {
-      const student = await User.findById(studentId);
-      const classObj = await Class.findById(classId);
-      const newTimestamp = new Timestamp({
-        user: student._id,
-        class: classObj._id,
-        student: student._id,
-        description: 'student_registered'
-    });
-  
-      console.log("\nAdding " + classObj + " to " + student.name + "'s Class List\n");
-
-      // Check if the class is already in the student's wishlist
-      if (student.wishlist && !student.wishlist.includes(classId)) {
-        throw new Error('The class is somehow not in the student\'s wishlist.');
-      }
-  
-      // Check if the class is already in the student's class list
-      if (student.class && student.class.includes(classId)) {
-        throw new Error('The class is already in the student\'s list.');
-      }
-
-      const hasConflict = await checkTimeConflict(studentId, classId);
-      if (hasConflict) {
-        throw new Error('This student already has a class at this time.');
-      }
-
-      // Add the class ID to the student's class array
-      student.class.push(classObj);
-
-      //Remove the class from the wishlist
-      student.wishlist.pull(classObj);
-      
-      // Save timestamp
-      await newTimestamp.save();
-  
-      // Save the updated student document to the User collection
-      await student.save();
-
-      // window.location.reload();
-      // alert(`The class ${classObj} has been added to ${student.name}'s class list.`);
-  
-      return {
-        success: true,
-        message: `The class ${classObj} has been added to ${student.name}'s class list.`
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-      };
-    }
-  }
-
-  async function removeFromList(studentId, classId) {
-    try { 
-      const student = await User.findById(studentId);
-      const classObj = await Class.findById(classId);
-      const newTimestamp = new Timestamp({
-        user: student._id,
-        class: classObj._id,
-        student: student._id,
-        description: 'student_unregistered'
-      });
-  
-      console.log("\nRemoving " + classObj + " from " + student.name + "'s Class List\n");
-  
-      // Check if the class is already in the student's wishlist
-      if (student.wishlist && student.wishlist.includes(classId)) {
-        throw new Error('The class is in the student\'s wishlist.');
-      }
-  
-      // Check if the class is already in the student's class list
-      if (!student.class || !student.class.includes(classId)) {
-        throw new Error('The class is not in the student\'s list.');
-      }
-  
-      // Remove the class ID from the student's class array
-      student.class.pull(classObj);
-  
-      // Save timestamp
-      await newTimestamp.save();
-  
-      // Save the updated student document to the User collection
-      await student.save();
-  
-      return {
-        success: true,
-        message: `The class ${classObj} has been removed from ${student.name}'s class list.`
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-      };
-    }
-  }
-
   async function removeFromWishlist(studentId, classId) {
     try { 
       const student = await User.findById(studentId);
-      const classObj = await Class.findById(classId);
+      const classObj = await Clss.findById(classId);
+  
+      console.log("\nRemoving " + classObj + " from " + student.name + "'s Wishlist\n");
+  
+      // Check if the class is already in the student's class list
+      if (!student.wishlist || !student.wishlist.includes(classId)) {
+        throw new Error('The class is not in the student\'s wishlist.');
+      }
+  
+      // Remove the class ID from the student's class array
+      student.wishlist.pull(classObj);
+  
+      // Save the updated student document to the User collection
+      await student.save();
+  
+      return {
+        success: true,
+        message: `The class ${classObj} has been removed from ${student.name}'s wishlist.`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
+  // Add a class to the wishlist of a student
+async function addToWaitlist(studentId, classId) {
+  try {
+    const student = await User.findById(studentId);
+    const classObj = await Clss.findById(classId).exec();
+
+    console.log("\nAdding " + classObj + " to " + student.name + "'s Wishlist\n");
+
+
+    // Check if the class is already in the student's wishlist or class list
+    if (student.waitlist && student.waitlist.includes(classId)) {
+      throw new Error('The class is already in the student\'s waitlist.');
+    }
+
+    student.waitlist.push(classObj);
+    student.wishlist.pull(classObj);
+
+    await Clss.findByIdAndUpdate(classId, { $addToSet: { waitlist: studentId } }, { new: true });
+    await student.save();
+
+    return {
+      success: true,
+      message: `The class ${classObj} has been added to the waitlist of ${student.name}.`
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+}
+
+  async function removeFromWaitlist(studentId, classId) {
+    try { 
+      const student = await User.findById(studentId);
+      const classObj = await Clss.findById(classId);
   
       console.log("\nRemoving " + classObj + " from " + student.name + "'s Wishlist\n");
   
@@ -242,10 +349,10 @@ async function addToList(studentId, classId) {
 
   const checkTimeConflict = async (userId, classId) => {
     const user = await User.findById(userId).populate('class');
-    const clss = await Class.findById(classId).lean();
+    const clss = await Clss.findById(classId).lean();
     const sched = await Schedule.findById(clss.schedule._id).populate('classTimes');
     var classSchedules = await Promise.all(user.class.map(async (classId) => {
-      const classData = await Class.findById(classId).lean();
+      const classData = await Clss.findById(classId).lean();
       const schedule = await Schedule.findById(classData.schedule._id).populate('classTimes');
       return schedule;
     }));
@@ -275,6 +382,16 @@ async function addToList(studentId, classId) {
     }
     console.log("No conflicts");
     return false; // There is no conflict
+  };
+
+  const isClassFull = async (classId) => {
+    const classInstance = await Clss.findById(classId).populate('room').populate('students').lean();
+    const classInstance2 = await Clss.findById(classId).populate('students');
+    const classStudents = classInstance2.students;
+    console.log("Capacity: " + classInstance.room.capacity);
+    if (!classStudents) { return false; }
+    console.log("Students length: " + classStudents.length);
+    return classStudents.length >= classInstance.room.capacity;
   };
   
 module.exports = router;

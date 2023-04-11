@@ -16,12 +16,27 @@ function addToList(button) {
     const classId = $(button).data('class-id');
   
     // Call the addToListfunction with the class ID
-    $.post('/register/add', {classId: classId}, function(response) {
-      // Display a message based on the response
-      alert(response);
-      location.reload();
+    $.post('/register/add', { classId: classId }, function (response) {
+      if (response === 'The class is full.') {
+        const addToWait = confirm('The class is full. Do you want to add it to the waitlist?');
+  
+        if (addToWait) {
+          addToWaitlist(classId);
+        }
+      } else {
+        // Display a message based on the response
+        alert(response);
+        location.reload();
+      }
     });
-    
+}
+
+function addToWaitlist(classId) {
+  $.post('/register/waitlist', { classId: classId }, function (response) {
+    // Display a message based on the response
+    alert(response);
+    location.reload();
+  });
 }
 
 function removeFromWishlist(button) {
