@@ -83,6 +83,15 @@ router.get('/audit', restrictAccess(roles.ADMIN), async (req,res) => {
     const subjects = await Subject.find();
     const departments = await Subject.distinct('department');
     res.render('admin/audit', {auditTypes, departments, subjects});
-})
+});
+
+router.get('/class-edit/:classID', restrictAccess(roles.ADMIN), (req, res) => {
+    const databaseClassID = req.params.class_ID;
+    const classData = undefined // get class Data
+    //transform classID into ID + department
+
+    // Render the template for the edit class page
+    res.render('admin/edit-class', { classData });
+});
 
 module.exports = router;

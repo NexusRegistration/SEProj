@@ -46,5 +46,12 @@ router.get('/admin-audit-populator.js', (req, res) => {
     res.send(fileContents);
 });
 
+router.get('/admin-class-edit-redirect.js', (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'javascripts', 'admin-class-edit-redirect.js');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    res.set('Content-Type', 'application/javascript');
+    res.send(fileContents);
+});
+
 
 module.exports = router;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Header-->
+	    <%- include('../partials/headers/header-admin.ejs')%>
+        
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src=""></script>
+        <script type="text/javascript" src=""></script>
+    </head>
+
+    <body>
+
+        <form method="POST" class="edit-class" action="/edit-classes/{{ classData.subject.classID }}/edit">
+            <span>
+                <h1><%= classData.subject.className %></h1>
+                <h1><%= classData.subject.classID %></h1>
+            </span>
+          
+            <!-- Add input fields for any other attributes you want to allow editing of -->
+            <div class="buttons">
+                <button type="submit" class="btn-edit">Save Changes</button>
+                <button type="button" class="btn-delete">Save Changes</button>
+            </div>
+            
+          </form>
+
+        <!--Add/Help Button-->
+        <% include('../partials/help-button.ejs')%>
+    
+    </body>
+    
+</html>
