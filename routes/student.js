@@ -18,9 +18,10 @@ router.get('/classes', restrictAccess(roles.STUDENT), async (req, res) => {
     try {
         const userId = req.session.user._id
         // Get stuff from database
-        const user = await User.findById(userId).populate('class').lean().exec();
+        const user = await User.findById(userId).populate('class').populate('waitlist').lean().exec();
         const registeredClasses = user.class;
-        res.render('student/registered-classes', {registeredClasses});
+        const waitlistedClasses = user.waitlist;
+        res.render('student/registered-classes', {registeredClasses, waitlistedClasses});
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
