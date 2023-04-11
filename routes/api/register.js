@@ -55,6 +55,22 @@ router.post('/remove', isLoggedIn, async (req, res) => {
   }
 });
 
+router.post('/removewish', isLoggedIn, async (req, res) => {
+  console.log(req.body);
+  try {
+    const classId  = mongoose.Types.ObjectId(req.body.classId);
+    const userId = req.session.user._id
+
+    const removedClass = await removeFromWishlist(userId, classId);
+    console.log(removedClass.message);
+    res.send(removedClass.message);
+  } catch (err) {
+    // Handle errors
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 function isLoggedIn(req, res, next) {
     if (req.session.user) {
       next(); // Continue to the next function
@@ -185,6 +201,36 @@ async function addToList(studentId, classId) {
       return {
         success: true,
         message: `The class ${classObj} has been removed from ${student.name}'s class list.`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+
+  async function removeFromWishlist(studentId, classId) {
+    try { 
+      const student = await User.findById(studentId);
+      const classObj = await Class.findById(classId);
+  
+      console.log("\nRemoving " + classObj + " from " + student.name + "'s Wishlist\n");
+  
+      // Check if the class is already in the student's class list
+      if (!student.wishlist || !student.wishlist.includes(classId)) {
+        throw new Error('The class is not in the student\'s wishlist.');
+      }
+  
+      // Remove the class ID from the student's class array
+      student.wishlist.pull(classObj);
+  
+      // Save the updated student document to the User collection
+      await student.save();
+  
+      return {
+        success: true,
+        message: `The class ${classObj} has been removed from ${student.name}'s wishlist.`
       };
     } catch (error) {
       return {
