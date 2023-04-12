@@ -349,10 +349,10 @@ async function addToWaitlist(studentId, classId) {
 
   const checkTimeConflict = async (userId, classId) => {
     const user = await User.findById(userId).populate('class');
-    const clss = await Clss.findById(classId).lean();
+    const clss = await Clss.findById(classId);
     const sched = await Schedule.findById(clss.schedule._id).populate('classTimes');
     var classSchedules = await Promise.all(user.class.map(async (classId) => {
-      const classData = await Clss.findById(classId).lean();
+      const classData = await Clss.findById(classId);
       const schedule = await Schedule.findById(classData.schedule._id).populate('classTimes');
       return schedule;
     }));

@@ -18,8 +18,50 @@ router.get('/classes', restrictAccess(roles.STUDENT), async (req, res) => {
     try {
         const userId = req.session.user._id
         // Get stuff from database
-        const user = await User.findById(userId).populate('class').populate('waitlist').lean().exec();
+        const user = await User.findById(userId)
+            .populate({
+            path: 'class',
+            populate: [
+                {
+                  path: 'subject',
+                  model: 'Subject'
+                },
+                {
+                  path: 'room',
+                  model: 'Room'
+                },
+                {
+                    path: 'teacher',
+                    model: 'User'
+                },
+                {
+                    path: 'schedule',
+                    model: 'Schedule'
+                }
+            ]
+            }).populate({
+                path: 'waitlist',
+                populate: [
+                    {
+                      path: 'subject',
+                      model: 'Subject'
+                    },
+                    {
+                      path: 'room',
+                      model: 'Room'
+                    },
+                    {
+                        path: 'teacher',
+                        model: 'User'
+                    },
+                    {
+                        path: 'schedule',
+                        model: 'Schedule'
+                    }
+                ]
+            }).exec();
         const registeredClasses = user.class;
+        console.log(registeredClasses);
         const waitlistedClasses = user.waitlist;
         res.render('student/registered-classes', {registeredClasses, waitlistedClasses});
     } catch (err) {
@@ -52,7 +94,27 @@ router.get('/wishlist', restrictAccess(roles.STUDENT), async (req, res) => {
     try {
         const userId = req.session.user._id
         // Get stuff from database
-        const user = await User.findById(userId).populate('wishlist').lean().exec();
+        const user = await User.findById(userId).populate({
+            path: 'wishlist',
+            populate: [
+                {
+                  path: 'subject',
+                  model: 'Subject'
+                },
+                {
+                  path: 'room',
+                  model: 'Room'
+                },
+                {
+                    path: 'teacher',
+                    model: 'User'
+                },
+                {
+                    path: 'schedule',
+                    model: 'Schedule'
+                }
+            ]
+            }).exec();
         const wishlist = user.wishlist;
         // user.wishlist.forEach((classId) => {
         //     const classObj = classes.find((c) => c.id.equals(classId));
