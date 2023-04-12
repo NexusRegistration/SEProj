@@ -6,6 +6,7 @@ const Class = require('../models/Class');
 const Room = require('../models/Room');
 const Subject = require('../models/Subject');
 const Timestamp = require('../models/Timestamp');
+const SemesterSingleton = require('../models/SemesterSingleton');
 
 router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
     try {
@@ -34,8 +35,20 @@ router.get('/create-class', restrictAccess(roles.ADMIN), async (req, res) => {
         const schedules = await Schedule.find();
         const departments = await Subject.distinct('department');
 
-        // Render the class creation form template and pass the schedules variable
-        res.render('admin/create-class', { schedules, departments });
+        
+        
+
+
+
+        const semesterObject = await SemesterSingleton.findOne({ identifier: 'semesters' }).exec();
+  
+        if (semesterObject) {
+            const semesters = semesterObject.semesters;
+            // Render the class creation form template and pass the schedules, departments, and semesters variables
+            res.render('admin/create-class', { schedules, departments, semesters});
+        } else {
+            console.log('Semester singleton not found');
+        }
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');

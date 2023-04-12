@@ -42,6 +42,15 @@
 				<% }); %>
 			</select>
 		</div>
+		<!-- Semester Selection -->
+		<label for="semester">Semester:</label>
+		<div class="form-input">
+			<select class="form-control" id="semester" name="semester" required>
+				<% semesters.forEach(function(semester) { %>
+					<option value="<%= semester.season %> <%= semester.year %>"><%= semester.season %>&nbsp<%= semester.year %></option>
+				<% }); %>
+			</select>
+		</div>
 
 		<!--Submit Button-->
 		<div class="form-group">
