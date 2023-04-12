@@ -385,9 +385,8 @@ async function addToWaitlist(studentId, classId) {
   };
 
   const isClassFull = async (classId) => {
-    const classInstance = await Clss.findById(classId).populate('room').populate('students').lean();
-    const classInstance2 = await Clss.findById(classId).populate('students');
-    const classStudents = classInstance2.students;
+    const classInstance = await Clss.findById(classId).populate('room').populate('students');
+    const classStudents = classInstance.students;
     console.log("Capacity: " + classInstance.room.capacity);
     if (!classStudents) { return false; }
     console.log("Students length: " + classStudents.length);
