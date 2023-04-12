@@ -45,16 +45,11 @@ router.get('/classes', async (req, res, next) => {
         // }
     
         const classes = await Class.find(filter)
-            .lean()
-            .exec();
+            .populate('subject')
+            .populate('schedule')
+            .populate('room')
 
-        classes.forEach(function(_class) {
-            if (_class.schedule) {
-            } else {
-                console.log("undefined");
-                console.log(_class);
-            }
-        });
+        
 
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
