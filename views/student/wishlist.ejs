@@ -5,18 +5,23 @@
         <!--Header-->
         <%- include('../partials/headers/header-student')%>
 
+        <!--Stylesheet-->
         <link rel="stylesheet" href="/css/style.css">
+
+        <!--Script-->
         <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
 
     </head>
 
     <body>
+      <div class="welcome-bar">
         <h1>Wishlist</h1>
+      </div>
 
-        <div class="container">
-            <div class="row" id="waitlistEntry">
+        <div class="class-container">
+            <div class="row" id="wishlistEntry">
               <% if (wishlist.length > 0) { %>
-                <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: wishlist }) %>
+                <%- include('../partials/classEntries/studentWishlistEntry', { wishlist: wishlist }) %>
               <% } else { %>
                 <p>You don't have any classes in your wishlist.</p>
               <% } %>

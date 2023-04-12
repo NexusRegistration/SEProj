@@ -34,9 +34,9 @@ router.post('/', async (req, res) => {
     try {
         // Extracts the 'subject' and 'schedule' values from the query string
         const { subject, schedule } = req.body;
-
+        
         // Create a new Class object
-        const newClass = await addClass(subject, schedule, req.session.user)
+        const newClass = await addClass(subject, schedule, req.session.user);
 
         // Return a success response
         res.redirect('/admin/dashboard')

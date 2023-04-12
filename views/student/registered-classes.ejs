@@ -6,13 +6,16 @@
         
         <link rel="stylesheet" href="/css/style.css">
         <script type="text/javascript" src="/public/javascripts/student-class-unregistration.js"></script>
+        <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
     </head>
 
     <body>
-        <p>Currently Registered Classes</p>
+        <div class="welcome-bar">
+            <h1>Currently Registered Classes</h1>
+        </div>
 
-        <div class="container  w-75">
-            <div class="panel panel-default" id="classEntry-container">
+        <div class="class-container">
+            <div id="classEntry-container">
                 <% if (registeredClasses.length > 0) { %>
                     <%- include('../partials/classEntries/studentRegisteredEntry', { classes: registeredClasses }) %>
                   <% } else { %>
@@ -20,9 +23,15 @@
                   <% } %>
             </div>
         </div>
-
-        <!--Add/Help Button-->
-	    <%- include('../partials/help-button.ejs')%>
+        <div class="class-container">
+            <div id="classEntry-container">
+                <% if (registeredClasses.length > 0) { %>
+                    <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: waitlistedClasses }) %>
+                  <% } else { %>
+                    <p><br>No Waitlisted Classes<br></p>
+                  <% } %>
+            </div>
+        </div>
 
     </body>
 </html>

@@ -45,8 +45,11 @@ router.get('/classes', async (req, res, next) => {
         // }
     
         const classes = await Class.find(filter)
-            .lean()
-            .exec();
+            .populate('subject')
+            .populate('schedule')
+            .populate('room')
+
+        
 
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
