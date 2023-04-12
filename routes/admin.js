@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { roles, restrictAccess } = require('../functions/authentication/auth');
 const Schedule = require('../models/Schedule');
+const Class = require('../models/Class');
+const Room = require('../models/Room');
 const Subject = require('../models/Subject');
 const Timestamp = require('../models/Timestamp');
 
@@ -85,10 +87,16 @@ router.get('/audit', restrictAccess(roles.ADMIN), async (req,res) => {
     res.render('admin/audit', {auditTypes, departments, subjects});
 });
 
-router.get('/class-edit/:classID', restrictAccess(roles.ADMIN), (req, res) => {
-    const databaseClassID = req.params.class_ID;
-    const classData = undefined // get class Data
-    //transform classID into ID + department
+router.get('/class-edit', restrictAccess(roles.ADMIN), async (req, res) => {
+    const databaseClassID = req.query.class_ID;
+    console.log(databaseClassID);
+    const classData = await Class.findById(databaseClassID)
+        .populate('subject')
+        .populate('teacher')
+        .populate('students')
+        .populate('room')
+        .populate('schedule')
+        .lean();
 
     // Render the template for the edit class page
     res.render('admin/edit-class', { classData });

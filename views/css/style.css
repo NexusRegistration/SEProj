@@ -371,6 +371,10 @@ main .recent-activities a{
     box-shadow: var(--box-shadow);
 }
 
+.edit-class {
+    margin: 5rem 10%
+}
+
 .search-form{
     margin: 5rem 10%;
 }
@@ -603,3 +607,68 @@ span{
 .wishlist-classEntry > div, .register-classEntry > div{
     padding: 1rem 0;
 }
+
+
+    /* ======================== Class Editing ======================= */
+
+.class-edit-titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-item {
+    margin-right: 1rem;
+}
+
+.class-edit-grid {
+    display: grid;
+    grid-template-columns: 70% 30%
+}
+
+.class-subject-table {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-subject-table td, .class-subject-table tr {
+    text-align: center;
+}
+
+.class-edit-data {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+    display: inline-flex;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-edit-buttons {
+    grid-column-start:2;
+    grid-column-end:3;
+    text-align: center;
+    display: inline-block;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-edit-description-box {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+/* do something with this or something - I think it looks dumb but 
+I was messing around with it and it didn't look right. I just deleted 
+what I had 
+*/
+.class-subject-edit-button-container {
+}
+

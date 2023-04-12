@@ -69,13 +69,12 @@
 
                 <!--Edit Button-->
                 <td>
-                    <button type="button" class="btn-edit" data-class-_id="<%= classes[i]._id %>" onClick="addToWishlist(this)">
+                    <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="openEditPage(this)">
                         <span class="material-symbols-outlined">
-                            edit
+                            Edit
                         </span>
                     </button>
                 </td>
-
             </tr>
         <% } %>
     </tbody>
