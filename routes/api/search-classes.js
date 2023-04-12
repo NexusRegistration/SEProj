@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const Class = require('../../models/Class');
 const mongoose = require('mongoose');
+const { hasNull } = require('../../functions/searching');
 
 router.get('/classes', async (req, res, next) => {
     try {
@@ -14,22 +15,22 @@ router.get('/classes', async (req, res, next) => {
 
         const filter = {};
         if (query.department) {
-            filter['subject.department'] = query.department;
+            filter['department'] = query.department;
         }
         if (query.classID) {
-            filter['subject.classID'] = query.classID;
+            filter['classID'] = query.classID;
         } else if (query.inputLevel) {
             const firstNumMatch = new RegExp(`^${query.inputLevel}`);
-            filter['subject.classID'] = { $regex: firstNumMatch };
+            filter['classID'] = { $regex: firstNumMatch };
         }
         if (query.subject) {
-            filter['subject.className'] = { $regex: query.subject, $options: 'i' };
+            filter['className'] = { $regex: query.subject, $options: 'i' };
         }
         if (query.pathway) {
-            filter['subject.pathways'] = query.pathway;
+            filter['pathways'] = query.pathway;
         }
         if (query.credits) {
-            filter['subject.credits'] = query.credits;
+            filter['credits'] = query.credits;
         }
         // if (query.teacher) {
         //     filter.teacher = query.teacher;
@@ -43,22 +44,19 @@ router.get('/classes', async (req, res, next) => {
         // if (query.semester) {
         //     filter.semester = query.semester;
         // }
-    
-        const classes = await Class.find(filter)
-            .lean()
-            .exec();
+        console.log("Filter: ", filter)
+        const classes = await Class.find()
+            .populate({
+                path: 'subject',
+                match: filter
+            })
+            .populate('schedule')
+            .populate('room')
 
-        classes.forEach(function(_class) {
-            if (_class.schedule) {
-            } else {
-                console.log("undefined");
-                console.log(_class);
-            }
-        });
-
+        const filteredClasses = classes.filter(obj => !hasNull(obj));
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
-        res.render(classEntryType, {classes: classes, layout: false}, function(err,html) {
+        res.render(classEntryType, {classes: filteredClasses, layout: false}, function(err,html) {
             res.send('<div id="classEntry-wrapper">' + html + '</div>');
         });
         

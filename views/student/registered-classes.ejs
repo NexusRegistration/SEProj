@@ -6,6 +6,7 @@
         
         <link rel="stylesheet" href="/css/style.css">
         <script type="text/javascript" src="/public/javascripts/student-class-unregistration.js"></script>
+        <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
     </head>
 
     <body>
@@ -19,6 +20,15 @@
                     <%- include('../partials/classEntries/studentRegisteredEntry', { classes: registeredClasses }) %>
                   <% } else { %>
                     <p><br>No Currently Registered Classes<br></p>
+                  <% } %>
+            </div>
+        </div>
+        <div class="class-container">
+            <div id="classEntry-container">
+                <% if (registeredClasses.length > 0) { %>
+                    <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: waitlistedClasses }) %>
+                  <% } else { %>
+                    <p><br>No Waitlisted Classes<br></p>
                   <% } %>
             </div>
         </div>

@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const Timestamp = require('../../models/Timestamp');
 const mongoose = require('mongoose');
+const { hasNull } = require('../../functions/searching');
 
 router.get('/audits', async (req, res, next) => {
     try {
@@ -13,17 +14,18 @@ router.get('/audits', async (req, res, next) => {
         //end-debug
 
         const filter = {};
+        const subjectFilter = {};
         if (query.auditType) {
             filter['description'] = query.auditType;
         }
         if (query.department) {
-            filter['class.subject.department'] = query.department;
+            subjectFilter['department'] = query.department;
         }
         if (query.classID) {
-            filter['class.subject.classID'] = query.classID;
+            subjectFilter['classID'] = query.classID;
         } 
         if (query.subject) {
-            filter['class.subject.className'] = { $regex: query.subject, $options: 'i' };
+            subjectFilter['className'] = { $regex: query.subject, $options: 'i' };
         }
         if (query.startDate && query.endDate) {
             /*Dates end just after midnight the previous day
@@ -66,20 +68,19 @@ router.get('/audits', async (req, res, next) => {
                 populate: {
                     path: 'subject',
                     model: 'Subject',
-                    retainNullValues: true
-                },
-                retainNullValues: true
+                    match: subjectFilter
+                }
             })
             .populate('user')
             .populate('student')
-            .lean()
 
+        const filteredAudits = audits.filter(obj => !hasNull(obj));
         /* TODO Fix audit display
         I will write a function here that adjusts the retrieved values so they are nicer to look at 
         on the frontend
         */
 
-        res.render('partials/auditEntry', {audits: audits, layout: false}, function(err,html) {
+        res.render('partials/auditEntry', {audits: filteredAudits, layout: false}, function(err,html) {
             res.send('<div id="auditEntry-wrapper">' + html + '</div>');
         });
         

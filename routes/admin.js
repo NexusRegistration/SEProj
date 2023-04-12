@@ -7,8 +7,20 @@ const Room = require('../models/Room');
 const Subject = require('../models/Subject');
 const Timestamp = require('../models/Timestamp');
 
-router.get('/dashboard', restrictAccess(roles.ADMIN), (req, res) => {
-    res.render('admin/dashboard', { user: req.session.user });
+router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
+    try {
+        // Get stuff from database
+        const subjects = await Subject.find();
+        const departments = await Subject.distinct('department');
+        const pathways = await Subject.distinct('pathways');
+        const credits = await Subject.distinct('credits');
+        //const users = await User.find();
+        res.render('admin/dashboard', { user: req.session.user, subjects });
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 })
 
 //These are the routes for the admin pages
