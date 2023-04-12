@@ -223,7 +223,7 @@ main .insights small{
     display: block;
 }
 
-main .recent-activities{
+main .recent-activities, main .student-class-table{
     margin-top: 2rem;
 }    
 
@@ -241,7 +241,7 @@ main .recent-activities table{
     transform: all 300ms ease;
 }
 
-main .recent-activities table:hover{
+main .recent-activities table:hover, main .student-class-table table:hover{
     box-shadow: none;
 }
 
@@ -389,6 +389,7 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
     font-family: poppins, sans-serif;
     color: var(--color-dark);
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -403,6 +404,7 @@ select{
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -417,6 +419,7 @@ textarea{
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -444,12 +447,13 @@ textarea:focus{
 
 .create-user h1, .create-class h1, .create-subject h1{
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .search-grid{
     display: grid;
     grid-template-columns: auto auto;
-    gap: 1rem;
+    gap: 0rem 1rem;
 }
 
 .search-form h1{
@@ -475,10 +479,6 @@ textarea:focus{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-}
-
-.audit-search div{
-    margin-bottom: 0.5rem;
 }
 
     /* ======================== BUTTONS ======================= */
@@ -539,7 +539,7 @@ button{
 
     /* ======================== SEARCH RESULTS ======================= */
 
-.search-form-result table{
+.search-form-result table {
     background: var(--color-white);
     border-collapse: collapse;
     width: 90%;
@@ -590,4 +590,32 @@ span{
 
 .wishlist-classEntry > div, .register-classEntry > div{
     padding: 1rem 0;
+}
+
+
+/* ======================== Student Class Table Display ======================= */
+
+
+main .student-class-table table{
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--padding-1);
+    text-align: left;
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
+
+main .student-class-table table:hover{
+    box-shadow: none;
+}
+
+.student-class-table table thead th{
+    padding: var(--padding-1);
+}
+
+.student-class-table table tbody td{
+    color: var(--color-dark);
+    padding: var(--padding-1);
+    transition: all 300ms ease;
 }

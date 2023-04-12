@@ -5,6 +5,7 @@
 	    <%- include('../partials/headers/header-student.ejs')%>
         
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     </head>
 
@@ -13,8 +14,127 @@
             <h1>Welcome <%- user.name %>!</h1>
         </div>
 
-        <div>
-            <a href="/student/wishlist">Wishlist</a>
+        <div class="container">
+            <main>
+                <!--<h2>My Classes</h2>-->
+                <div class="student-class-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Teacher</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (var i=0; i < classes.length; i++) { %>
+                                <tr>
+                                    <!--Displays Class Subject-->
+                                    <td>
+                                        <%= classes[i].subject.classID %>-<%= classes[i].subject.department %>
+                                    </td>
+                                    <!--Displays Class Name-->
+                                    <td>
+                                        <%= classes[i].subject.className %>
+                                    </td>
+                                    <!--Displays Teacher Name-->
+                                    <td>
+                                        <% if(classes[i].teacher){ %>
+                                            <%= classes[i].teacher.name %>
+                                        <% } else{ %>  
+                                            Undetermined
+                                        <% } %>
+                                    </td>
+                                    <!--Displays Class Schedule-->
+                                    <td>
+                                        <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                            <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                                <%= classes[i].schedule.classTimes[j].day %>
+                                                [
+                                                <%= classes[i].schedule.classTimes[j].startTime %>
+                                                -
+                                                <%= classes[i].schedule.classTimes[j].endTime %>
+                                                ]
+                                                <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                                    &nbsp &nbsp
+                                                <% } %>
+                                            <% } %>
+                                        <% } else{ %>  
+                                            Undetermined
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="student-class-calendar">
+
+                </div>
+            </main>
+            <div class="right">
+                <h2>Registration</h2>
+                <div class="admin-create-bar">
+                    <a href="/student/classes">
+                        <span class="material-symbols-outlined">edit_square</span>
+                        <h3>Edit Classes</h3>
+                    </a>
+                    <a href="/student/wishlist">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                        <h3>Wishlist</h3>
+                    </a>
+                </div>
+
+                <div class="active-classes">
+                    <h2>Active Classes</h2>
+                    <div class="class-container">
+                        <h3>
+                            <% let hr = new Date().getHours();%>
+                            <% let min = new Date().getMinutes();%>
+                            <% let period = ["AM","PM"]; %>
+                            <% if (hr === 0) { %>
+                                <% hr = 12; %>
+                                <%= hr %>:
+                                <%= min %>
+                                <%= period[0] %>
+                            <% } else if (hr < 12) { %>
+                                <% hr = hr % 12; %>
+                                <%= hr %>:
+                                <%= min %>
+                                <%= period[0] %>
+                            <% } else { %>
+                                <%= hr %>:
+                                <%= min %>
+                                <%= period[1] %>
+                            <% } %>
+                        </h3>
+                        <h1>
+                            <% let m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                            <%= m[new Date().getMonth()];%>
+                            <%= new Date().getDate();%>,
+                            <%= new Date().getFullYear();%>
+                        </h1>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                    </div>
+                    <a href="#">Load All</a>
+                </div>
+            </div>
         </div>
 
         <!--Add/Help Button-->
