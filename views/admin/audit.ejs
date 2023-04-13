@@ -4,7 +4,9 @@
         <!--Header-->
 	    <%- include('../partials/headers/header-admin.ejs')%>
         
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <link rel="stylesheet" href="/css/style.css">
+
         <script type="text/javascript" src="/public/javascripts/admin-audit-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/subject-populator.js"></script>
     </head>
@@ -57,17 +59,14 @@
                 
                 <button type="submit" class="btn-search">
                     <span class="material-symbols-outlined">
-                        Find
-                    </span>
+                        search
+                    </span> Search
                 </button>
             </div> 
         </form>
     
         <div class="search-form-result" id="auditEntry-container">
         </div>
-    
-        <!--Add/Help Button-->
-        <% include('../partials/help-button.ejs')%>
     
     </body>
     
