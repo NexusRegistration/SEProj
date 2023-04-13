@@ -49,7 +49,7 @@
                          <div class="middle">
                               <div class="left">
                                   <h3>Total Classes</h3>
-                                  <h1>1000</h1>
+                                  <h1><%= subjects.length %></h1>
                               </div>
                          </div> 
                          <small class="text-muted">Last 24 Hours</small>   
@@ -70,21 +70,21 @@
                             </tr>
                         </thread>
                         <tbody>
-                            <tr>
-                                <td>4/3/23</td>
-                                <td>Britton Horn</td>
-                                <td>Software Engineering</td>
-                                <td>Remove Class</td>
-                            </tr>
-                            <tr>
-                                <td>4/2/43</td>
-                                <td>Britton Horn</td>
-                                <td>Computer Design</td>
-                                <td>Edit Class</td>
-                            </tr>
+                            <% for (var i=0; i < 6; i++) { %>
+                                <tr>
+                                    <!-- Date -->
+                                    <td><%= audits[i].timestamp %></td>
+                                    <!-- Author -->
+                                    <td><%= audits[i].user.name %> (<%= audits[i].user.role %>) [<%= audits[i].user.email %>]</td>
+                                    <!-- Class -->
+                                    <!--Encounteredd error with accessing className, unable to access undefined-->
+                                    <!-- Type of Change -->
+                                    <td><%= audits[i].description %></td>
+                                </tr>
+                            <% } %>
                         </tbody>
                     </table>
-                    <a href="#">Show All</a>
+                    <a href="/admin/aduit">Explore More Audits</a>
                 </div>
                 <!--------------- END OF RECENY ACTIVITIES ----------------->
             </main>
@@ -115,18 +115,30 @@
                             <% let period = ["AM","PM"]; %>
                             <% if (hr === 0) { %>
                                 <% hr = 12; %>
-                                <%= hr %>:
-                                <%= min %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
                                 <%= period[0] %>
-                            <% } else if (hr < 12) { %>
+                            <% } else if (hr > 12) { %>
                                 <% hr = hr % 12; %>
-                                <%= hr %>:
-                                <%= min %>
-                                <%= period[0] %>
-                            <% } else { %>
-                                <%= hr %>:
-                                <%= min %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
                                 <%= period[1] %>
+                            <% } else { %>
+                                0<%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[0] %>
                             <% } %>
                         </h3>
                         <h1>

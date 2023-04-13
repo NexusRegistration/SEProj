@@ -9,7 +9,7 @@
             <th>Location</th>
             <th>Time</th>
             <th>Capacity</th>
-            <th>Edit</th>
+            <th>Save</th>
         </tr>
     </thead>
     <tbody id="classEntry-container">
@@ -73,8 +73,10 @@
         
             <!--Displays Button 1-->
             <td>                
-                <button type="button" class="btn-primary" data-class-id="<%= classes[i]._id %>" onClick="addToWishlist(this)">
-                    Wishlist
+                <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="addToWishlist(this)">
+                    <span class="material-symbols-outlined">
+                        bookmark
+                    </span>
                 </button>
             </td> 
         </tr>

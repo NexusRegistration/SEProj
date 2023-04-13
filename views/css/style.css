@@ -44,6 +44,7 @@
 }
 
 html{
+    min-height: 100%;
     margin-top: 80px;
     font-size: 14px;
 }
@@ -158,8 +159,11 @@ nav .logo:hover{
     /* ======================== FOOTER ======================= */
 
 footer{
-    margin-top: auto;
+    position: static;
+    height: 30px;
+    bottom: 0;
     text-align: center;
+    margin-top: 5rem;
 }
 
     /* ======================== WELCOME-BAR ======================= */
@@ -184,7 +188,11 @@ footer{
     /* ======================== MAIN ======================= */
 
 main{
-    margin-top: 1rem;
+    margin-top: 2rem;
+}
+
+main h2{
+    margin-left: 1rem;
 }
 
 main .insights, .insights{
@@ -504,37 +512,45 @@ button{
 .btn-primary:hover, .btn-search:hover{
     background: var(--color-light);
     color: var(--color-primary);
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--btn-shadow);
 }
 
 /*Fix search btton*/
 .btn-search{
     display: flex;
+    width: 97px;
     align-items: center;
     padding: var(--button-padding);
-    margin-left: 95%;
-    margin-top: 2rem;
+    margin: 2rem auto 0rem auto;
 }
 
 .btn-search span{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
 }
 
 .btn-edit, .btn-delete{
-    padding: var(--button-2-padding);
-    border-radius: var(--circle-btn-border-radius);
-    background: var(--color-white);
-    box-shadow: var(--btn-shadow);
+    padding: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-light-focus);
+    
     transition: all 300ms ease;
 }
 
 .btn-edit:hover, .btn-delete:hover{
-    background: transparent;
-    box-shadow: none;
+    background: var(--color-primary);
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-edit:focus{
+    background: var(--color-primary);
+    box-shadow: var(--btn-shadow);
 }
 
 .btn-edit span{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: var(--color-white);
+    display: block;
     transition: all 300ms ease;
 }
 
@@ -600,8 +616,12 @@ span{
     /* ======================== Class Container ======================= */
 
 .class-container{
-    width: 95%;
+    width: 92%;
     margin: auto;
+}
+
+.class-container .title{
+    margin: 2rem 1rem;
 }
 
 .wishlist-classEntry > div, .register-classEntry > div{
@@ -612,7 +632,7 @@ span{
 /* ======================== Student Class Table Display ======================= */
 
 
-main .student-class-table table{
+.student-class-table table{
     background: var(--color-white);
     width: 100%;
     border-radius: var(--card-border-radius);
@@ -622,7 +642,7 @@ main .student-class-table table{
     transform: all 300ms ease;
 }
 
-main .student-class-table table:hover{
+ .student-class-table table:hover{
     box-shadow: none;
 }
 
@@ -635,6 +655,74 @@ main .student-class-table table:hover{
     padding: var(--padding-1);
     transition: all 300ms ease;
 }
+
+.student-class-title{
+    display: flex;
+}
+
+.student-class-title .count{
+    display: block;
+    font-size: large;
+    margin: 2.1rem 0rem;
+    padding: 0.29rem 0.82rem;
+    border-radius: 50%;
+    box-shadow: var(--btn-shadow);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.none-comment{
+    width: 98%;
+    margin: auto;
+    text-align: center;
+    font-size: large;
+    padding: var(--padding-1);
+    background: var(--color-white);
+    color:var(--color-dark);
+    border-radius: var(--border-radius-3);
+    box-shadow: var(--box-shadow);
+}
+
+.none-comment:hover{
+    box-shadow: none;
+}
+
+.view-select-bar{
+    display: block;
+    margin: 1rem 1rem;
+    color: var(--color-primary);
+}
+
+.view-select-bar a{
+    font-size: medium;
+    color: var(--color-info-dark);
+}
+
+.view-select-bar a:hover{
+    color: var(--color-primary);
+}
+
+.view-select-bar a:focus{
+    color: var(--color-primary);
+}
+
+#student-class-table{
+    display:none;
+}
+
+#student-class-table:target{
+    display:flex;
+}
+
+#student-class-calendar{
+    display:none;
+}
+
+#student-class-calendar:target{
+    display:flex;
+}
+
+
 
 
     /* ======================== Class Editing ======================= */
