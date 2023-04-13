@@ -644,10 +644,6 @@ main .student-class-table table:hover{
     justify-content: space-between;
 }
 
-.title-item {
-    margin-right: 1rem;
-}
-
 .class-edit-grid {
     display: grid;
     grid-template-columns: 70% 30%
@@ -674,6 +670,14 @@ main .student-class-table table:hover{
     padding: 10px;
 }
 
+.class-container {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: var(--border-radius-3);
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .class-edit-buttons {
     grid-column-start:2;
     grid-column-end:3;
@@ -691,6 +695,38 @@ main .student-class-table table:hover{
 
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 10px;
+}
+
+.btn-room-edit {
+    background: var(--color-dark);
+    color: white;
+    font-size: 10px;
+    padding: 0.1rem;
+}
+
+.btn-save-changes {
+    width: 50%;
+    background: var(--color-dark);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-delete-class {
+    background: darkred;
+    color: black;
+}
+
+.center {
+    text-align: center;
+}
+
+hr {
+    width: 70%;
+    height: 10px;
+    color:#7380ec;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* do something with this or something - I think it looks dumb but 

@@ -4,14 +4,45 @@ const mongoose = require('mongoose');
 const User = require('../../models/User');
 const Subject = require('../../models/Subject');
 const Class = require('../../models/Class');
+const Room = require('../../models/Room');
 const { hasNull } = require('../../functions/searching');
 
 router.post('/edit', (req, res) => {
+    try {
+        const data = req.body;
+        const update = {};
 
+        if (data.teacher) {
+            update.teacher = data.teacher;
+        }
+        if (data.room) {
+            update.room = data.room;
+        }
+        if (data.schedule) {
+            update.schedule = data.schedule;
+        }
+        Class.findByIdAndUpdate(data.classDatabaseID, update, (err, updatedClass) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send('Error updating class.');
+            } else {
+              console.log('Class updated: ', updatedClass);
+              res.redirect('/admin/classes');
+            }
+        });
+    } catch (err) {
+        next(err);
+    }
 });
 
 router.post('/delete', (req, res) => {
-
+    try {
+        const data = req.body;
+        obliterateClass(data.classID);
+        res.send();
+    } catch (err) {
+        next(err);
+    }
 });
 
 router.post('/edit-Subject', (req, res) => {
@@ -53,6 +84,47 @@ router.post('/edit-Subject', (req, res) => {
     }
 });
 
+router.get('/edit-Subject', async (req, res) => {
+    const subjectID = req.query.subjectID;
+    const classID = req.query.classID;
+    const departments = await Subject.distinct('department');
+    const subjectData = await Subject.findById(subjectID);
+    const pathways = await Subject.distinct('pathways');
+    const creditOptions = Subject.schema.paths.credits.options.enum;
+    res.render('partials/classEditing/subjectEdit', {subjectData, departments, pathways, creditOptions, classID, layout: false}, function(err,html) {
+        res.send('<div id="wrapper">' + html + '</div>');
+    });
+});
+
+router.post('/edit-room-capacity', async (req,res) => {
+    try {
+        const data = req.body;
+        const update = {
+            capacity: data.capacity
+        }
+        Room.findByIdAndUpdate(data.roomDatabaseID, update, (err, updatedRoom) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Error updating room');
+            } else {
+                console.log('Room updated: ', updatedRoom);
+                res.redirect('/admin/class-edit?class_ID=' + data.classDatabaseID);
+            }
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/edit-room-capacity', async (req, res) => {
+    const classID = req.query.classID;
+    const roomID = req.query.roomID;
+    const roomData = await Room.findById(roomID);
+    res.render('partials/classEditing/roomEdit', {roomData, classID, layout: false}, function(err,html) {
+        res.send('<div id="wrapper">' + html + '</div>');
+    });
+})
+
 router.post('/delete-subject', async (req, res) => {
     try {
         const subjectID = req.body.subjectID;
@@ -60,32 +132,13 @@ router.post('/delete-subject', async (req, res) => {
     
         // Find all classes and populate the subject
         // We need to do this because subject is a ref, which means we can't search by it
-        const classes = await Class.find({ subject: subjectID }).exec();
-    
-        // If we got the classes, figure out which ones need to go
-        const classesToBeDeleted = classes.filter((obj) => !hasNull(obj));
+        const classesToBeDeleted = await Class.find({ subject: subjectID }).exec();
         console.log('Classes to be deleted: ', classesToBeDeleted); //DEBUG
     
         // Remove these classes from students' registrations
         for (const elem of classesToBeDeleted) {
-            // Populate the class to get its students
-            const foundClass = await Class.findById(elem._id).populate('students').exec();
-            console.log('Now removing: ', foundClass); //DEBUG
-    
-            // For every student in every class that needs to be deleted
-            for (const student of foundClass.students) {
-                console.log('Removing from student ', student.name); //DEBUG
-                // Pull that class from their 'class' list
-                await User.updateOne({ _id: student._id }, { $pull: { class: foundClass._id } }).exec();
-                console.log(
-                    `Class: (ID: ${foundClass._id}) was removed from student: ${student.name} (ID: ${student._id})`
-                );
-            }
+            obliterateClass(elem._id);
         }
-    
-        // Now that the students no longer have references to those classes, let's remove them
-        const deleteResult = await Class.deleteMany({ _id: { $in: classesToBeDeleted } }).exec();
-        console.log(`${deleteResult.deletedCount} classes deleted`);
     
         // Delete the actual subject
         const deleteSubjectResult = await Subject.deleteOne({ _id: subjectID }).exec();
@@ -99,16 +152,35 @@ router.post('/delete-subject', async (req, res) => {
     }
 });
 
-router.get('/edit-Subject', async (req, res) => {
-    const subjectID = req.query.subjectID;
-    const classID = req.query.classID;
-    const departments = await Subject.distinct('department');
-    const subjectData = await Subject.findById(subjectID);
-    const pathways = await Subject.distinct('pathways');
-    const creditOptions = Subject.schema.paths.credits.options.enum;
-    res.render('partials/classEditing/subjectEdit', {subjectData, departments, pathways, creditOptions, classID, layout: false}, function(err,html) {
-        res.send('<div id="wrapper">' + html + '</div>');
+async function obliterateClass(classID) {
+    // remove this class from users stored classes
+    User.updateMany(
+        { $or: [ // if a user has the classID in their classes, waitlist, or wishlist
+            { class: classID }, 
+            { waitlist: classID }, 
+            { wishlist: classID } 
+        ] }, { $pull: { // pull that class from all their collections; this doesn't throw an error if its in only one of the lists and simplifies the code
+            class: classID,
+            waitlist: classID,
+            wishlist: classID 
+        } },
+        (err, result) => {
+            if (err) {
+                console.error(err);
+            } else if (result) {
+                console.log(`${result.matchedCount} users updated`);
+            } else {
+                console.log('Nobody was taking that class - no users updated');
+            }
+        }
+    );
+    // delete the actual class
+    Class.deleteOne({ _id: classID }, function(err) {
+        if (err) { console.error(err); } 
+        else {
+            console.log(`Subject with ID ${classID} deleted`);
+        }
     });
-})
+}
 
 module.exports = router;

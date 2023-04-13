@@ -55,8 +55,6 @@
         <textarea id="description" name="description" style="resize: vertical;"><%= subjectData.description %></textarea>
     </div>
 
-    <div class="buttons">
-        <button type="submit" class="btn-primary">Save Subject</button>
-        <button type="button" class="btn-delete" data-subject-id="<%=subjectData._id%>" onClick="deleteSubject(this)">Delete Subject</button>
-    </div>
+    
+    <button type="submit" class="btn-primary btn-save-changes">Save Subject</button>
 </form>

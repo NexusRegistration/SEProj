@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     rooms.forEach(function(room) {
                         $roomNameSelect.append($('<option>', {
                             value: room._id,
-                            text: room.building + "-" + room.number 
+                            text: room.building + "-" + room.number + " (Capacity: " + room.capacity +  ")"
                         }));
                     });
                 }
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     rooms.forEach(function(room) {
                         $roomNameSelect.append($('<option>', {
                             value: room._id,
-                            text: room.building + "-" + room.number 
+                            text: room.building + "-" + room.number + " (Capacity: " + room.capacity +  ")"
                         }));
                     });
                 }
