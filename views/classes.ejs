@@ -4,8 +4,10 @@
         <!--Header-->
 	    <% if (userRole === 'student') { %>
             <%- include('partials/headers/header-student.ejs') %>
+            <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
         <% } else if (userRole === 'admin') { %>
             <%- include('partials/headers/header-admin.ejs') %>
+            <script type="text/javascript" src="/public/javascripts/admin-class-edit-redirect.js"></script>
         <% } else if (userRole === 'teacher') { %>
             <%- include('partials/headers/header-teacher.ejs') %>
         <% } %>
@@ -17,7 +19,6 @@
         <!--Scripts-->
         <script type="text/javascript" src="/public/javascripts/class-subject-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/class-populator.js"></script>
-        <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
     </head>
     <body>
 

@@ -61,8 +61,9 @@ router.get('/audits', async (req, res, next) => {
         //     audits.push(audit);
         // }   
         // console.log(audits);
+        
 
-        const audits = await Timestamp.find(filter)
+        var audits = await Timestamp.find(filter)
             .populate({
                 path: 'class',
                 populate: {
@@ -74,13 +75,21 @@ router.get('/audits', async (req, res, next) => {
             .populate('user')
             .populate('student')
 
-        const filteredAudits = audits.filter(obj => !hasNull(obj));
+        console.log("This many audits: ", audits.length);
+        console.log(subjectFilter)
+
+        if (Object.keys(subjectFilter).length > 0) { //if the filter is not an empty object then filter out the bad stuff
+            audits = audits.filter(obj => !hasNull(obj));
+        }
+
+        console.log("audits: ",audits);
+
         /* TODO Fix audit display
         I will write a function here that adjusts the retrieved values so they are nicer to look at 
         on the frontend
         */
 
-        res.render('partials/auditEntry', {audits: filteredAudits, layout: false}, function(err,html) {
+        res.render('partials/auditEntry', {audits, layout: false}, function(err,html) {
             res.send('<div id="auditEntry-wrapper">' + html + '</div>');
         });
         

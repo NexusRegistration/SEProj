@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const Class = require('../../models/Class');
 const Subject = require('../../models/Subject');
+const Room = require('../../models/Room');
 const Timestamp = require('../../models/Timestamp');
 const mongoose = require('mongoose');
 
@@ -29,14 +30,33 @@ router.get('/all-subjects', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
 });
+router.get('/rooms', async (req, res) => {
+    try {
+        const { building } = req.query;
+        const rooms = await Room.find({ building });
+        res.json(rooms);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+router.get('/all-rooms', async (req, res) => {
+    try {
+      const rooms = await Room.find();
+      res.json(rooms);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
 // Define the POST / route to add a new class
 router.post('/', async (req, res) => {
     try {
         // Extracts the 'subject' and 'schedule' values from the query string
-        const { subject, schedule } = req.body;
+        const { subject, schedule, semester, room } = req.body;
         
         // Create a new Class object
-        const newClass = await addClass(subject, schedule, req.session.user);
+        const newClass = await addClass(subject, schedule, semester, room, req.session.user);
 
         // Return a success response
         res.redirect('/admin/dashboard')
@@ -47,12 +67,18 @@ router.post('/', async (req, res) => {
     }
 });
 // Define the addClass function to add a new class
-async function addClass(subject, schedule, user) {
+async function addClass(subject, schedule, semester, room, user) {
     try {
+        function parseSemester(semesterString) {
+            const [season, year] = semesterString.split(' ');
+            return { year: parseInt(year), season };
+        }
         // Create a new Class object
         const newClass = new Class({
-            subject, schedule
+            subject, schedule, room,
+            semester: parseSemester(semester)
         });
+
         // Create a new Timestamp
         const newTimestamp = new Timestamp({
             user: user._id,

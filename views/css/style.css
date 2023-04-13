@@ -368,7 +368,7 @@ main .recent-activities a{
 
     /* ======================== FORMS ======================= */
 
-.create-user, .create-class, .create-subject, .search-form, .login-form {
+.create-user, .create-class, .create-subject, .search-form, .login-form, .edit-class {
     margin: 5rem 32%;
     display: flex;
     flex-direction: column;
@@ -377,6 +377,10 @@ main .recent-activities a{
     background: white;
     border-radius: var(--border-radius-3);
     box-shadow: var(--box-shadow);
+}
+
+.edit-class {
+    margin: 5rem 10%
 }
 
 .search-form{
@@ -495,6 +499,8 @@ button{
     font-family: poppins, sans-serif;
 }
 
+
+
 .btn-primary, .btn-search{
     padding: var(--button-padding);
     border-radius: var(--border-radius-2);
@@ -523,7 +529,7 @@ button{
     margin-right: 0.5rem;
 }
 
-.btn-edit{
+.btn-edit, .btn-delete{
     padding: 0.7rem;
     border-radius: 50%;
     background: var(--color-light-focus);
@@ -531,7 +537,7 @@ button{
     transition: all 300ms ease;
 }
 
-.btn-edit:hover{
+.btn-edit:hover, .btn-delete:hover{
     background: var(--color-primary);
     box-shadow: var(--btn-shadow);
 }
@@ -546,6 +552,20 @@ button{
     color: var(--color-white);
     display: block;
     transition: all 300ms ease;
+}
+
+.btn-edit span:hover{
+    color: var(--color-primary);
+}
+
+.btn-delete{
+    background: var(--color-dark);
+}
+
+/* For putting two buttons next to each other - used in class editing */
+.buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -700,5 +720,107 @@ span{
 
 #student-class-calendar:target{
     display:flex;
+}
+
+
+
+
+    /* ======================== Class Editing ======================= */
+
+.class-edit-titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.class-edit-grid {
+    display: grid;
+    grid-template-columns: 70% 30%
+}
+
+.class-subject-table {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-subject-table td, .class-subject-table tr {
+    text-align: center;
+}
+
+.class-edit-data {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+    display: inline-flex;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-container {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: var(--border-radius-3);
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-edit-buttons {
+    grid-column-start:2;
+    grid-column-end:3;
+    text-align: center;
+    display: inline-block;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-edit-description-box {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.btn-room-edit {
+    background: var(--color-dark);
+    color: white;
+    font-size: 10px;
+    padding: 0.1rem;
+}
+
+.btn-save-changes {
+    width: 50%;
+    background: var(--color-dark);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-delete-class {
+    background: darkred;
+    color: black;
+}
+
+.center {
+    text-align: center;
+}
+
+hr {
+    width: 70%;
+    height: 10px;
+    color:#7380ec;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* do something with this or something - I think it looks dumb but 
+I was messing around with it and it didn't look right. I just deleted 
+what I had 
+*/
+.class-subject-edit-button-container {
 }
 

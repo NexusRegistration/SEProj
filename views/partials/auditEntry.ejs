@@ -18,7 +18,13 @@
                 <!-- Date -->
                 <td><%= audits[i].timestamp %></td>
                 <!-- Class -->
-                <td><%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]</td>
+                <td>
+                    <% if (audits[i].class && audits[i].class !== null) { %>
+                        <%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]
+                    <% } else { %>
+                        Class Deleted
+                    <% } %>
+                </td>
                 <!-- Student -->
                 <!-- Some types of changes don't change any student information, so there won't be any student info -->
                 <td>
