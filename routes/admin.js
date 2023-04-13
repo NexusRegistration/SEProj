@@ -34,18 +34,14 @@ router.get('/create-class', restrictAccess(roles.ADMIN), async (req, res) => {
         // Fetch all schedules from the database
         const schedules = await Schedule.find();
         const departments = await Subject.distinct('department');
-
-        
-        
-
-
-
+        const rooms = await Room.find();
+        const buildings = await Room.distinct('building');
         const semesterObject = await SemesterSingleton.findOne({ identifier: 'semesters' }).exec();
   
         if (semesterObject) {
             const semesters = semesterObject.semesters;
             // Render the class creation form template and pass the schedules, departments, and semesters variables
-            res.render('admin/create-class', { schedules, departments, semesters});
+            res.render('admin/create-class', { schedules, departments, rooms, buildings, semesters});
         } else {
             console.log('Semester singleton not found');
         }

@@ -11,6 +11,13 @@ router.get('/subject-populator.js', (req, res) => {
     res.send(fileContents);
 });
 
+router.get('/building-populator.js', (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'javascripts', 'building-populator.js');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    res.set('Content-Type', 'application/javascript');
+    res.send(fileContents);
+});
+
 router.get('/class-populator.js', (req, res) => {
     const filePath = path.join(__dirname, '..', 'public', 'javascripts', 'class-populator.js');
     const fileContents = fs.readFileSync(filePath, 'utf8');
