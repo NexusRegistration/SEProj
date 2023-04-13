@@ -17,7 +17,8 @@ router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
         const pathways = await Subject.distinct('pathways');
         const credits = await Subject.distinct('credits');
     
-        const audits = await Timestamp.find();
+        const audits = await Timestamp.find()
+            .populate('user');
         
         //const users = await User.find();
         res.render('admin/dashboard', { user: req.session.user, subjects, audits});
