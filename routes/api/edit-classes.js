@@ -1,8 +1,10 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
+const User = require('../../models/User');
 const Subject = require('../../models/Subject');
 const Class = require('../../models/Class');
+const { hasNull } = require('../../functions/searching');
 
 router.post('/edit', (req, res) => {
 
@@ -51,45 +53,49 @@ router.post('/edit-Subject', (req, res) => {
     }
 });
 
-router.post('/delete-Subject', (req, res) => {
+router.post('/delete-subject', async (req, res) => {
     try {
         const subjectID = req.body.subjectID;
-
-        // remove the classes which have this subject from the class arrays of users
-        User.updateMany(
-            { class: { $elemMatch: { subject: subjectId } } }, 
-            { $pull: { class: { subject: subjectId } } }, 
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send('Error removing classes from students.');
-                } else {
-                    console.log('Classes removed from students: ', result);
-                }
+        console.log("subjectID: ", subjectID); //DEBUG
+    
+        // Find all classes and populate the subject
+        // We need to do this because subject is a ref, which means we can't search by it
+        const classes = await Class.find({ subject: subjectID }).exec();
+    
+        // If we got the classes, figure out which ones need to go
+        const classesToBeDeleted = classes.filter((obj) => !hasNull(obj));
+        console.log('Classes to be deleted: ', classesToBeDeleted); //DEBUG
+    
+        // Remove these classes from students' registrations
+        for (const elem of classesToBeDeleted) {
+            // Populate the class to get its students
+            const foundClass = await Class.findById(elem._id).populate('students').exec();
+            console.log('Now removing: ', foundClass); //DEBUG
+    
+            // For every student in every class that needs to be deleted
+            for (const student of foundClass.students) {
+                console.log('Removing from student ', student.name); //DEBUG
+                // Pull that class from their 'class' list
+                await User.updateOne({ _id: student._id }, { $pull: { class: foundClass._id } }).exec();
+                console.log(
+                    `Class: (ID: ${foundClass._id}) was removed from student: ${student.name} (ID: ${student._id})`
+                );
             }
-        );
-
-        Class.deleteMany({ subject: subjectID }, (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send('Error deleting classes.');
-            } else {
-                console.log('Classes deleted.');
-            }
-        });
-
-        Subject.findByIdAndRemove(subjectId, (err, removedSubject) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send('Error deleting subject.');
-            } else {
-                console.log('Subject deleted: ', removedSubject);
-                res.redirect('/classes');
-            }
-        });
-
-    } catch {
-
+        }
+    
+        // Now that the students no longer have references to those classes, let's remove them
+        const deleteResult = await Class.deleteMany({ _id: { $in: classesToBeDeleted } }).exec();
+        console.log(`${deleteResult.deletedCount} classes deleted`);
+    
+        // Delete the actual subject
+        const deleteSubjectResult = await Subject.deleteOne({ _id: subjectID }).exec();
+        console.log(`Subject with ID ${subjectID} deleted`);
+    
+        res.send();
+    } catch (err) {
+        // Handle errors
+        console.error(err);
+        res.status(500).send('Internal Server Error');
     }
 });
 

@@ -16,6 +16,8 @@ function deleteSubject(button) {
     const confirmed = confirm("Are you sure you want to delete this subject? This will cause all classes associated with this subject to be deleted as well.")
     if (confirmed) {
         const subjectID = $(button).data('subject-id');
-        $.post('/edit-classes/delete-subject', {subjectID})
+        $.post('/edit-classes/delete-subject', {subjectID}, (res) => {
+            window.location.href = '/admin/classes';
+        })
     } 
 }
