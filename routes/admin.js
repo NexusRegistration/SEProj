@@ -13,15 +13,24 @@ router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
     try {
         // Get stuff from database
         const subjects = await Subject.find();
-        const departments = await Subject.distinct('department');
-        const pathways = await Subject.distinct('pathways');
-        const credits = await Subject.distinct('credits');
+
+        const classCount = await Class.find().count();
+        const teacherCount = await User.find( {role: 'teacher' }).count();
+        const studentCount = await User.find({ role: 'student' }).count();
     
         const audits = await Timestamp.find()
-            .populate('user');
+            .populate('user')
+            .populate({
+                path: 'class',
+                populate: {
+                    path: 'subject'
+                }
+            });
         
+
+        console.log("Audits: ", audits);
         //const users = await User.find();
-        res.render('admin/dashboard', { user: req.session.user, subjects, audits});
+        res.render('admin/dashboard', { user: req.session.user, classCount, audits, teacherCount, studentCount});
         
     } catch (err) {
         console.error(err);
