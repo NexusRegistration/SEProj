@@ -1,0 +1,1 @@
+const adminiture = require('../routes/admin');
