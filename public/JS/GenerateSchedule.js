@@ -1,16 +1,26 @@
 let classes = [
-    {name: "Math", start: "12:00", end: "12:30"}
+  {name: "Math", start: "4:29 AM", end: "6:00 AM",days:["M","W","F"]},
+  {name: "Math", start: "7:45 AM", end: "8:35 AM",days:["T","Tu"]}
 ]
+const map1 = new Map();
+
+map1.set('M', 1);
+map1.set('T', 2);
+map1.set('W', 3);
+map1.set('Tu', 4);
+map1.set('F', 5);
 // creates a <table> element and a <tbody> element
 const tbl = document.getElementById("table");
 const tblBody = document.getElementById("tbody");
-console.log(classes[0].start);
+
 // creating all cells
+const mySchedule = buildSchedule(classes)
+
+
 for (let i = 0; i < 29; i++) {
   // creates a table row
-  const row = document.createElement("tr");
-  const t1 = classes[0].start.split(":");// FIXME
-  hour = t1[0]   //FIXME replace with actual iterator for class start times
+     //FIXME replace with actual iterator for class start times
+     const row = document.createElement("tr");
   
 
   for (let j = 0; j < 6; j++) {
@@ -24,9 +34,12 @@ for (let i = 0; i < 29; i++) {
       if (i%2 == 0) {var cellText = document.createTextNode((i/2)+4 +':00')
       maker = true}
     }
-    else if((i/2)+4 == hour){
-      curr_height =timemath(classes[0].start,classes[0].end)
-      cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + classes[0].start + '-'+ classes[0].end+ ' Class</div>'
+    else if(mySchedule[i][j] != null){
+     
+      curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
+      marginTop = marginTopMath(mySchedule[i][j].start);
+
+      cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' Class</div>'
       
     }
     
@@ -47,16 +60,22 @@ for (let i = 0; i < 29; i++) {
 // appends <table> into <body>
 //document.body.appendChild(tbl);  
 function timemath(t1,t2){
-  
-  const t1_array = t1.split(":");
-  const t2_array = t2.split(":");
-  
+  t1_Msplit =t1.split(" ")
+  t2_Msplit = t2.split(" ")
+  const t1_array = t1_Msplit[0].split(":");
+  console.log(t1_array);
+  const t2_array = t2_Msplit[0].split(":");
+  if (t1_Msplit == "PM"){
+    t2_array[0]+=12
+  }
+  if (t2_Msplit == "PM"){
+    t1_array[0]+=12
+  }
   
   var hours = t2_array[0]-t1_array[0];
   var minutes = t2_array[1]-t1_array[1];
   
-  console.log(hours);
-  console.log(minutes);
+  
   
   
   minutes = minutes+(hours*60);
@@ -67,9 +86,46 @@ function timemath(t1,t2){
   return(height)
   
 }
-function msg(){  
-    
+function marginTopMath(t1){
+  t1_M = t1.split(" ");
+  
+  const t1_arrray = t1_M[0].split(":");
+  var startMin = t1_arrray[1];
+  if (startMin >=30){
+    startMin-=30;
+  }
+  var marginTop = 70*(startMin/60);
+  return(marginTop);
 
+
+
+}
+
+function buildSchedule(classes1){
+  var arr = [];
+  for (i =0; i<29 ;i++){
+    arr[i] = []
+    for(j=0; j<6; j++){
+     arr[i][j]=null;
+    }
+  }
+  for(x of classes1){
+    const timeandM = x.start.split(" ");
+    t1 = timeandM[0].split(":");
+    slot = Number(t1[0])*2-8 ;  //FIXME replace with actual iterator for class start times
+    
+    if ( 
+        (t1[1])>=30){
+        slot +=1;
+    }
+    for(day of x.days){
+        arr[slot][map1.get(day)] = x;
+       
+    }
+    
+  } 
+  
+  return(arr);
 }
 
     

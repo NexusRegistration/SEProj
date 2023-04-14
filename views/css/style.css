@@ -125,6 +125,7 @@ p{
     position: fixed;
     top: 0;
     background: var(--color-white);
+    z-index: 100; /*Jack: I added this in order to properly offset for calendar feel free to remove if another solution is necesary*/
     overflow: hidden;
     /*box-shadow: var(--box-shadow);*/
 }
