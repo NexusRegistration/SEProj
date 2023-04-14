@@ -1,0 +1,12 @@
+<form method="POST" class="edit-class" action="/edit-classes/edit-room-capacity">
+    <input type="hidden" name="roomDatabaseID" value="<%= roomData._id %>">
+    <input type="hidden" name="classDatabaseID" value="<%= classID %>">
+    <h1>Room Editing</h1>
+    <div class="center">
+        <h2><%=roomData.building%>-<%=roomData.number%></h2>
+    </div>
+    <div class="form-input">
+        <input type="number" class="form-control" id="capacity" name="capacity" min="1" value="<%=roomData.capacity%>" required>
+    </div>
+    <button type="submit" class="btn-primary btn-save-changes">Save Room</button>
+</form>

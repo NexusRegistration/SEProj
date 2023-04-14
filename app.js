@@ -49,6 +49,8 @@ const addClassAPIRouter = require('./routes/api/add-classes');
 const subjectAPIRouter = require('./routes/api/add-subjects');
 const searchClassAPIRouter = require('./routes/api/search-classes');
 const registerAPIRouter = require('./routes/api/register');
+const auditAPIRouter = require('./routes/api/search-audits');
+const editClassAPIRouter = require('./routes/api/edit-classes');
 
 // Use Routes
 app.use('/', loginRouter);
@@ -64,6 +66,8 @@ app.use('/add-classes', addClassAPIRouter);
 app.use('/search-classes', searchClassAPIRouter);
 app.use('/add-subjects', subjectAPIRouter);
 app.use('/register', registerAPIRouter);
+app.use('/search-audits', auditAPIRouter);
+app.use('/edit-classes', editClassAPIRouter);
 
 
 // Connect to database
