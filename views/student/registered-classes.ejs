@@ -10,11 +10,13 @@
     </head>
 
     <body>
-        <div class="welcome-bar">
-            <h1>Currently Registered Classes</h1>
-        </div>
-
+            
         <div class="class-container">
+            <div class="student-class-title">
+                <h1 class="title">Currently Registered Classes</h1>
+                <p class="count"><%= registeredClasses.length %></p>
+            </div>
+
             <div id="classEntry-container">
                 <% if (registeredClasses.length > 0) { %>
                     <%- include('../partials/classEntries/studentRegisteredEntry', { classes: registeredClasses }) %>
@@ -23,12 +25,18 @@
                   <% } %>
             </div>
         </div>
+
         <div class="class-container">
+            <div class="student-class-title" style="margin-top: 4rem;">
+                <h1 class="title">Currently Waitlisted Classes</h1>
+                <p class="count"><%= waitlistedClasses.length %></p>
+            </div>
+
             <div id="classEntry-container">
-                <% if (registeredClasses.length > 0) { %>
+                <% if (waitlistedClasses.length > 0) { %>
                     <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: waitlistedClasses }) %>
                   <% } else { %>
-                    <p><br>No Waitlisted Classes<br></p>
+                    <p class="none-comment"><br>No Waitlisted Classes<br></p>
                   <% } %>
             </div>
         </div>

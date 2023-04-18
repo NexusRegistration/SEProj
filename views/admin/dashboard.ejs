@@ -26,7 +26,7 @@
                        <div class="middle">
                             <div class="left">
                                 <h3>Total Students</h3>
-                                <h1>10</h1>
+                                <h1><%=studentCount%></h1>
                             </div>
                        </div> 
                        <small class="text-muted">Last 24 Hours</small>   
@@ -37,7 +37,7 @@
                          <div class="middle">
                               <div class="left">
                                   <h3>Total Teachers</h3>
-                                  <h1>20</h1>
+                                  <h1><%=teacherCount%></h1>
                               </div>
                          </div> 
                          <small class="text-muted">Last 24 Hours</small>   
@@ -49,7 +49,7 @@
                          <div class="middle">
                               <div class="left">
                                   <h3>Total Classes</h3>
-                                  <h1>1000</h1>
+                                  <h1><%= classCount %></h1>
                               </div>
                          </div> 
                          <small class="text-muted">Last 24 Hours</small>   
@@ -70,21 +70,27 @@
                             </tr>
                         </thread>
                         <tbody>
-                            <tr>
-                                <td>4/3/23</td>
-                                <td>Britton Horn</td>
-                                <td>Software Engineering</td>
-                                <td>Remove Class</td>
-                            </tr>
-                            <tr>
-                                <td>4/2/43</td>
-                                <td>Britton Horn</td>
-                                <td>Computer Design</td>
-                                <td>Edit Class</td>
-                            </tr>
+                            <% for (var i=0; i < 6; i++) { %>
+                                <tr>
+                                    <!-- Date -->
+                                    <td><%= audits[i].timestamp %></td>
+                                    <!-- Author -->
+                                    <td><%= audits[i].user.name %> (<%= audits[i].user.role %>) [<%= audits[i].user.email %>]</td>
+                                    <!-- Class -->
+                                    <td>
+                                        <% if (audits[i].class && audits[i].class !== null) { %>
+                                            <%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]
+                                        <% } else { %>
+                                            Class Deleted
+                                        <% } %>
+                                    </td><!--Encounteredd error with accessing className, unable to access undefined-->
+                                    <!-- Type of Change -->
+                                    <td><%= audits[i].description %></td>
+                                </tr>
+                            <% } %>
                         </tbody>
                     </table>
-                    <a href="#">Show All</a>
+                    <a href="/admin/aduit">Explore More Audits</a>
                 </div>
                 <!--------------- END OF RECENY ACTIVITIES ----------------->
             </main>
@@ -109,8 +115,44 @@
                 <div class="active-classes">
                     <h2>Active Classes</h2>
                     <div class="class-container">
-                        <h3>1:20pm</h3>
-                        <h1>May 24, 2025</h1>
+                        <h3>
+                            <% let hr = new Date().getHours();%>
+                            <% let min = new Date().getMinutes();%>
+                            <% let period = ["AM","PM"]; %>
+                            <% if (hr === 0) { %>
+                                <% hr = 12; %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[0] %>
+                            <% } else if (hr > 12) { %>
+                                <% hr = hr % 12; %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[1] %>
+                            <% } else { %>
+                                0<%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[0] %>
+                            <% } %>
+                        </h3>
+                        <h1>
+                            <% let m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                            <%= m[new Date().getMonth()];%>
+                            <%= new Date().getDate();%>,
+                            <%= new Date().getFullYear();%>
+                        </h1>
                         <div class="class-format">
                             <h4>Class Name</h4>
                             <small>1:15-1:23pm</small>

@@ -14,18 +14,20 @@
     </head>
 
     <body>
-      <div class="welcome-bar">
-        <h1>Wishlist</h1>
-      </div>
 
-        <div class="class-container">
-            <div class="row" id="wishlistEntry">
-              <% if (wishlist.length > 0) { %>
-                <%- include('../partials/classEntries/studentWishlistEntry', { wishlist: wishlist }) %>
-              <% } else { %>
-                <p>You don't have any classes in your wishlist.</p>
-              <% } %>
-            </div>
+      <div class="class-container">
+        <div class="student-class-title">
+            <h1 class="title">Saved Classes</h1>
+            <h1 class="count"><%= wishlist.length %></h1>
         </div>
+
+        <div id="classEntry-container">
+          <% if (wishlist.length > 0) { %>
+            <%- include('../partials/classEntries/studentWishlistEntry', { wishlist: wishlist }) %>
+          <% } else { %>
+            <p class="none-comment">You don't have any saved classes.</p>
+          <% } %>
+        </div>
+    </div>
     </body>
 </html>

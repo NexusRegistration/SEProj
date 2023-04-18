@@ -6,8 +6,36 @@ const Subject = require('../models/Subject');
 const User = require('../models/User');
 
 //remember, the route to this http request is student/dashboard because in app.js we specify that all routes starting with 'student' go through this file
-router.get('/dashboard', restrictAccess(roles.STUDENT), (req, res) => {
-    res.render('student/dashboard', { user: req.session.user });
+router.get('/dashboard', restrictAccess(roles.STUDENT), async (req, res) => {
+    try {
+        const userId = req.session.user._id
+        // Get stuff from database
+        const user = await User.findById(userId).populate({
+            path: 'class',
+            populate: [
+                {
+                  path: 'subject',
+                  model: 'Subject'
+                },
+                {
+                  path: 'room',
+                  model: 'Room'
+                },
+                {
+                    path: 'teacher',
+                    model: 'User'
+                },
+                {
+                    path: 'schedule',
+                    model: 'Schedule'
+                }
+            ]}).exec();
+        const classes = user.class;
+        res.render('student/dashboard', { user: req.session.user, classes });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 });
 
 router.get('/calendar', restrictAccess(roles.STUDENT), (req, res) => {

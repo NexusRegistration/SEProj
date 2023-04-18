@@ -44,6 +44,7 @@
 }
 
 html{
+    min-height: 100%;
     margin-top: 80px;
     font-size: 14px;
 }
@@ -126,6 +127,7 @@ p{
     position: fixed;
     top: 0;
     background: var(--color-white);
+    z-index: 100; /*Jack: I added this in order to properly offset for calendar feel free to remove if another solution is necesary*/
     overflow: hidden;
     /*box-shadow: var(--box-shadow);*/
 }
@@ -158,8 +160,11 @@ nav .logo:hover{
     /* ======================== FOOTER ======================= */
 
 footer{
-    margin-top: auto;
+    position: static;
+    height: 30px;
+    bottom: 0;
     text-align: center;
+    margin-top: 5rem;
 }
 
     /* ======================== WELCOME-BAR ======================= */
@@ -184,7 +189,11 @@ footer{
     /* ======================== MAIN ======================= */
 
 main{
-    margin-top: 1rem;
+    margin-top: 2rem;
+}
+
+main h2{
+    margin-left: 1rem;
 }
 
 main .insights, .insights{
@@ -223,7 +232,7 @@ main .insights small{
     display: block;
 }
 
-main .recent-activities{
+main .recent-activities, main .student-class-table{
     margin-top: 2rem;
 }    
 
@@ -241,7 +250,7 @@ main .recent-activities table{
     transform: all 300ms ease;
 }
 
-main .recent-activities table:hover{
+main .recent-activities table:hover, main .student-class-table table:hover{
     box-shadow: none;
 }
 
@@ -360,7 +369,7 @@ main .recent-activities a{
 
     /* ======================== FORMS ======================= */
 
-.create-user, .create-class, .create-subject, .search-form, .login-form {
+.create-user, .create-class, .create-subject, .search-form, .login-form, .edit-class {
     margin: 5rem 32%;
     display: flex;
     flex-direction: column;
@@ -369,6 +378,10 @@ main .recent-activities a{
     background: white;
     border-radius: var(--border-radius-3);
     box-shadow: var(--box-shadow);
+}
+
+.edit-class {
+    margin: 5rem 10%
 }
 
 .search-form{
@@ -389,6 +402,7 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
     font-family: poppins, sans-serif;
     color: var(--color-dark);
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -403,6 +417,7 @@ select{
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -417,6 +432,7 @@ textarea{
     color: var(--color-dark);
     width: 100%;
     border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
     transition: all 500ms ease;
 }
 
@@ -444,12 +460,13 @@ textarea:focus{
 
 .create-user h1, .create-class h1, .create-subject h1{
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .search-grid{
     display: grid;
     grid-template-columns: auto auto;
-    gap: 1rem;
+    gap: 0rem 1rem;
 }
 
 .search-form h1{
@@ -477,15 +494,13 @@ textarea:focus{
     gap: 1rem;
 }
 
-.audit-search div{
-    margin-bottom: 0.5rem;
-}
-
     /* ======================== BUTTONS ======================= */
 
 button{
     font-family: poppins, sans-serif;
 }
+
+
 
 .btn-primary, .btn-search{
     padding: var(--button-padding);
@@ -498,37 +513,45 @@ button{
 .btn-primary:hover, .btn-search:hover{
     background: var(--color-light);
     color: var(--color-primary);
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--btn-shadow);
 }
 
 /*Fix search btton*/
 .btn-search{
     display: flex;
+    width: 97px;
     align-items: center;
     padding: var(--button-padding);
-    margin-left: 95%;
-    margin-top: 2rem;
+    margin: 2rem auto 0rem auto;
 }
 
 .btn-search span{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
 }
 
-.btn-edit{
-    padding: var(--button-2-padding);
-    border-radius: var(--circle-btn-border-radius);
-    background: var(--color-white);
-    box-shadow: var(--btn-shadow);
+.btn-edit, .btn-delete{
+    padding: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-light-focus);
+    
     transition: all 300ms ease;
 }
 
-.btn-edit:hover{
-    background: transparent;
-    box-shadow: none;
+.btn-edit:hover, .btn-delete:hover{
+    background: var(--color-primary);
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-edit:focus{
+    background: var(--color-primary);
+    box-shadow: var(--btn-shadow);
 }
 
 .btn-edit span{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: var(--color-white);
+    display: block;
     transition: all 300ms ease;
 }
 
@@ -536,10 +559,20 @@ button{
     color: var(--color-primary);
 }
 
+.btn-delete{
+    background: var(--color-dark);
+}
+
+/* For putting two buttons next to each other - used in class editing */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
 
     /* ======================== SEARCH RESULTS ======================= */
 
-.search-form-result table{
+.search-form-result table {
     background: var(--color-white);
     border-collapse: collapse;
     width: 90%;
@@ -584,10 +617,211 @@ span{
     /* ======================== Class Container ======================= */
 
 .class-container{
-    width: 95%;
+    width: 92%;
     margin: auto;
+}
+
+.class-container .title{
+    margin: 2rem 1rem;
 }
 
 .wishlist-classEntry > div, .register-classEntry > div{
     padding: 1rem 0;
 }
+
+
+/* ======================== Student Class Table Display ======================= */
+
+
+.student-class-table table{
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--padding-1);
+    text-align: left;
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
+
+ .student-class-table table:hover{
+    box-shadow: none;
+}
+
+.student-class-table table thead th{
+    padding: var(--padding-1);
+}
+
+.student-class-table table tbody td{
+    color: var(--color-dark);
+    padding: var(--padding-1);
+    transition: all 300ms ease;
+}
+
+.student-class-title{
+    display: flex;
+}
+
+.student-class-title .count{
+    display: block;
+    font-size: large;
+    margin: 2.1rem 0rem;
+    padding: 0.29rem 0.82rem;
+    border-radius: 50%;
+    box-shadow: var(--btn-shadow);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.none-comment{
+    width: 98%;
+    margin: auto;
+    text-align: center;
+    font-size: large;
+    padding: var(--padding-1);
+    background: var(--color-white);
+    color:var(--color-dark);
+    border-radius: var(--border-radius-3);
+    box-shadow: var(--box-shadow);
+}
+
+.none-comment:hover{
+    box-shadow: none;
+}
+
+.view-select-bar{
+    display: block;
+    margin: 1rem 1rem;
+    color: var(--color-primary);
+}
+
+.view-select-bar a{
+    font-size: medium;
+    color: var(--color-info-dark);
+}
+
+.view-select-bar a:hover{
+    color: var(--color-primary);
+}
+
+.view-select-bar a:focus{
+    color: var(--color-primary);
+}
+
+#student-class-table{
+    display:none;
+}
+
+#student-class-table:target{
+    display:flex;
+}
+
+#student-class-calendar{
+    display:none;
+}
+
+#student-class-calendar:target{
+    display:flex;
+}
+
+
+
+
+    /* ======================== Class Editing ======================= */
+
+.class-edit-titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.class-edit-grid {
+    display: grid;
+    grid-template-columns: 70% 30%
+}
+
+.class-subject-table {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-subject-table td, .class-subject-table tr {
+    text-align: center;
+}
+
+.class-edit-data {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+    display: inline-flex;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-container {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: var(--border-radius-3);
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-edit-buttons {
+    grid-column-start:2;
+    grid-column-end:3;
+    text-align: center;
+    display: inline-block;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.class-edit-description-box {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+.btn-room-edit {
+    background: var(--color-dark);
+    color: white;
+    font-size: 10px;
+    padding: 0.1rem;
+}
+
+.btn-save-changes {
+    width: 50%;
+    background: var(--color-dark);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-delete-class {
+    background: darkred;
+    color: black;
+}
+
+.center {
+    text-align: center;
+}
+
+hr {
+    width: 70%;
+    height: 10px;
+    color:#7380ec;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* do something with this or something - I think it looks dumb but 
+I was messing around with it and it didn't look right. I just deleted 
+what I had 
+*/
+.class-subject-edit-button-container {
+}
+

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Header-->
+	    <%- include('../partials/headers/header-admin.ejs')%>
+        
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/public/javascripts/admin-class-edit.js"></script>
+        <script type="text/javascript" src="/public/javascripts/building-populator.js"></script>
+    </head>
+
+    <body>
+
+        <form method="POST" class="edit-class" action="/edit-classes/edit">
+            <input type="hidden" name="classDatabaseID" value="<%=classData._id%>">
+            <div class="class-edit-container">
+                <h1 class="center">Class Data</h1>
+                <!-- teacher -->
+                <label for="teacher">Teacher:</label>
+                <div class="form-input">
+                    <select class="form-control" id="teacher">
+                        <% if (classData.teacher) { %>
+                            <option selected value="<%=classData.teacher._id%>"><%=classData.teacher.name%></option>
+                        <% } else { %>
+                            <option selected value="">Select a Teacher</option>
+                        <% } %>
+                        <% teachers.forEach(function(teacher) { %>
+                            <option value="<%= teacher._id %>"><%= teacher.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <!-- room -->
+                <div>
+                    <label for="building">Room:   </label>
+                    <button type="button" class="btn-primary btn-room-edit" data-class-id="<%=classData._id%>" onClick="openRoomEditing(this)">Edit Room Capacity</button>
+                    <div class="form-input">
+                        <select class="form-control" id="building">
+                            <% if (classData.room) { %>
+                                <option selected value="<%=classData.room.building%>"><%=classData.room.building%></option>
+                            <% } else { %>
+                                <option selected value="">Select a Building</option>
+                            <% } %>
+                            <% buildings.forEach(function(building) { %>
+                                <option value="<%= building %>"><%= building %></option>
+                            <% }); %>
+                        </select>
+                        <select class="form-control" id="room" name="room" required>
+                            <% if (classData.room) { %>
+                                <option selected value="<%=classData.room._id%>"><%=classData.room.building%>-<%=classData.room.number%> (Capacity: <%=classData.room.capacity%>)</option>
+                            <% } else { %>
+                                <option selected value="">Select a Room</option>
+                            <% } %>
+                            <% rooms.forEach(function(room) { %>
+                                <option value="<%= room._id %>"><%= room.building %>-<%= room.number %> (Capacity: <%=room.capacity%>)</option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                <!-- schedule -->
+                <label for="schedule">Schedule:</label>
+                <div class="form-input">
+                    <select class="form-control" id="schedule" name="schedule" required>
+                        <% schedules.forEach(function(schedule) { %>
+                            <option value="<%= schedule._id %>"><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn-primary">Save Class Changes</button>
+                    <button type="button" class="btn-primary btn-delete-class" data-class-id="<%=classData._id%>" onClick="deleteClass(this)">Delete Class</button>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="class-edit-container">
+                <h1 class="center">Subject Data</h1>
+                <span class="class-edit-titles">
+                    <h1 class="title-item"><%= classData.subject.className %></h1>
+                    <h1 class="title-item"><%= classData.subject.department %>-<%= classData.subject.classID %></h1>
+                </span>
+                <span>
+                    <h2><%= classData.semester.season %> <%= classData.semester.year %></h1>
+                </span>
+                <br>
+                <!-- Subject Information Table -->
+                <table class="class-subject-table">
+                    <thead>
+                        <tr>
+                            <th>Pathways</th>
+                            <th>Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classEntry-container">
+                        <tr>
+                            <td>
+                                <% if(classData.subject.pathways.length > 0){ %>
+                                    <% for (var j=0; j < classData.subject.pathways.length; j++) { %>
+                                        <%=classData.subject.pathways[j]%>
+                                    <% } %>
+                                <% } else{ %>  
+                                    No Pathways
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if(classData.subject.pathways){ %>
+                                    <%= classData.subject.credits %>
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div class="class-edit-description-box">
+                    <h3>Description:</h3>
+                    <p>
+                        <%=classData.subject.description%>
+                    </p>
+                </div>
+                <br>
+                <div class="buttons">
+                    <button type="button" class="btn-primary" data-class-id="<%=classData._id%>" data-subject-id="<%=classData.subject._id%>" onClick="openSubjectEditing(this)">Edit Subject</button>
+                    <button type="button" class="btn-primary btn-delete-class" data-subject-id="<%=classData.subject._id%>" onClick="deleteSubject(this)">Delete Subject</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="search-form-result" id="editing-container">
+        </div>
+
+        <!--Add/Help Button-->
+        <% include('../partials/help-button.ejs')%>
+    
+    </body>
+    
+</html>

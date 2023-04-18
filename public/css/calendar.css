@@ -3,13 +3,14 @@
   border: 0;
 }
 
-/*body {
+body {
   flex-direction: column;
   display: flex;
-  //align-items: center;
-  //align-content: center;
-  //justify-content: center;
-  font-family: "DINPro", "Helvetica Neue", sans-serif;
+  /*align-items: center;
+  align-content: center;
+  justify-content: center;*/
+  /*font-family: "DINPro", "Helvetica Neue", sans-serif;
+  */
   margin: 0;
   background: #fafafa;
   box-sizing: border-box;
@@ -19,7 +20,7 @@
 
 .offset {
 
-}*/
+}
 
 .outer {
 
@@ -30,7 +31,7 @@
     margin: 0 auto;
   max-width: 1280px;
   min-width: 500px;
-
+  padding: 100;
   box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -100,7 +101,7 @@ thead th {
 }
 
 thead {
-    z-index: 2;
+
     background: white;
     border-bottom: 2px solid #ddd;
 
@@ -172,7 +173,8 @@ tbody tr td {
   border-radius: 2px;
   text-align: left;
   font-size: 0.875rem;
-  z-index: 2;
+  
+
   
   overflow-x: hidden;
   transition: all 0.2s;
@@ -185,7 +187,7 @@ tbody tr td {
 }
 
 .event.double {
-    
+  
   height: 100%;     /*lerp between 0 and 200% for the css script*/
   margin-top: 0px; /*lerp between 0 and 37 for the css script */
 }
@@ -203,7 +205,7 @@ tbody {
     width: 800px;
     height: 100%;
   }
-*/
+
 
 
 
