@@ -1,18 +1,59 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <!--Header-->
-	    <%- include('../partials/headers/header-student.ejs')%>
+<head>
+    <!--Header-->
+    <%- include('../partials/headers/header-admin.ejs')%>
 
-        <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    a: <%= classes %> 
+   
+</head>
 
-    </head>
+<body onload="makeSchedule(a)">
+  <td></td><div class="calendar">
+    <header>
+        <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
+        Classes <w/div> 
+        <div style="align-self: flex-start; flex: 0 0 11"></div>
+    </header>
 
-    <body>
-        <p>This is Student's Classes</p>
+  
+    
+   <!-- <div class="outer"> -->
+      
+      
+      
+  
+    
+    <!---->
+    <table>
+    <thead>
+      <tr>
+        <th class="headcol"></th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+      </tr>
+    </thead>
+    </table>
+  
+  <div class="wrap"> 
+    <table class="offset">
+       
 
-        <!--Add/Help Button-->
-	    <%- include('../partials/help-button.ejs')%>
-
-    </body>
-</html>
+    <tbody id = "tbody" >
+      
+      
+      
+    </tbody>
+  </table>
+  
+  </div>
+  </div>
+  
+  </div>
+  <script type="text/javascript" src="/JS/GenerateSchedule.js"></script>
+</body>  

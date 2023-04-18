@@ -2,58 +2,69 @@ let classes = [
   {name: "Math", start: "4:29 AM", end: "6:00 AM",days:["M","W","F"]},
   {name: "Math", start: "7:45 AM", end: "8:35 AM",days:["T","Tu"]}
 ]
-const map1 = new Map();
-
-map1.set('M', 1);
-map1.set('T', 2);
-map1.set('W', 3);
-map1.set('Tu', 4);
-map1.set('F', 5);
-// creates a <table> element and a <tbody> element
-const tbl = document.getElementById("table");
-const tblBody = document.getElementById("tbody");
-
-// creating all cells
-const mySchedule = buildSchedule(classes)
 
 
-for (let i = 0; i < 29; i++) {
-  // creates a table row
-     //FIXME replace with actual iterator for class start times
-     const row = document.createElement("tr");
+
   
+  const map1 = new Map();
 
-  for (let j = 0; j < 6; j++) {
-    var maker = false
-    // Create a <td> element and a text node, make the text
-    // node the contents of the <td>, and put the <td> at
-    // the end of the table row
-    const cell = document.createElement("td");
-    if (j == 0 ){
-    cell.className = "headcol";
-      if (i%2 == 0) {var cellText = document.createTextNode((i/2)+4 +':00')
-      maker = true}
-    }
-    else if(mySchedule[i][j] != null){
-     
-      curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
-      marginTop = marginTopMath(mySchedule[i][j].start);
+  map1.set('M', 1);
+  map1.set('T', 2);
+  map1.set('W', 3);
+  map1.set('Tu', 4);
+  map1.set('F', 5);
+ 
+  function makeSchedule(math){
+  const classes1 = document.getElementById("Classes")
+  console.log(classes1);
+  // creates a <table> element and a <tbody> element
+  const tblBody = document.getElementById("tbody");
 
-      cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' Class</div>'
-      
-    }
+  // creating all cells
+  const mySchedule = buildSchedule(classes)
+
+
+  for (let i = 0; i < 29; i++) {
+    // creates a table row
+      //FIXME replace with actual iterator for class start times
+      const row = document.createElement("tr");
     
+
+    for (let j = 0; j < 6; j++) {
+      var maker = false
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      const cell = document.createElement("td");
+      if (j == 0 ){
+      cell.className = "headcol";
+        if (i%2 == 0) {var cellText = document.createTextNode((i/2)+4 +':00')
+        maker = true}
+      }
+      else if(mySchedule[i][j] != null){
       
-    
-    if (maker){
-      cell.appendChild(cellText);
+        curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
+        marginTop = marginTopMath(mySchedule[i][j].start);
+
+        cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' Class</div>'
+        
+      }
+      
+      
+        
+      
+      if (maker){
+        cell.appendChild(cellText);
+      }
+      row.appendChild(cell);
     }
-    row.appendChild(cell);
+
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
   }
-
-  // add the row to the end of the table body
-  tblBody.appendChild(row);
 }
+
+
 
 // put the <tbody> in the <table>
 //tbl.appendChild(tblBody);

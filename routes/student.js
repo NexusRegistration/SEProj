@@ -38,8 +38,37 @@ router.get('/dashboard', restrictAccess(roles.STUDENT), async (req, res) => {
     }
 });
 
-router.get('/calendar', restrictAccess(roles.STUDENT), (req, res) => {
-    res.render('student/calendar', { user: req.session.user });
+router.get('/calendar', restrictAccess(roles.STUDENT), async (req, res) => {
+    try {
+        const userId = req.session.user._id
+        // Get stuff from database
+        const user = await User.findById(userId).populate({
+            path: 'class',
+            populate: [
+                {
+                  path: 'subject',
+                  model: 'Subject'
+                },
+                {
+                  path: 'room',
+                  model: 'Room'
+                },
+                {
+                    path: 'teacher',
+                    model: 'User'
+                },
+                {
+                    path: 'schedule',
+                    model: 'Schedule'
+                }
+            ]}).exec();
+        const classes = user.class;
+        console.log(classes);
+        res.render('student/calendar', { user: req.session.user, classes });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 });
 
 router.get('/classes', restrictAccess(roles.STUDENT), async (req, res) => {
