@@ -18,7 +18,7 @@
                 <!-- teacher -->
                 <label for="teacher">Teacher:</label>
                 <div class="form-input">
-                    <select class="form-control" id="teacher">
+                    <select class="form-control" id="teacher" name="teacher">
                         <% if (classData.teacher) { %>
                             <option selected value="<%=classData.teacher._id%>"><%=classData.teacher.name%></option>
                         <% } else { %>
