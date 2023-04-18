@@ -48,18 +48,24 @@
             <% } %>    
         </div>
 
-        <div class="register-button">
-            <button type="button" class="btn-primary" data-class-id="<%= wishlist[i]._id %>" onClick="addToList(this)">
-                Register for Class
-            </button>
-        </div>
+        <div class="btn-group">
+            
+            <div class="register-button">
+                <button type="button" class="btn-primary" data-class-id="<%= wishlist[i]._id %>" onClick="addToList(this)">
+                    Register for Class
+                </button>
+            </div>
+    
+            <!--Unregister Button-->
+    
+            <div class="removewish-button">
+                <button type="button" class="btn-edit btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
+                    <span class="material-symbols-outlined">
+                        remove
+                    </span>
+                </button>
+            </div>
 
-        <!--Unregister Button-->
-
-        <div class="removewish-button">
-            <button type="button" class="btn-primary btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
-                Remove from Wishlist
-            </button>
         </div>
 
     </div>

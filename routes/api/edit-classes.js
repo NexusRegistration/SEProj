@@ -12,8 +12,11 @@ router.post('/edit', (req, res) => {
         const data = req.body;
         const update = {};
 
+        console.log("teacher data:", data.teacher);
+
         if (data.teacher) {
             update.teacher = data.teacher;
+            console.log("teacher was found");
         }
         if (data.room) {
             update.room = data.room;

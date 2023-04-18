@@ -72,8 +72,10 @@
             <!--Displays Unregister Button-->
             <td>                
                 <div class="unregister-button">
-                    <button type="button" class="btn-primary" data-class-id="<%= classes[i]._id %>" onClick="unregister(this)">
-                        Unregister
+                    <button type="button" class="btn-edit btn-delete" data-class-id="<%= classes[i]._id %>" onClick="unregister(this)">
+                        <span class="material-symbols-outlined">
+                            remove
+                        </span>
                     </button>
                 </div>
             </td> 

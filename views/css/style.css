@@ -13,6 +13,8 @@
     --color-light-focus: rgba(132,139,200,0.36);
     --color-background: #f6f6f9;
     --color-green: green;
+    --color-delete: rgb(202, 37, 37);
+    --color-delete-light:rgba(202, 37, 37, 0.562);
 
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
@@ -254,7 +256,12 @@ main .recent-activities table:hover, main .student-class-table table:hover{
     box-shadow: none;
 }
 
+main table tr th{
+    text-align: left;
+}
+
 main table tbody td{
+    text-align: left;
     height: 2.8rem;
     border-bottom: 1px solid var(--color-light);
     color: var(--color-dark);
@@ -530,7 +537,7 @@ button{
     margin-right: 0.5rem;
 }
 
-.btn-edit, .btn-delete{
+.btn-edit{
     padding: 0.7rem;
     border-radius: 50%;
     background: var(--color-light-focus);
@@ -538,9 +545,8 @@ button{
     transition: all 300ms ease;
 }
 
-.btn-edit:hover, .btn-delete:hover{
+.btn-edit:hover{
     background: var(--color-primary);
-    box-shadow: var(--btn-shadow);
 }
 
 .btn-edit:focus{
@@ -548,7 +554,7 @@ button{
     box-shadow: var(--btn-shadow);
 }
 
-.btn-edit span{
+.btn-edit span, .btn-delete span{
     font-size: 1.3rem;
     color: var(--color-white);
     display: block;
@@ -556,17 +562,35 @@ button{
 }
 
 .btn-edit span:hover{
-    color: var(--color-primary);
+    color: var(--color-white);
 }
 
 .btn-delete{
-    background: var(--color-dark);
+    background: var(--color-delete);
+    color: var(--color-white);
+}
+
+.btn-delete:hover{
+    background: var(--color-delete-light);
+    color: var(--color-delete);
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-trash{
+    padding: auto 1rem;
 }
 
 /* For putting two buttons next to each other - used in class editing */
 .buttons {
     display: flex;
     justify-content: space-between;
+}
+
+.btn-group{
+   bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: bottom;
 }
 
 
@@ -760,7 +784,7 @@ span{
 }
 
 .class-container {
-    border: 1px solid rgba(0, 0, 0, 0.8);
+    /*border: 1px solid rgba(0, 0, 0, 0.8);*/
     border-radius: var(--border-radius-3);
     padding: 10px;
     margin-left: auto;
@@ -822,6 +846,6 @@ hr {
 I was messing around with it and it didn't look right. I just deleted 
 what I had 
 */
-.class-subject-edit-button-container {
-}
+/*.class-subject-edit-button-container {
+}*/
 
