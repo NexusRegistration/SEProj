@@ -69,6 +69,13 @@ app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
 
+app.post('/add-classes', (req, res) => {
+    res.sendStatus(200)
+})
+
+app.get("/", (req, res) => {
+    res.status(200).json({ alive: "True" });
+  });
 
 // Connect to database
 mongoose.set('strictQuery', false);
@@ -78,4 +85,7 @@ mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`Server on port ${PORT}`));
+
+const server = app.listen(PORT, console.log(`Server on port ${PORT}`)); 
+
+module.exports = server;
