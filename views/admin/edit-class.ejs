@@ -13,7 +13,7 @@
 
         <form method="POST" class="edit-class" action="/edit-classes/edit">
             <input type="hidden" name="classDatabaseID" value="<%=classData._id%>">
-            <div class="class-container">
+            <div class="class-edit-container">
                 <h1 class="center">Class Data</h1>
                 <!-- teacher -->
                 <label for="teacher">Teacher:</label>
@@ -74,7 +74,7 @@
             <br>
             <br>
 
-            <div class="class-container">
+            <div class="class-edit-container">
                 <h1 class="center">Subject Data</h1>
                 <span class="class-edit-titles">
                     <h1 class="title-item"><%= classData.subject.className %></h1>

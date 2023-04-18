@@ -26,7 +26,7 @@
                        <div class="middle">
                             <div class="left">
                                 <h3>Total Students</h3>
-                                <h1>10</h1>
+                                <h1><%=studentCount%></h1>
                             </div>
                        </div> 
                        <small class="text-muted">Last 24 Hours</small>   
@@ -37,7 +37,7 @@
                          <div class="middle">
                               <div class="left">
                                   <h3>Total Teachers</h3>
-                                  <h1>20</h1>
+                                  <h1><%=teacherCount%></h1>
                               </div>
                          </div> 
                          <small class="text-muted">Last 24 Hours</small>   
@@ -49,7 +49,7 @@
                          <div class="middle">
                               <div class="left">
                                   <h3>Total Classes</h3>
-                                  <h1><%= subjects.length %></h1>
+                                  <h1><%= classCount %></h1>
                               </div>
                          </div> 
                          <small class="text-muted">Last 24 Hours</small>   
@@ -77,7 +77,13 @@
                                     <!-- Author -->
                                     <td><%= audits[i].user.name %> (<%= audits[i].user.role %>) [<%= audits[i].user.email %>]</td>
                                     <!-- Class -->
-                                    <td></td><!--Encounteredd error with accessing className, unable to access undefined-->
+                                    <td>
+                                        <% if (audits[i].class && audits[i].class !== null) { %>
+                                            <%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]
+                                        <% } else { %>
+                                            Class Deleted
+                                        <% } %>
+                                    </td><!--Encounteredd error with accessing className, unable to access undefined-->
                                     <!-- Type of Change -->
                                     <td><%= audits[i].description %></td>
                                 </tr>
