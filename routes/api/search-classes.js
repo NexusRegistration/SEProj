@@ -52,6 +52,7 @@ router.get('/classes', async (req, res, next) => {
             })
             .populate('schedule')
             .populate('room')
+            .populate('teacher')
 
         const filteredClasses = classes.filter(obj => !hasNull(obj));
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
