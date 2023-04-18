@@ -5,6 +5,10 @@
 	    <%- include('../partials/headers/header-admin.ejs')%>
         
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+        
+
         <script type="text/javascript" src="/public/javascripts/admin-class-edit.js"></script>
         <script type="text/javascript" src="/public/javascripts/building-populator.js"></script>
     </head>
@@ -65,9 +69,14 @@
                         <% }); %>
                     </select>
                 </div>
-                <div class="buttons">
+                <div class="btn-group">
                     <button type="submit" class="btn-primary">Save Class Changes</button>
-                    <button type="button" class="btn-primary btn-delete-class" data-class-id="<%=classData._id%>" onClick="deleteClass(this)">Delete Class</button>
+                    
+                    <button type="button" class="btn-edit btn-trash btn-delete" data-class-id="<%=classData._id%>" onClick="deleteClass(this)">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
                 </div>
             </div>
 
@@ -123,7 +132,11 @@
                 <br>
                 <div class="buttons">
                     <button type="button" class="btn-primary" data-class-id="<%=classData._id%>" data-subject-id="<%=classData.subject._id%>" onClick="openSubjectEditing(this)">Edit Subject</button>
-                    <button type="button" class="btn-primary btn-delete-class" data-subject-id="<%=classData.subject._id%>" onClick="deleteSubject(this)">Delete Subject</button>
+                    <button type="button" class="btn-edit btn-delete" data-subject-id="<%=classData.subject._id%>" onClick="deleteSubject(this)">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
                 </div>
             </div>
         </form>
