@@ -69,13 +69,9 @@ app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
 
-app.post('/add-classes', (req, res) => {
-    res.sendStatus(200)
-})
-
 app.get("/", (req, res) => {
     res.status(200).json({ alive: "True" });
-  });
+});
 
 // Connect to database
 mongoose.set('strictQuery', false);
