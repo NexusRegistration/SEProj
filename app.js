@@ -69,9 +69,14 @@ app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
 
-app.get("/", (req, res) => {
-    res.status(200).json({ alive: "True" });
-});
+app.get("/add-classes", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/add-subjects", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/create-user", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/edit-class", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/register", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/search-audit", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/search-classes", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/students", (req, res) => res.status(200).json({ alive: "True" }));
 
 // Connect to database
 mongoose.set('strictQuery', false);

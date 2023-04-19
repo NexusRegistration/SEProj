@@ -11,18 +11,60 @@ describe('api routes', () => {
 
   describe("GET /routes/api/add-classes", () => {
     it("responds with 200", async () => {
-      const res = (await request(app).get("/routes/api/add-classes"));
-      expect(res.statusCode).toBe(200); //should be 200, but 404 for now to get a successful test
+      const res = await request(app).get("/add-classes");
+      expect(res.statusCode).toBe(200);  
     });
   });
 
   describe("GET /routes/api/add-subjects", () => {
     it("responds with 200", async () => {
-      const res = (await request(app).get("/routes/api/add-subjects"));
-      expect(res.statusCode).toBe(404); //should be 200, but 404 for now to get a successful test
+      const res = await request(app).get("/add-subjects");
+      expect(res.statusCode).toBe(200);  
     });
   });
 
+  describe("GET /routes/api/create-user", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/create-user");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+
+  describe("GET /routes/api/edit-class", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/edit-class");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+
+  describe("GET /routes/api/register", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/register");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+
+  describe("GET /routes/api/search-audit", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/search-audit");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+
+  describe("GET /routes/api/search-classes", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/search-classes");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+
+  describe("GET /routes/api/students", () => {
+    it("responds with 200", async () => {
+      const res = await request(app).get("/students");
+      expect(res.statusCode).toBe(200);  
+    });
+  });
+  
   afterEach(async () => {
     await mongoose.connection.close();
   });
