@@ -1,9 +1,14 @@
+
+
 let classes = [
-  {name: "Math", start: "4:29 AM", end: "6:00 AM",days:["M","W","F"]},
-  {name: "Math", start: "7:45 AM", end: "8:35 AM",days:["T","Tu"]}
+  {name: "Math", start: "4:29 AM", end: "6:00 AM",day:"M"},
+  {name: "Math", start: "7:45 AM", end: "8:35 AM",day:"T"}
 ]
 
 
+function ObjectId(){
+
+}
 
   
   const map1 = new Map();
@@ -11,17 +16,47 @@ let classes = [
   map1.set('M', 1);
   map1.set('T', 2);
   map1.set('W', 3);
-  map1.set('Tu', 4);
+  map1.set('Th', 4);
   map1.set('F', 5);
- 
-  function makeSchedule(math){
-  const classes1 = document.getElementById("Classes")
-  console.log(classes1);
+ let testing = document.getElementsByClassName("data");
+ let classSchedule = document.getElementsByClassName("sched");
+ console.log(testing);
+ let classes1 = [
+  {name: "Math", start: "4:29 AM", end: "6:00 AM",day:"M"},
+  {name: "Math", start: "7:45 AM", end: "8:35 AM",day:"T"}
+];
+  function makeSchedule(x){
+  for (let i =0; i < testing.length; i ++){
+    test1 = testing[i].innerHTML;
+    test2 = classSchedule[i].innerHTML;
+  const clas = eval("("+test1+")");
+  const sched = eval("("+test2+")");
+
+  let b = {name: clas.subject.className, start:sched.startTime, end: sched.endTime, day: sched.day}
+  a = b.start.split(" ")
+  y = a[0].split(":");
+  if (a[1] == "PM"){
+    y[0] = Number(y[0])+12;
+  }
+  console.log(y[0])
+  slot = Number(y[0])*2-8
+  console.log(slot);
+  classes1.push(b);
+  //console.log(classes1);
+  //console.log(sched);
+  }
+  //const wow = eval("("+test+")");
+
+  //console.log(wow);
+  
+
+
+  
   // creates a <table> element and a <tbody> element
   const tblBody = document.getElementById("tbody");
-
+  
   // creating all cells
-  const mySchedule = buildSchedule(classes)
+  const mySchedule = buildSchedule(classes1)
 
 
   for (let i = 0; i < 29; i++) {
@@ -46,7 +81,7 @@ let classes = [
         curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
         marginTop = marginTopMath(mySchedule[i][j].start);
 
-        cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' Class</div>'
+        cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' ' + mySchedule[i][j].name+' </div>'
         
       }
       
@@ -123,16 +158,18 @@ function buildSchedule(classes1){
   for(x of classes1){
     const timeandM = x.start.split(" ");
     t1 = timeandM[0].split(":");
+    if (timeandM[1] == "PM"){
+      t1[0] = Number(t1[0])+12;
+    }
     slot = Number(t1[0])*2-8 ;  //FIXME replace with actual iterator for class start times
     
     if ( 
         (t1[1])>=30){
         slot +=1;
     }
-    for(day of x.days){
-        arr[slot][map1.get(day)] = x;
+    arr[slot][map1.get(x.day)] = x;
        
-    }
+    
     
   } 
   
