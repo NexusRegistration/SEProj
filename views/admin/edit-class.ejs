@@ -20,9 +20,9 @@
             <div class="class-edit-container">
                 <h1 class="center">Class Data</h1>
                 <!-- teacher -->
-                <label for="teacher">Teacher:</label>
-                <div class="form-input">
-                    <select class="form-control" id="teacher" name="teacher">
+                <div class="edit-entry">
+                    <h3>Teacher:</h3>
+                    <select class="edit-input" id="teacher" name="teacher">
                         <% if (classData.teacher) { %>
                             <option selected value="<%=classData.teacher._id%>"><%=classData.teacher.name%></option>
                         <% } else { %>
@@ -34,11 +34,9 @@
                     </select>
                 </div>
                 <!-- room -->
-                <div>
-                    <label for="building">Room:   </label>
-                    <button type="button" class="btn-primary btn-room-edit" data-class-id="<%=classData._id%>" onClick="openRoomEditing(this)">Edit Room Capacity</button>
-                    <div class="form-input">
-                        <select class="form-control" id="building">
+                    <div class="edit-entry">
+                        <h3>Building:</h3>
+                        <select class="edit-input" id="building">
                             <% if (classData.room) { %>
                                 <option selected value="<%=classData.room.building%>"><%=classData.room.building%></option>
                             <% } else { %>
@@ -48,7 +46,8 @@
                                 <option value="<%= building %>"><%= building %></option>
                             <% }); %>
                         </select>
-                        <select class="form-control" id="room" name="room" required>
+                        <h3>Room:</h3>
+                        <select class="edit-input" id="room" name="room" required>
                             <% if (classData.room) { %>
                                 <option selected value="<%=classData.room._id%>"><%=classData.room.building%>-<%=classData.room.number%> (Capacity: <%=classData.room.capacity%>)</option>
                             <% } else { %>
@@ -58,17 +57,25 @@
                                 <option value="<%= room._id %>"><%= room.building %>-<%= room.number %> (Capacity: <%=room.capacity%>)</option>
                             <% }); %>
                         </select>
+                        <button type="button" class="btn-edit btn-capacity" data-class-id="<%=classData._id%>" onClick="openRoomEditing(this)">
+                            <span class="material-symbols-outlined">
+                                groups
+                            </span>
+                        </button>
+                        <!--<button type="button" class="btn-primary btn-room-edit" data-class-id="<%=classData._id%>" onClick="openRoomEditing(this)">Edit Capacity</button>-->
                     </div>
-                </div>
                 <!-- schedule -->
-                <label for="schedule">Schedule:</label>
-                <div class="form-input">
-                    <select class="form-control" id="schedule" name="schedule" required>
+
+                <div class="edit-entry">
+                    <h3>Schedule:</h3>
+                    <select class="edit-input" id="schedule" name="schedule" required>
                         <% schedules.forEach(function(schedule) { %>
                             <option value="<%= schedule._id %>"><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
                         <% }); %>
                     </select>
+
                 </div>
+                
                 <div class="btn-group">
                     <button type="submit" class="btn-primary">Save Class Changes</button>
                     
@@ -80,12 +87,62 @@
                 </div>
             </div>
 
-            <br>
-            <br>
+            <div class="line"></div>
 
             <div class="class-edit-container">
                 <h1 class="center">Subject Data</h1>
-                <span class="class-edit-titles">
+                <div class="edit-entry-row">
+                    <div class="edit-entry">
+                        <h3>Course Name:</h3>
+                        <p><%= classData.subject.className %></p>
+                    </div>
+
+                    <div class="edit-entry">
+                        <h3>Course ID:</h3>
+                        <p><%= classData.subject.department %>-<%= classData.subject.classID %></p>
+                    </div>
+
+                </div>
+
+                <div class="edit-entry-row">
+                    <div class="edit-entry">
+                        <h3>Semester:</h3>
+                        <p><%= classData.semester.season %> <%= classData.semester.year %></p>
+                    </div>
+
+                    <div class="edit-entry">
+                        <h3>Credits:</h3>
+                        <p>
+                            <% if(classData.subject.pathways){ %>
+                                <%= classData.subject.credits %>
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+                    </div>
+                </div>
+
+
+                    <div class="edit-entry">
+                        <h3>Pathways:</h3>
+                        <p>
+                            <% if(classData.subject.pathways.length > 0){ %>
+                                <% for (var j=0; j < classData.subject.pathways.length; j++) { %>
+                                    <%=classData.subject.pathways[j]%>
+                                <% } %>
+                            <% } else{ %>  
+                                No Pathways
+                            <% } %>
+                        </p>
+                    </div>
+
+
+                <div class="edit-entry">
+                    <h3>Description:</h3>
+                    <p><%=classData.subject.description%></p>
+                </div>
+                
+                <!--<span class="class-edit-titles">
                     <h1 class="title-item"><%= classData.subject.className %></h1>
                     <h1 class="title-item"><%= classData.subject.department %>-<%= classData.subject.classID %></h1>
                 </span>
@@ -93,7 +150,7 @@
                     <h2><%= classData.semester.season %> <%= classData.semester.year %></h1>
                 </span>
                 <br>
-                <!-- Subject Information Table -->
+                <!-- Subject Information Table
                 <table class="class-subject-table">
                     <thead>
                         <tr>
@@ -129,10 +186,10 @@
                         <%=classData.subject.description%>
                     </p>
                 </div>
-                <br>
-                <div class="buttons">
+                <br>-->
+                <div class="btn-group">
                     <button type="button" class="btn-primary" data-class-id="<%=classData._id%>" data-subject-id="<%=classData.subject._id%>" onClick="openSubjectEditing(this)">Edit Subject</button>
-                    <button type="button" class="btn-edit btn-delete" data-subject-id="<%=classData.subject._id%>" onClick="deleteSubject(this)">
+                    <button type="button" class="btn-edit btn-trash btn-delete" data-subject-id="<%=classData.subject._id%>" onClick="deleteSubject(this)">
                         <span class="material-symbols-outlined">
                             delete
                         </span>

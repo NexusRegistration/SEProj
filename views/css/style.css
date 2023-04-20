@@ -4,6 +4,7 @@
 
 :root{
     --color-primary: #7380ec;
+    --color-primary-focus:#737fec8f;
     --color-primary-2: #fbc831;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
@@ -395,6 +396,10 @@ main .recent-activities a{
     margin: 5rem 10%;
 }
 
+.create-class label, .create-subject label{
+    margin-bottom: 0.5rem;
+}
+
 /*.form-input{
     margin-top: 1.5rem;
     /*padding: 0.5rem 1rem;
@@ -518,8 +523,8 @@ button{
 }
 
 .btn-primary:hover, .btn-search:hover{
-    background: var(--color-light);
-    color: var(--color-primary);
+    background: var(--color-primary-focus);
+    color: black;
     box-shadow: var(--btn-shadow);
 }
 
@@ -577,7 +582,11 @@ button{
 }
 
 .btn-trash{
-    padding: auto 1rem;
+    padding: 0.8rem;
+}
+
+.btn-trash span{
+    font-size: 1.6rem;
 }
 
 /* For putting two buttons next to each other - used in class editing */
@@ -587,10 +596,8 @@ button{
 }
 
 .btn-group{
-   bottom: 0;
     display: flex;
     justify-content: space-between;
-    vertical-align: bottom;
 }
 
 
@@ -759,7 +766,7 @@ span{
 
 .class-edit-grid {
     display: grid;
-    grid-template-columns: 70% 30%
+    grid-template-columns: 30% 70%
 }
 
 .class-subject-table {
@@ -783,12 +790,19 @@ span{
     padding: 10px;
 }
 
-.class-container {
+.class-edit-container {
     /*border: 1px solid rgba(0, 0, 0, 0.8);*/
     border-radius: var(--border-radius-3);
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2rem 2rem;
+    
+}
+
+.class-edit-container .btn-group{
+    margin-top: 2rem;
+}
+
+.class-edit-container h1{
+    margin-bottom: 2rem;
 }
 
 .class-edit-buttons {
@@ -810,6 +824,22 @@ span{
     padding: 10px;
 }
 
+.btn-capacity{
+    margin: 0 0.2rem 1rem;
+    display: flex;
+    padding: 0.5rem;
+    background: var(--color-dark);
+    color: white;
+}
+
+.btn-capacity span{
+    font-size: 1.5rem;
+}
+
+.btn-capacity:hover{
+    background: var(--color-info-dark);
+}
+
 .btn-room-edit {
     background: var(--color-dark);
     color: white;
@@ -818,16 +848,11 @@ span{
 }
 
 .btn-save-changes {
-    width: 50%;
+    width: 25%;
     background: var(--color-dark);
     color: white;
     margin-left: auto;
     margin-right: auto;
-}
-
-.btn-delete-class {
-    background: darkred;
-    color: black;
 }
 
 .center {
@@ -841,6 +866,47 @@ hr {
     margin-left: auto;
     margin-right: auto;
 }
+
+.edit-entry{
+    display: flex; 
+    margin-top: 0.5rem; 
+}
+
+.edit-entry h3{
+    font-size: 1.2rem;
+    display: block;
+    padding: 0.2rem 1rem;
+}
+
+.class-edit-container h2{
+    margin-bottom: 1.5rem;
+}
+
+.edit-entry button{
+    margin-left: 1rem;
+}
+
+.edit-entry p{
+    color: var(--color-dark);
+    font-size: 1.2rem;
+    display: block;
+    padding: 0.2rem 0;
+    padding-right: 1.5rem;
+}
+
+.edit-entry-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.line{
+    background: var(--color-dark);
+    padding: 0.02rem;
+    margin: 2rem auto;
+    width: 85%;
+}
+
+
 
 /* do something with this or something - I think it looks dumb but 
 I was messing around with it and it didn't look right. I just deleted 
