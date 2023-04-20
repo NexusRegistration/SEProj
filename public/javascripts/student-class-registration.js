@@ -6,7 +6,7 @@ function addToWishlist(button) {
     // Call the addToWishlist function with the class ID
     $.post('/register/wishlist', {classId: classId}, function(response) {
       // Display a message based on the response
-      alert(response.message);
+      alert(response);
     });
 }
 
