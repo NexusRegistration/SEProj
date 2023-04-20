@@ -43,7 +43,6 @@ const teacherRouter = require('./routes/teacher');
 const scriptsRoute = require('./routes/scripts');
 
 // Import API Routers
-const studentAPIRouter = require('./routes/api/students');
 const registrationAPIRouter = require('./routes/api/create-user');
 const addClassAPIRouter = require('./routes/api/add-classes');
 const subjectAPIRouter = require('./routes/api/add-subjects');
@@ -60,7 +59,6 @@ app.use('/teacher', teacherRouter);
 app.use('/public/javascripts', scriptsRoute);
 
 // Use API Routes
-app.use('/student', studentAPIRouter);
 app.use('/create-user', registrationAPIRouter);
 app.use('/add-classes', addClassAPIRouter);
 app.use('/search-classes', searchClassAPIRouter);
