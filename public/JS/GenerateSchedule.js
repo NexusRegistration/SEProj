@@ -1,13 +1,15 @@
 
 
 let classes = [
-  {name: "Math", start: "4:29 AM", end: "6:00 AM",day:"M"},
-  {name: "Math", start: "7:45 AM", end: "8:35 AM",day:"T"}
+  
 ]
 
 
-function ObjectId(){
-
+class ObjectId {
+  constructor(id) {
+    this.id = id;
+    
+  }
 }
 
   
@@ -22,28 +24,41 @@ function ObjectId(){
  let classSchedule = document.getElementsByClassName("sched");
  console.log(testing);
  let classes1 = [
-  {name: "Math", start: "4:29 AM", end: "6:00 AM",day:"M"},
-  {name: "Math", start: "7:45 AM", end: "8:35 AM",day:"T"}
+
 ];
   function makeSchedule(x){
+    var count = 0;
   for (let i =0; i < testing.length; i ++){
     test1 = testing[i].innerHTML;
-    test2 = classSchedule[i].innerHTML;
-  const clas = eval("("+test1+")");
-  const sched = eval("("+test2+")");
+    test2 = classSchedule[count].innerHTML;
+    const clas = eval("("+test1+")");
+    var sched = eval("("+test2+")");
+    
+    var prev = (sched.startTime,sched.endTime)
+    var now = (sched.startTime,sched.endTime)
+    while(prev == now){
+    console.log(sched);
+    let b = {name: clas.subject.className, start:sched.startTime, end: sched.endTime, day: sched.day}
+    a = b.start.split(" ")
+    y = a[0].split(":");
+    if (a[1] == "PM"){
+      y[0] = Number(y[0])+12;
+    }  
+    slot = Number(y[0])*2-8
+    classes1.push(b);
+    count = count + 1;
+    if (count < classSchedule.length){
+      test2 =classSchedule[count].innerHTML;
+      sched = eval("("+test2+")");
+      now = (sched.startTime,sched.endTime);
+    }
+    else{
+      now =(null,null);
+    }
 
-  let b = {name: clas.subject.className, start:sched.startTime, end: sched.endTime, day: sched.day}
-  a = b.start.split(" ")
-  y = a[0].split(":");
-  if (a[1] == "PM"){
-    y[0] = Number(y[0])+12;
-  }
-  console.log(y[0])
-  slot = Number(y[0])*2-8
-  console.log(slot);
-  classes1.push(b);
-  //console.log(classes1);
-  //console.log(sched);
+    }
+    //console.log(classes1);
+    
   }
   //const wow = eval("("+test+")");
 
@@ -59,7 +74,7 @@ function ObjectId(){
   const mySchedule = buildSchedule(classes1)
 
 
-  for (let i = 0; i < 29; i++) {
+  for (let i = 0; i < 28; i++) {
     // creates a table row
       //FIXME replace with actual iterator for class start times
       const row = document.createElement("tr");
@@ -73,7 +88,7 @@ function ObjectId(){
       const cell = document.createElement("td");
       if (j == 0 ){
       cell.className = "headcol";
-        if (i%2 == 0) {var cellText = document.createTextNode((i/2)+4 +':00')
+        if (i%2 == 0) {var cellText = document.createTextNode((i/2)+7 +':00')
         maker = true}
       }
       else if(mySchedule[i][j] != null){
@@ -161,7 +176,7 @@ function buildSchedule(classes1){
     if (timeandM[1] == "PM"){
       t1[0] = Number(t1[0])+12;
     }
-    slot = Number(t1[0])*2-8 ;  //FIXME replace with actual iterator for class start times
+    slot = Number(t1[0])*2-14 ;  //FIXME replace with actual iterator for class start times
     
     if ( 
         (t1[1])>=30){

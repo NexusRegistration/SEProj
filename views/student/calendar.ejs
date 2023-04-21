@@ -10,9 +10,13 @@
         <div class= "data" type = text/json style = "display: none">
             <%= classes[i] %>
         </div>
-        <div class= "sched "type = text/json style = "display: none">
-            <%= classes[i].schedule.classTimes %>
+        <%for(var a = 0; a < classes[i].schedule.classTimes.length; a ++){%>
+        <div class= "sched "type = text/json style ="display: none" >
+            <%= classes[i].schedule.classTimes[a] %>
         </div>
+        
+        <% } %>
+    
         <% } %>
     
 </head>
@@ -20,8 +24,7 @@
 <body onload="makeSchedule()">
   <td></td><div class="calendar">
     <header>
-        <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
-        Classes <w/div> 
+        
         <div style="align-self: flex-start; flex: 0 0 11"></div>
     </header>
    <!-- <div class="outer"> -->
