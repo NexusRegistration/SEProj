@@ -1,59 +1,120 @@
+
+
 let classes = [
-  {name: "Math", start: "4:29 AM", end: "6:00 AM",days:["M","W","F"]},
-  {name: "Math", start: "7:45 AM", end: "8:35 AM",days:["T","Tu"]}
+  
 ]
-const map1 = new Map();
-
-map1.set('M', 1);
-map1.set('T', 2);
-map1.set('W', 3);
-map1.set('Tu', 4);
-map1.set('F', 5);
-// creates a <table> element and a <tbody> element
-const tbl = document.getElementById("table");
-const tblBody = document.getElementById("tbody");
-
-// creating all cells
-const mySchedule = buildSchedule(classes)
 
 
-for (let i = 0; i < 29; i++) {
-  // creates a table row
-     //FIXME replace with actual iterator for class start times
-     const row = document.createElement("tr");
+class ObjectId {
+  constructor(id) {
+    this.id = id;
+    
+  }
+}
+
+  
+  const map1 = new Map();
+
+  map1.set('M', 1);
+  map1.set('T', 2);
+  map1.set('W', 3);
+  map1.set('Th', 4);
+  map1.set('F', 5);
+ let testing = document.getElementsByClassName("data");
+ let classSchedule = document.getElementsByClassName("sched");
+ console.log(testing);
+ let classes1 = [
+
+];
+  function makeSchedule(x){
+    var count = 0;
+  for (let i =0; i < testing.length; i ++){
+    test1 = testing[i].innerHTML;
+    test2 = classSchedule[count].innerHTML;
+    const clas = eval("("+test1+")");
+    var sched = eval("("+test2+")");
+    
+    var prev = (sched.startTime,sched.endTime)
+    var now = (sched.startTime,sched.endTime)
+    while(prev == now){
+    console.log(sched);
+    let b = {name: clas.subject.className, start:sched.startTime, end: sched.endTime, day: sched.day}
+    a = b.start.split(" ")
+    y = a[0].split(":");
+    if (a[1] == "PM"){
+      y[0] = Number(y[0])+12;
+    }  
+    slot = Number(y[0])*2-8
+    classes1.push(b);
+    count = count + 1;
+    if (count < classSchedule.length){
+      test2 =classSchedule[count].innerHTML;
+      sched = eval("("+test2+")");
+      now = (sched.startTime,sched.endTime);
+    }
+    else{
+      now =(null,null);
+    }
+
+    }
+    //console.log(classes1);
+    
+  }
+  //const wow = eval("("+test+")");
+
+  //console.log(wow);
   
 
-  for (let j = 0; j < 6; j++) {
-    var maker = false
-    // Create a <td> element and a text node, make the text
-    // node the contents of the <td>, and put the <td> at
-    // the end of the table row
-    const cell = document.createElement("td");
-    if (j == 0 ){
-    cell.className = "headcol";
-      if (i%2 == 0) {var cellText = document.createTextNode((i/2)+4 +':00')
-      maker = true}
-    }
-    else if(mySchedule[i][j] != null){
-     
-      curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
-      marginTop = marginTopMath(mySchedule[i][j].start);
 
-      cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' Class</div>'
-      
-    }
+  
+  // creates a <table> element and a <tbody> element
+  const tblBody = document.getElementById("tbody");
+  
+  // creating all cells
+  const mySchedule = buildSchedule(classes1)
+
+
+  for (let i = 0; i < 28; i++) {
+    // creates a table row
+      //FIXME replace with actual iterator for class start times
+      const row = document.createElement("tr");
     
+
+    for (let j = 0; j < 6; j++) {
+      var maker = false
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      const cell = document.createElement("td");
+      if (j == 0 ){
+      cell.className = "headcol";
+        if (i%2 == 0) {var cellText = document.createTextNode((i/2)+7 +':00')
+        maker = true}
+      }
+      else if(mySchedule[i][j] != null){
       
-    
-    if (maker){
-      cell.appendChild(cellText);
+        curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
+        marginTop = marginTopMath(mySchedule[i][j].start);
+
+        cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' ' + mySchedule[i][j].name+' </div>'
+        
+      }
+      
+      
+        
+      
+      if (maker){
+        cell.appendChild(cellText);
+      }
+      row.appendChild(cell);
     }
-    row.appendChild(cell);
+
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
   }
-
-  // add the row to the end of the table body
-  tblBody.appendChild(row);
 }
+
+
 
 // put the <tbody> in the <table>
 //tbl.appendChild(tblBody);
@@ -112,16 +173,18 @@ function buildSchedule(classes1){
   for(x of classes1){
     const timeandM = x.start.split(" ");
     t1 = timeandM[0].split(":");
-    slot = Number(t1[0])*2-8 ;  //FIXME replace with actual iterator for class start times
+    if (timeandM[1] == "PM"){
+      t1[0] = Number(t1[0])+12;
+    }
+    slot = Number(t1[0])*2-14 ;  //FIXME replace with actual iterator for class start times
     
     if ( 
         (t1[1])>=30){
         slot +=1;
     }
-    for(day of x.days){
-        arr[slot][map1.get(day)] = x;
+    arr[slot][map1.get(x.day)] = x;
        
-    }
+    
     
   } 
   

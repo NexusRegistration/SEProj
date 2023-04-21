@@ -1,18 +1,62 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <!--Header-->
-	    <%- include('../partials/headers/header-student.ejs')%>
+<head>
+    <!--Header-->
+    <%- include('../partials/headers/header-student.ejs')%>
 
-        <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <% for(var i =0; i < classes.length; i ++) { %>
+        <div class= "data" type = text/json style = "display: none">
+            <%= classes[i] %>
+        </div>
+        <%for(var a = 0; a < classes[i].schedule.classTimes.length; a ++){%>
+        <div class= "sched "type = text/json style ="display: none" >
+            <%= classes[i].schedule.classTimes[a] %>
+        </div>
+        
+        <% } %>
+    
+        <% } %>
+    
+</head>
 
-    </head>
+<body onload="makeSchedule()">
+  <td></td><div class="calendar">
+    <header>
+        
+        <div style="align-self: flex-start; flex: 0 0 11"></div>
+    </header>
+   <!-- <div class="outer"> -->
+    
+    <!---->
+    <table>
+    <thead>
+      <tr>
+        <th class="headcol"></th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+      </tr>
+    </thead>
+    </table>
+  
+  <div class="wrap"> 
+    <table class="offset">
+       
 
-    <body>
-        <p>This is Student's Classes</p>
-
-        <!--Add/Help Button-->
-	    <%- include('../partials/help-button.ejs')%>
-
-    </body>
-</html>
+    <tbody id = "tbody" >
+      
+      
+      
+    </tbody>
+  </table>
+  
+  </div>
+  </div>
+  
+  </div>
+  <script type="text/javascript" src="/JS/GenerateSchedule.js"></script>
+</body>  
