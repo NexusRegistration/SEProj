@@ -1,47 +1,50 @@
 <form method="POST" class="edit-class" action="/edit-classes/edit-Subject">
     <input type="hidden" name="subjectDatabaseID" value="<%= subjectData._id %>">
     <input type="hidden" name="classDatabaseID" value="<%= classID %>">
+    
+    <div class="class-edit-container">
+
     <h1>Subject Editing</h1>
 
-    <div class="form-input">
-        <label for="class-name">Subject Name:</label>
+    <div class="edit-entry">
+        <h3>Name:</h3>
         <input type="text" id="class-name" name="className" value="<%= subjectData.className %>">
     </div>
 
-    <div class="form-input">
-        <label for="department">Department:</label>
+    <div class="edit-entry">
+        <h3>Department:</h3>
         <select id="department" class="form-control" name="department">
             <option selected value="<%= subjectData.department %>"><%= subjectData.department %></option>
             <% departments.forEach(function(department) { %>
                 <option value="<%= department %>"><%= department %></option>
             <% }); %>
         </select>
-    </div>
-
-    <div class="form-input">
-        <label for="subject-ID">Subject ID Number:</label>
+        
+        <h3>ID:</h3>
         <input type="number" id="subject-ID" name="subjectID" min="1000" max="9999" value="<%= subjectData.classID %>">
     </div>
 
-    <label for="pathways">Pathways:</label>
-    <div class="form-input" id="pathways">
-        <% pathways.forEach(function(pathway) { %>
-            <% if (subjectData.pathways.includes(pathway)) { %>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="<%= pathway %>" name="pathways" checked>
-                    <%= pathway %>
-                </label>
-           <% } else { %>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="<%= pathway %>" name="pathways">
-                    <%= pathway %>
-                </label>
-           <% } %> 
-        <% }); %>
+    <div class="edit-entry">
+        <h3>Pathways:</h3>
+        <div class="form-input" id="pathways">
+            <% pathways.forEach(function(pathway) { %>
+                <% if (subjectData.pathways.includes(pathway)) { %>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="<%= pathway %>" name="pathways" checked>
+                        <%= pathway %>
+                    </label>
+            <% } else { %>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="<%= pathway %>" name="pathways">
+                        <%= pathway %>
+                    </label>
+            <% } %> 
+            <% }); %>
+        </div>
     </div>
 
-    <div class="form-input">
-        <label for="credits">Credits:</label>
+    <div class="edit-entry">
+        <h3>Credits:</h3>
         <select id="credits" class="form-control" name="credits">
             <option selected value="<%= subjectData.credits %>"><%= subjectData.credits %></option>
             <% creditOptions.forEach(function(creditOption) { %>
@@ -50,11 +53,14 @@
         </select>
     </div>
     
-    <div class="form-input">
-        <label for="description">Description</label>
+    <div class="edit-entry">
+        <h3>Description</h3>
         <textarea id="description" name="description" style="resize: vertical;"><%= subjectData.description %></textarea>
     </div>
 
-    
-    <button type="submit" class="btn-primary btn-save-changes">Save Subject</button>
+    <div class="btn-group">
+        <button type="submit" class="btn-primary btn-save-changes">Save Subject</button>
+    </div>
+
+</div>
 </form>

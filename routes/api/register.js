@@ -17,6 +17,7 @@ router.post('/wishlist', isLoggedIn, async (req, res) => {
 
         const savedUser = await addToWishlist(userId, classId);
         console.log(savedUser.message);
+        res.send(savedUser.message);
     } catch (err) {
         // Handle errors
         console.error(err);
