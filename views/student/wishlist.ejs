@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!--Header-->
+        <%- include('../partials/headers/header-student')%>
+
+        <!--Stylesheet-->
+        <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+        <!--Script-->
+        <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
+
+    </head>
+
+    <body>
+
+      <div class="class-container">
+        <div class="student-class-title">
+            <h1 class="title">Saved Classes</h1>
+            <h1 class="count"><%= wishlist.length %></h1>
+        </div>
+
+        <div id="classEntry-container">
+          <% if (wishlist.length > 0) { %>
+            <%- include('../partials/classEntries/studentWishlistEntry', { wishlist: wishlist }) %>
+          <% } else { %>
+            <p class="none-comment">You don't have any saved classes.</p>
+          <% } %>
+        </div>
+    </div>
+    </body>
+</html>

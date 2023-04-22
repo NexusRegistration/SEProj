@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Header-->
+	    <%- include('../partials/headers/header-teacher.ejs')%>
+        
+        <link rel="stylesheet" href="/css/style.css">
+        <style>
+            h1{
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="welcome-bar">
+            <h1>Welcome <%- user.name %>!</h1>
+        </div>
+        
+        <div>
+            <a href="/teacher/calendar">Calendar</a>
+        </div>
+
+        <div>
+            <a href="/teacher/classes">Classes</a>
+        </div>
+
+        <div>
+            <a href="/teacher/registration">Registration</a>
+        </div>
+
+        <div>
+            <a href="/teacher/search">Search</a>
+        </div>
+    </body>
+</html>

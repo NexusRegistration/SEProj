@@ -1,0 +1,47 @@
+<table>
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Class</th>
+            <th>Student</th>
+        </tr>
+    </thead>
+    <tbody id="classEntry-container">
+        <% for (var i=0; i < audits.length; i++) { %>
+            <tr>
+                <!-- Type of Change -->
+                <td><%= audits[i].description %></td>
+                <!-- Author -->
+                <td><%= audits[i].user.name %> (<%= audits[i].user.role %>) [<%= audits[i].user.email %>]</td>
+                <!-- Date -->
+                <td><%= audits[i].timestamp %></td>
+                <!-- Class -->
+                <td>
+                    <% if (audits[i].class && audits[i].class !== null) { %>
+                        <%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]
+                    <% } else { %>
+                        Class Deleted
+                    <% } %>
+                </td>
+                <!-- Student -->
+                <!-- Some types of changes don't change any student information, so there won't be any student info -->
+                <td>
+                    <% if (audits[i].student) { %>
+                        <%= audits[i].student.name %> [<%= audits[i].student.ID %>]
+                    <% } else { %>
+                        Not Applicable
+                    <% } %>
+                </td>
+                <!-- TODO There is more information I want to display (like all the information about the class that was changed).
+                It might be cool if we had a dropdown when that cell was clicked with the other information
+                I don't know how we would do that without bootstrap, so this may be abandoned  -->
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+
+
+

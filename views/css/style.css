@@ -1,44 +1,917 @@
-h1{
-    text-align: left;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    
+    /* ======================== ROOT VARIABLES ======================= */
+
+:root{
+    --color-primary: #7380ec;
+    --color-primary-focus:#737fec8f;
+    --color-primary-2: #fbc831;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132,139,200,0.18);
+    --color-light-focus: rgba(132,139,200,0.36);
+    --color-background: #f6f6f9;
+    --color-green: green;
+    --color-delete: rgb(202, 37, 37);
+    --color-delete-light:rgba(202, 37, 37, 0.562);
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+    --circle-btn-border-radius: 48%;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+    --form-padding: 2.5rem;
+    --table-padding: 1.8rem;
+    --button-padding: 0.83rem;
+    --button-2-padding: 0.35rem 0.42rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-info-light);
+    --btn-shadow: 0 0.3rem 0.5rem var(--color-info-light);
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+html{
+    min-height: 100%;
+    margin-top: 80px;
+    font-size: 14px;
 }
 
 body{
+    width: 100vw;
+    height: 100vh;
+    font-family: poppins, sans-serif;
+    font-size: 0.88rem;
+    background: var(--color-background);
+    user-select: none;
+    overflow-x: hidden;
+}
+
+.container{
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    grid-template-columns: auto 23rem;
+    gap: 1.8rem;
+}
+
+a{
+    color: var(--color-dark);
+}
+
+img{
+    display: block;
+    width: 100%;
+}
+
+h1{
+    font-weight: 800;
+    font-size: 1.8rem;
+    /*text-align: left;*/
+}
+
+h2{
+    font-size: 1.4rem;
+}
+
+h3{
+    font-size: 0.83rem;
+}
+
+h4{
+    font-size: 0.8rem;
+}
+
+small{
+    font-size: 0.75rem;
+}
+
+.profile-photo{
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.text-muted{
+    color: var(--color-info-dark);
+}
+
+p{
+    color: var(--color-info-dark);
+}
+
+.primary{
+    color: var(--color-primary);
+}
+
+
+
+    /* ======================== HEADER ======================= */
+
+.fixed-header {
+    width: 100%;
+    height: 4.5rem;
+    position: fixed;
+    top: 0;
+    background: var(--color-white);
+    z-index: 100; /*Jack: I added this in order to properly offset for calendar feel free to remove if another solution is necesary*/
+    overflow: hidden;
+    /*box-shadow: var(--box-shadow);*/
+}
+nav a{
+    color: black;
+    font-size: 1rem;
+    text-decoration: none;
+    vertical-align: top;
+    padding: 1.65rem 25px;
+    display: inline-block;
+    transition: all 300ms ease;
+}
+
+nav a:hover{
+    padding: 1rem 20px;
+    color: var(--color-primary);
+    font-size: 1.15rem;
+    padding: 1.35rem 22px;
+    /*background: rgb(196, 196, 196);*/
+}
+
+nav .logo{
+  padding: 12px 17px;
+}
+
+nav .logo:hover{
+  padding: 12px 17px;
+}
+
+    /* ======================== FOOTER ======================= */
+
+footer{
+    position: static;
+    height: 30px;
+    bottom: 0;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+    /* ======================== WELCOME-BAR ======================= */
+
+.welcome-bar{
+    background-image: linear-gradient(
+        rgba(28, 28, 65, 0.45), 
+        rgba(0, 0, 0, 0.45)
+      ), url(https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2017/01/ScottBall_Trinity_University_1-2-2017-2.jpg?fit=1200%2C800&ssl=1);
+    margin: auto;
+    padding: var(--card-padding);
+    width: 96%;
+    height: 16rem;
+    border-radius: var(--border-radius-3);
+}
+
+.welcome-bar h1{
+    color: var(--color-white);
+    margin-top: 10rem;
+}
+
+    /* ======================== MAIN ======================= */
+
+main{
+    margin-top: 2rem;
+}
+
+main h2{
+    margin-left: 1rem;
+}
+
+main .insights, .insights{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+    /*margin-left: 0.8rem;*/
+}
+
+main .insights > div, .insights > div {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+main .insights > div:hover, .insights > div:hover {
+    box-shadow: none;
+}
+
+main .insights > div .middle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .insights h3, .insights h3{
+    margin: 1rem 0 0.6rem;
+    font-size: 1rem;
+}
+
+main .insights small{
+    margin-top: 1rem;
+    display: block;
+}
+
+main .recent-activities, main .student-class-table{
+    margin-top: 2rem;
+}    
+
+main .recent-activities h2{
+    margin-bottom: 0.8rem;
+}
+
+main .recent-activities table{
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
+
+main .recent-activities table:hover, main .student-class-table table:hover{
+    box-shadow: none;
+}
+
+main table tr th{
+    text-align: left;
+}
+
+main table tbody td{
+    text-align: left;
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark);
+}
+
+main table tbody tr:last-child td{
+    border:none
+}
+
+main .recent-activities a{
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: var(--color-primary);
+}
+
+    /* ======================== DASHBOARD RIGHT SECTION ======================= */
+
+.right{
+    margin-top: 30px;
+    margin-left: 0.5rem;
+}
+
+.right h2{
+    margin-bottom: 0.8rem;
+}
+
+.right .admin-create-bar{
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: var(--border-radius-1);
+    box-shadow: var(--box-shadow);
+}
+
+.right .admin-create-bar h3{
+    font-weight: 500;
+}
+
+.right .admin-create-bar a{
+    display: flex;
+    color: var(--color-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+}
+
+.right .admin-create-bar a span{
+    font-size: 1.6rem;
+}
+
+.right .admin-create-bar:hover{
+    box-shadow: none;
+}
+
+.right .admin-create-bar a:hover{
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left: 0rem;
+}
+
+.right .admin-create-bar a:hover:before{
+    content: "";
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+
+.right .active-classes{
+    margin-top: 2.3rem;
+}
+
+.right .active-classes a{
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: var(--color-primary);
+}
+
+.right .class-container{
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    padding: var(--card-padding);
+}
+
+.right .class-container:hover{
+    box-shadow: none;
+}
+
+.right .class-container h1{
+    margin-bottom: 1.6rem;
+}
+
+.right .class-format{
+    height: 3.6rem;
+    margin-top: 0.8rem;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark);
+}
+
+.right .class-format:last-child{
+    border: none;
+}
+
+
+    /* ======================== FORMS ======================= */
+
+.create-user, .create-class, .create-subject, .search-form, .login-form, .edit-class {
+    margin: 5rem 32%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--form-padding);
+    border: none;
+    background: white;
+    border-radius: var(--border-radius-3);
+    box-shadow: var(--box-shadow);
+}
+
+.edit-class {
+    margin: 5rem 10%
+}
+
+.search-form{
+    margin: 5rem 10%;
+}
+
+.create-class label, .create-subject label{
+    margin-bottom: 0.5rem;
+}
+
+/*.form-input{
+    margin-top: 1.5rem;
+    /*padding: 0.5rem 1rem;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+}*/
+
+input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"]{
+    padding: 0.5rem 1rem;
+    width: 100%;
+    background: var(--color-light);
+    font-family: poppins, sans-serif;
+    color: var(--color-dark);
+    border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
+    transition: all 500ms ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="date"]:focus{
+    background: var(--color-light-focus);
+}
+
+select{
+    padding: 0.5rem 1rem;
+    background: var(--color-light);
+    font-family: poppins, sans-serif;
+    color: var(--color-dark);
+    width: 100%;
+    border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
+    transition: all 500ms ease;
+}
+
+select:focus{
+    background: var(--color-light-focus);
+}
+
+textarea{
+    padding: 0.5rem 1rem;
+    background: var(--color-light);
+    font-family: poppins, sans-serif;
+    color: var(--color-dark);
+    width: 100%;
+    border-radius: var(--border-radius-1);
+    margin-bottom: 1.2rem;
+    transition: all 500ms ease;
+}
+
+input[type="checkbox"]{
+    appearance: checkbox;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0.5rem;
+    /*To actually change appearence of checkboxes, you have to make your own custom ones and hiden the current ones*/
+}
+
+label{
+    margin-left: 0.5rem;
+}
+
+textarea:focus{
+    background: var(--color-light-focus);
+}
+
+.create-user .btn-primary, .create-class .btn-primary, .create-subject .btn-primary, .search-form .btn-primary, .login-form .btn-primary{
+    text-align: center;
+    display: block;
+    margin: 2rem auto;
+}
+
+.create-user h1, .create-class h1, .create-subject h1{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.search-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0rem 1rem;
+}
+
+.search-form h1{
+    margin-bottom: 1.2rem;
+}
+
+.search-form .weekdays{
+    margin-top: 1rem;
+    align-items: center;
+}
+
+.search-form .date-input{
+    display: grid;
+    grid-template-columns: 15% auto 3% auto;
+    gap: 0.5rem;
+}
+
+.search-form .date-addon{
+    margin: 0.7rem auto;
+}
+
+.search-form .class-field-input{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+    /* ======================== BUTTONS ======================= */
+
+button{
+    font-family: poppins, sans-serif;
+}
+
+
+
+.btn-primary, .btn-search{
+    padding: var(--button-padding);
+    border-radius: var(--border-radius-2);
+    color: var(--color-white);
+    background: var(--color-primary);
+    transition: all 300ms ease;
+}
+
+.btn-primary:hover, .btn-search:hover{
+    background: var(--color-primary-focus);
+    color: black;
+    box-shadow: var(--btn-shadow);
+}
+
+/*Fix search btton*/
+.btn-search{
+    display: flex;
+    width: 97px;
+    align-items: center;
+    padding: var(--button-padding);
+    margin: 2rem auto 0rem auto;
+}
+
+.btn-search span{
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.btn-edit{
+    padding: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-light-focus);
+    
+    transition: all 300ms ease;
+}
+
+.btn-edit:hover{
+    background: var(--color-primary);
+}
+
+.btn-edit:focus{
+    background: var(--color-primary);
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-edit span, .btn-delete span{
+    font-size: 1.3rem;
+    color: var(--color-white);
+    display: block;
+    transition: all 300ms ease;
+}
+
+.btn-edit span:hover{
+    color: var(--color-white);
+}
+
+.btn-delete{
+    background: var(--color-delete);
+    color: var(--color-white);
+}
+
+.btn-delete:hover{
+    background: var(--color-delete-light);
+    color: var(--color-delete);
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-trash{
+    padding: 0.8rem;
+}
+
+.btn-trash span{
+    font-size: 1.6rem;
+}
+
+/* For putting two buttons next to each other - used in class editing */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-group{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+    /* ======================== SEARCH RESULTS ======================= */
+
+.search-form-result table {
+    background: var(--color-white);
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
+
+.search-form-result table thead th{
+    height: 3rem;
+    text-align: left;
+    padding: var(--table-padding);
+}
+
+.search-form-result table tbody td{
+    height: 4rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark);
+    margin-left: 10px;
+    padding: var(--table-padding);
+    transition: all 300ms ease;
+}
+
+.search-form-result table tbody tr{
+    transition: all 300ms ease;
+}
+
+.search-form-result table tbody tr:hover > td{
+    color: var(--color-primary);
+}
+    
+.search-form-result table tbody tr:last-child td{
+    border: none;
+}
+
+span{
+    align-items: center;
+}
+
+    /* ======================== Class Container ======================= */
+
+.class-container{
+    width: 92%;
+    margin: auto;
+}
+
+.class-container .title{
+    margin: 2rem 1rem;
+}
+
+.wishlist-classEntry > div, .register-classEntry > div{
+    padding: 1rem 0;
+}
+
+
+/* ======================== Student Class Table Display ======================= */
+
+
+.student-class-table table{
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--padding-1);
+    text-align: left;
+    box-shadow: var(--box-shadow);
+    transform: all 300ms ease;
+}
+
+ .student-class-table table:hover{
+    box-shadow: none;
+}
+
+.student-class-table table thead th{
+    padding: var(--padding-1);
+}
+
+.student-class-table table tbody td{
+    color: var(--color-dark);
+    padding: var(--padding-1);
+    transition: all 300ms ease;
+}
+
+.student-class-title{
+    display: flex;
+}
+
+.student-class-title .count{
+    display: block;
+    font-size: large;
+    margin: 2.1rem 0rem;
+    padding: 0.29rem 0.82rem;
+    border-radius: 50%;
+    box-shadow: var(--btn-shadow);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.none-comment{
+    width: 98%;
+    margin: auto;
+    text-align: center;
+    font-size: large;
+    padding: var(--padding-1);
+    background: var(--color-white);
+    color:var(--color-dark);
+    border-radius: var(--border-radius-3);
+    box-shadow: var(--box-shadow);
+}
+
+.none-comment:hover{
+    box-shadow: none;
+}
+
+.view-select-bar{
+    display: block;
+    margin: 1rem 1rem;
+    color: var(--color-primary);
+}
+
+.view-select-bar a{
+    font-size: medium;
+    color: var(--color-info-dark);
+}
+
+.view-select-bar a:hover{
+    color: var(--color-primary);
+}
+
+.view-select-bar a:focus{
+    color: var(--color-primary);
+}
+
+#student-class-table{
+    display:none;
+}
+
+#student-class-table:target{
+    display:flex;
+}
+
+#student-class-calendar{
+    display:none;
+}
+
+#student-class-calendar:target{
+    display:flex;
+}
+
+
+
+
+    /* ======================== Class Editing ======================= */
+
+.class-edit-titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.class-edit-grid {
+    display: grid;
+    grid-template-columns: 30% 70%
+}
+
+.class-subject-table {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class-subject-table td, .class-subject-table tr {
     text-align: center;
 }
 
-main{
-    margin-top: 80px;
+.class-edit-data {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+    display: inline-flex;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
 }
 
-form {
-    width: 450px;
-    padding-left: 7%;
-    padding-right: 7%;
-    padding-top: 4%;
-    padding-bottom: 2%;
-    /*border: 5px solid black;*/
-    background-color: white;
-    border-radius: 15px 15px 15px 15px;
+.class-edit-container {
+    /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+    border-radius: var(--border-radius-3);
+    margin: 2rem 2rem;
+    
+}
+
+.class-edit-container .btn-group{
+    margin-top: 2rem;
+}
+
+.class-edit-container h1{
+    margin-bottom: 2rem;
+}
+
+.class-edit-buttons {
+    grid-column-start:2;
+    grid-column-end:3;
+    text-align: center;
     display: inline-block;
-    align-items: center;
-    margin: 40px; 
-    box-shadow: 1px 0px 10px 0px #b0b0b0;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
 }
 
-.form-group{
-    padding: 1.5%;
+.class-edit-description-box {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
 }
 
-.btn-primary{
-    width: 250px;
-    border-radius: 25px 25px 25px 25px;
-    background-color: #fbc831;
-    -webkit-text-fill-color: rgb(255, 255, 255);
-    /*box-shadow: 0px 1px 1px 1px #c3c3c3;*/
+.btn-capacity{
+    margin: 0 0.2rem 1rem;
+    display: flex;
+    padding: 0.5rem;
+    background: var(--color-dark);
+    color: white;
 }
 
-.btn-primary:hover{
-    background-color: #e5b010;
-    -webkit-text-fill-color: #ffffff;
-    /*box-shadow: 0px 1px 1px 1px #c3c3c3;*/
+.btn-capacity span{
+    font-size: 1.5rem;
 }
+
+.btn-capacity:hover{
+    background: var(--color-info-dark);
+}
+
+.btn-room-edit {
+    background: var(--color-dark);
+    color: white;
+    font-size: 10px;
+    padding: 0.1rem;
+}
+
+.btn-save-changes {
+    width: 25%;
+    background: var(--color-dark);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+hr {
+    width: 70%;
+    height: 10px;
+    color:#7380ec;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edit-entry{
+    display: flex; 
+    margin-top: 0.5rem; 
+}
+
+.edit-entry h3{
+    font-size: 1.2rem;
+    display: block;
+    padding: 0.2rem 1rem;
+}
+
+.class-edit-container h2{
+    margin-bottom: 1.5rem;
+}
+
+.edit-entry button{
+    margin-left: 1rem;
+}
+
+.edit-entry p{
+    color: var(--color-dark);
+    font-size: 1.2rem;
+    display: block;
+    padding: 0.2rem 0;
+    padding-right: 1.5rem;
+}
+
+.edit-entry-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.line{
+    background: var(--color-dark);
+    padding: 0.02rem;
+    margin: 2rem auto;
+    width: 85%;
+}
+
+
+
+/* do something with this or something - I think it looks dumb but 
+I was messing around with it and it didn't look right. I just deleted 
+what I had 
+*/
+/*.class-subject-edit-button-container {
+}*/
+

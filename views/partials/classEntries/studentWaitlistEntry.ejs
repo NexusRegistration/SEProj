@@ -1,0 +1,67 @@
+<div class="insights">
+<% for (var i=0; i < wishlist.length; i++) { %>
+    <div class="wishlist-classEntry">
+        <!--Displays Class Subject-->
+        <h3>
+            <%= wishlist[i].subject.department %>-<%= wishlist[i].subject.classID %>
+        </h3>
+
+        <!--Displays Class Name-->
+        <h1>
+            <%= wishlist[i].subject.className %>
+        </h1>
+
+        <!--Displays Teacher Name-->
+        <div class="teacher-name">
+            <% if(wishlist[i].teacher){ %>
+                <%= wishlist[i].teacher.name %>
+              <% } else{ %>  
+                Undetermined
+            <% } %>
+        </div>
+
+        <!--Displays Class Building and Room Number-->
+        <div class="class-room">
+            <% if(wishlist[i].room){ %>
+                <%= wishlist[i].room.building %>-<%= wishlist[i].room.number %>
+              <% } else{ %>  
+                Undetermined
+            <% } %>
+        </div>
+
+        <!--Displays Class Schedule-->
+        <div class="schedule">
+            <% if(wishlist[i].schedule && wishlist[i].schedule.classTimes){ %>
+                <% for (var j=0; j < wishlist[i].schedule.classTimes.length; j++) { %>
+                    <%= wishlist[i].schedule.classTimes[j].day %>
+                    [
+                    <%= wishlist[i].schedule.classTimes[j].startTime %>
+                    -
+                    <%= wishlist[i].schedule.classTimes[j].endTime %>
+                    ]
+                    <% if(j < wishlist[i].schedule.classTimes.length - 1) { %>
+                        &nbsp &nbsp
+                    <% } %>
+                <% } %>
+            <% } else{ %>  
+                Undetermined
+            <% } %>    
+        </div>
+
+        <div class="register-button">
+            <button type="button" class="btn-primary" data-class-id="<%= wishlist[i]._id %>" onClick="addToList(this)">
+                Register for Class
+            </button>
+        </div>
+
+        <!--Unregister Button-->
+
+        <div class="removewish-button">
+            <button type="button" class="btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
+                Remove from Waitlist
+            </button>
+        </div>
+
+    </div>
+<% } %>
+</div>

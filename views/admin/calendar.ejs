@@ -1,29 +1,28 @@
 <html>
 <head>
-    <%- include('../partials/header.ejs')%>
+    <!--Header-->
+    <%- include('../partials/headers/header-admin.ejs')%>
 
-    <link rel="stylesheet" type="text/css" href= "/css/main.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
    
 </head>
+
 <body>
-<td></td><div class="calendar">
-    
+  <td></td><div class="calendar">
     <header>
         <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
-        </div> 
+        Classes <w/div> 
         <div style="align-self: flex-start; flex: 0 0 11"></div>
     </header>
 
-    <div id="container"></div>
+  
     
    <!-- <div class="outer"> -->
       
-      <p>Welcome to JavaScript</p>  
-      <p>Welcome to JavaScript</p>  
       
-      <form>  
-      <input type="button" value="click" onclick="tbl()"/>  
-      </form>  
       
     </body>  
     
@@ -46,6 +45,7 @@
        
 
     <tbody id = "tbody">
+      
       <script type="text/javascript" src="/JS/GenerateSchedule.js"></script> 
       
     </tbody>
@@ -55,5 +55,3 @@
   </div>
   
   </div>
-</body>
-</html>

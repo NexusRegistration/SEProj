@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Header-->
+	    <%- include('../partials/headers/header-student.ejs')%>
+        
+        <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        
+        <script type="text/javascript" src="/public/javascripts/student-class-unregistration.js"></script>
+        <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
+    </head>
+
+    <body>
+            
+        <div class="class-container">
+            <div class="student-class-title">
+                <h1 class="title">Currently Registered Classes</h1>
+                <p class="count"><%= registeredClasses.length %></p>
+            </div>
+
+            <div id="classEntry-container">
+                <% if (registeredClasses.length > 0) { %>
+                    <%- include('../partials/classEntries/studentRegisteredEntry', { classes: registeredClasses }) %>
+                  <% } else { %>
+                    <p><br>No Currently Registered Classes<br></p>
+                  <% } %>
+            </div>
+        </div>
+
+        <div class="class-container">
+            <div class="student-class-title" style="margin-top: 4rem;">
+                <h1 class="title">Currently Waitlisted Classes</h1>
+                <p class="count"><%= waitlistedClasses.length %></p>
+            </div>
+
+            <div id="classEntry-container">
+                <% if (waitlistedClasses.length > 0) { %>
+                    <%- include('../partials/classEntries/studentWaitlistEntry', { wishlist: waitlistedClasses }) %>
+                  <% } else { %>
+                    <p class="none-comment"><br>No Waitlisted Classes<br></p>
+                  <% } %>
+            </div>
+        </div>
+
+    </body>
+</html>

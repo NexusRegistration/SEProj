@@ -1,0 +1,81 @@
+
+<table>
+    <thead>
+        <tr>
+            <!--Table Header Items-->
+            <th>Class ID</th>
+            <th>Name</th>
+            <th>Teacher</th>
+            <th>Location</th>
+            <th>Time</th>
+            <th>Capacity</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody id="classEntry-container">
+        <% for (var i=0; i < classes.length; i++) { %>
+            <tr>
+                <!--Class ID-->
+                <td><%= classes[i].subject.classID %>-<%= classes[i].subject.department %></td>
+
+                <!--Class Name-->
+                <td><%= classes[i].subject.className %></td>
+
+                <!--Teacher Name-->
+                <td>
+                    <% if(classes[i].teacher){ %>
+                        <%= classes[i].teacher.name %>
+                    <% } else{ %>  
+                        Undetermined
+                    <% } %>
+                </td>
+
+                <!--Room Name-->
+                <td>
+                        <% if(classes[i].room){ %>
+                            <%= classes[i].room.building %>-<%= classes[i].room.number %>
+                        <% } else{ %>  
+                            Undetermined
+                        <% } %>
+                </td>
+
+                <!--Schedule-->
+                <td>
+                        <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                            <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                <%= classes[i].schedule.classTimes[j].day %>
+                                [
+                                <%= classes[i].schedule.classTimes[j].startTime %>
+                                -
+                                <%= classes[i].schedule.classTimes[j].endTime %>
+                                ]
+                                <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                    &nbsp &nbsp
+                                <% } %>
+                            <% } %>
+                        <% } else{ %>  
+                            Undetermined
+                        <% } %>
+                </td>
+
+                <!--Capacity-->
+                <td>
+                    <% if(classes[i].room){ %>
+                        <%= classes[i].room.capacity %>
+                    <% } else{ %>  
+                        Undetermined
+                    <% } %>
+                </td>
+
+                <!--Edit Button-->
+                <td>
+                    <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="openEditPage(this)">
+                        <span class="material-symbols-outlined">
+                            Edit
+                        </span>
+                    </button>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

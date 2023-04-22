@@ -1,29 +1,180 @@
 <html>
     <head>
         <!--Header-->
-	    <%- include('../partials/header.ejs')%>
+	    <%- include('../partials/headers/header-admin.ejs')%> 
 
         <link rel="stylesheet" href="/css/style.css">
-        <style>
-            h1{
-                text-align: center;
-            }
-        </style>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     </head>
 
     <body>
-        <h1>Admin Dashboard</h1>
-        <div>
-            <a href="/admin/create-user">Create User</a>
+        <div class="welcome-bar">
+            <h1>Welcome <%- user.name %>!</h1>
         </div>
-
-        <div>
-            <a href="/admin/create-class">Create Class</a>
-        </div>
-
-        <div>
-            <a href="/admin/create-subject">Create Subject</a>
+        
+       <!--<div class="date">
+            <input type="date">
+        </div> --> 
+       
+        <!--------------- END OF WELCOME BAR ----------------->       
+        <div class="container">
+            <main>
+                <div class="insights">
+                    <div class="student-count">
+                      <!--<span> Logo-->
+                       <div class="middle">
+                            <div class="left">
+                                <h3>Total Students</h3>
+                                <h1><%=studentCount%></h1>
+                            </div>
+                       </div> 
+                       <small class="text-muted">Last 24 Hours</small>   
+                    </div>
+                    <!----------- END OF STUDENT COUNT ------------>
+                    <div class="teacher-count">
+                        <!--<span> Logo-->
+                         <div class="middle">
+                              <div class="left">
+                                  <h3>Total Teachers</h3>
+                                  <h1><%=teacherCount%></h1>
+                              </div>
+                         </div> 
+                         <small class="text-muted">Last 24 Hours</small>   
+                      </div>
+                      <!----------- END OF TEACHER COUNT ------------>
+        
+                      <div class="class-count">
+                        <!--<span> Logo-->
+                         <div class="middle">
+                              <div class="left">
+                                  <h3>Total Classes</h3>
+                                  <h1><%= classCount %></h1>
+                              </div>
+                         </div> 
+                         <small class="text-muted">Last 24 Hours</small>   
+                      </div>
+                      <!----------- END OF CLASS COUNT ------------>
+                </div>
+                <!--------------- END OF INSIGHTS ----------------->
+                <div class="recent-activities">
+                    <h2>Recent Activities</h2>
+                    <table>
+                        <thread>
+                            <tr>
+                                <!--Include role as well?-->
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Class</th>
+                                <th>Activity</th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            <% for (var i=0; i < 6; i++) { %>
+                                <tr>
+                                    <!-- Date -->
+                                    <td><%= audits[i].timestamp %></td>
+                                    <!-- Author -->
+                                    <td><%= audits[i].user.name %> (<%= audits[i].user.role %>) [<%= audits[i].user.email %>]</td>
+                                    <!-- Class -->
+                                    <td>
+                                        <% if (audits[i].class && audits[i].class !== null) { %>
+                                            <%= audits[i].class.subject.className %> [<%= audits[i].class.subject.classID %>-<%= audits[i].class.subject.department %>]
+                                        <% } else { %>
+                                            Class Deleted
+                                        <% } %>
+                                    </td><!--Encounteredd error with accessing className, unable to access undefined-->
+                                    <!-- Type of Change -->
+                                    <td><%= audits[i].description %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    <a href="/admin/audit">Explore More Audits</a>
+                </div>
+                <!--------------- END OF RECENY ACTIVITIES ----------------->
+            </main>
+            <!--------------- END OF MAIN ----------------->
+            <div class="right">
+                <h2>Creation Station</h2>
+                <div class="admin-create-bar">
+                    <a href="/admin/create-user">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <h3>Create User</h3>
+                    </a>
+                    <a href="/admin/create-class">
+                        <span class="material-symbols-outlined">school</span>
+                        <h3>Create Class</h3>
+                    </a>
+                    <a href="/admin/create-subject">
+                        <span class="material-symbols-outlined">subject</span>
+                        <h3>Create Subject</h3>
+                    </a>
+                </div>
+                <!--------------- END OF ADMIN CREATION BAR ----------------->
+                <div class="active-classes">
+                    <h2>Active Classes</h2>
+                    <div class="class-container">
+                        <h3>
+                            <% let hr = new Date().getHours();%>
+                            <% let min = new Date().getMinutes();%>
+                            <% let period = ["AM","PM"]; %>
+                            <% if (hr === 0) { %>
+                                <% hr = 12; %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[0] %>
+                            <% } else if (hr > 12) { %>
+                                <% hr = hr % 12; %>
+                                <%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[1] %>
+                            <% } else { %>
+                                0<%= hr %>  :
+                                <% if (min < 10) { %>
+                                    0<%= min %>
+                                <% } else { %>
+                                    <%= min %>
+                                <% } %>
+                                <%= period[0] %>
+                            <% } %>
+                        </h3>
+                        <h1>
+                            <% let m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                            <%= m[new Date().getMonth()];%>
+                            <%= new Date().getDate();%>,
+                            <%= new Date().getFullYear();%>
+                        </h1>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                        <div class="class-format">
+                            <h4>Class Name</h4>
+                            <small>1:15-1:23pm</small>
+                        </div>
+                    </div>
+                    <a href="#">Load All</a>
+                </div>
+                <!--------------- END OF ACTIVE CLASSES ----------------->
+            </div>
+            <!--------------- END OF RIGHT ----------------->
         </div>
     </body>
 </html>
