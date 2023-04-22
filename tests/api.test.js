@@ -3,19 +3,17 @@ const request = require("supertest");
 const app = require("../app");
 require("dotenv").config();
 
-describe('api routes', () => {
-  let server;
-  beforeEach(async () => {
-    await mongoose.connect(process.env.DB_CONNECTION_URL);
-  });
+//let server;
+beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
 
+describe('api routes', () => {
   describe("GET /routes/api/add-classes", () => {
     it("responds with 200", async () => {
       const res = await request(app).get("/add-classes");
       expect(res.statusCode).toBe(200);  
     });
   });
-
+  
   describe("GET /routes/api/add-subjects", () => {
     it("responds with 200", async () => {
       const res = await request(app).get("/add-subjects");
@@ -64,9 +62,6 @@ describe('api routes', () => {
       expect(res.statusCode).toBe(200);  
     });
   });
-  
-  afterEach(async () => {
-    await mongoose.connection.close();
-  });
-  // Add more tests for the other routes
 });
+
+afterAll(async () => await mongoose.connection.close());

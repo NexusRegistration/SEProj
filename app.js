@@ -79,6 +79,9 @@ app.get("/search-audit", (req, res) => res.status(200).json({ alive: "True" }));
 app.get("/search-classes", (req, res) => res.status(200).json({ alive: "True" }));
 app.get("/students", (req, res) => res.status(200).json({ alive: "True" }));
 
+//Get Admin status -> admin.test.js
+app.get("/admin", (req, res) => res.status(200).json({ alive: "True" }));
+
 // Connect to database
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
