@@ -18,9 +18,9 @@
             <main>
                 <h2>My Classes</h2>
                 
-                <div class="view-select-bar"> 
+                <!--<div class="view-select-bar"> 
                     <a class="btn-table" href="#student-class-table">Table</a> / <a class="btn-calendar" href="#student-class-calendar">Calendar</a>
-                </div>
+                </div>-->
 
                 <div class="student-class-table" id="student-class-table">
                     <table>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="active-classes">
-                    <h2>Current Classes</h2>
+                    <h2>Today's Classes</h2>
                     <div class="class-container">
                         <!--Change math for admin-->
                         <h3>
@@ -119,7 +119,11 @@
                                 <% } %>
                                 <%= period[1] %>
                             <% } else { %>
-                                0<%= hr %>  :
+                                <% if (hr < 10) { %>
+                                    0<%= hr %>  :
+                                <% } else { %>
+                                    <%= hr %>  :
+                                <% } %>
                                 <% if (min < 10) { %>
                                     0<%= min %>
                                 <% } else { %>
@@ -134,30 +138,150 @@
                             <%= new Date().getDate();%>,
                             <%= new Date().getFullYear();%>
                         </h1>
-                        <div class="class-format">
-                            <h4>Class Name</h4>
-                            <small>1:15-1:23pm</small>
-                        </div>
+
+                        <% let weekDay = new Date().getDay();%>
+
+                        <!--new Date().getDay();-->
+                        
+                        <% if (weekDay === 1) { %>
+                            <% for (var i=0; i < classes.length; i++) { %>
+                            
+                                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                        <% if (classes[i].schedule.classTimes[j].day === "M") { %>
+                                            <div class="class-format">
+                                                
+                                                <h4><%= classes[i].subject.className %></h4>
+                                                <small>
+                                                    <%= classes[i].schedule.classTimes[0].startTime %>
+                                                    -
+                                                    <%= classes[i].schedule.classTimes[0].endTime %>
+                                                </small>
+                                            
+                                            </div>
+                                            <% break %>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                    
+                            <% } %>    
+                        <% } else if (weekDay === 2) { %>
+
+                            <% for (var i=0; i < classes.length; i++) { %>
+                            
+                                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                        <% if (classes[i].schedule.classTimes[j].day === "T") { %>
+                                            <div class="class-format">
+                                                
+                                                <h4><%= classes[i].subject.className %></h4>
+                                                <small>
+                                                    <%= classes[i].schedule.classTimes[0].startTime %>
+                                                    -
+                                                    <%= classes[i].schedule.classTimes[0].endTime %>
+                                                </small>
+                                            
+                                            </div>
+                                            <% break %>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                    
+                            <% } %>    
+
+                        <% } else if (weekDay === 3) { %>
+
+                            <% for (var i=0; i < classes.length; i++) { %>
+                            
+                                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                        <% if (classes[i].schedule.classTimes[j].day === "W") { %>
+                                            <div class="class-format">
+                                                
+                                                <h4><%= classes[i].subject.className %></h4>
+                                                <small>
+                                                    <%= classes[i].schedule.classTimes[0].startTime %>
+                                                    -
+                                                    <%= classes[i].schedule.classTimes[0].endTime %>
+                                                </small>
+                                            
+                                            </div>
+                                            <% break %>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                    
+                            <% } %>    
+
+                        <% } else if (weekDay === 4) { %>
+
+                            <% for (var i=0; i < classes.length; i++) { %>
+                            
+                                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                        <% if (classes[i].schedule.classTimes[j].day === "Th") { %>
+                                            <div class="class-format">
+                                                
+                                                <h4><%= classes[i].subject.className %></h4>
+                                                <small>
+                                                    <%= classes[i].schedule.classTimes[0].startTime %>
+                                                    -
+                                                    <%= classes[i].schedule.classTimes[0].endTime %>
+                                                </small>
+                                            
+                                            </div>
+                                            <% break %>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                    
+                            <% } %>    
+
+                        <% } else if (weekDay === 5) { %>
+
+                            <% for (var i=0; i < classes.length; i++) { %>
+                            
+                                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                        <% if (classes[i].schedule.classTimes[j].day === "F") { %>
+                                            <div class="class-format">
+                                                
+                                                <h4><%= classes[i].subject.className %></h4>
+                                                <small>
+                                                    <%= classes[i].schedule.classTimes[0].startTime %>
+                                                    -
+                                                    <%= classes[i].schedule.classTimes[0].endTime %>
+                                                </small>
+                                            
+                                            </div>
+                                            <% break %>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                <% } else{ %>  
+                                    Undetermined
+                                <% } %>
+                    
+                            <% } %>    
+
+                        <% } else { %>
+                            <p>You have no classes today! Yay!</p>
+                        <% } %>
                     </div>
                 </div>
 
-                <div class="active-classes">
-                    <h2>Upcoming Classes</h2>
-                    <div class="class-container">
-                        <div class="class-format">
-                            <h4>Class Name</h4>
-                            <small>1:15-1:23pm</small>
-                        </div>
-                        <div class="class-format">
-                            <h4>Class Name</h4>
-                            <small>1:15-1:23pm</small>
-                        </div>
-                        <div class="class-format">
-                            <h4>Class Name</h4>
-                            <small>1:15-1:23pm</small>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

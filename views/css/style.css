@@ -571,6 +571,7 @@ button{
 }
 
 .btn-delete{
+    padding: 0.4rem;
     background: var(--color-delete);
     color: var(--color-white);
 }
@@ -694,9 +695,11 @@ span{
 
 .student-class-title .count{
     display: block;
-    font-size: large;
-    margin: 2.1rem 0rem;
-    padding: 0.29rem 0.82rem;
+    font-weight: bold;
+    font-size: medium;
+    margin-top: auto;
+    margin-bottom: 2rem;
+    padding: 0.43rem 1rem;
     border-radius: 50%;
     box-shadow: var(--btn-shadow);
     background: var(--color-primary);
@@ -738,9 +741,9 @@ span{
     color: var(--color-primary);
 }
 
-#student-class-table{
+/*#student-class-table{
     display:none;
-}
+}*/
 
 #student-class-table:target{
     display:flex;
