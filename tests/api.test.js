@@ -4,9 +4,9 @@ const app = require("../app");
 require("dotenv").config();
 
 //let server;
+beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
 
 describe('api routes', () => {
-  //beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
   describe("GET /routes/api/add-classes", () => {
     it("Responds with 200\n\tContent Type'\n\tData", (done) => {
       request(app)
@@ -142,6 +142,6 @@ describe('api routes', () => {
       });
     });
   });
-  //afterAll(async () => await mongoose.connection.close());
 });
 
+afterAll(async () => await mongoose.connection.close());

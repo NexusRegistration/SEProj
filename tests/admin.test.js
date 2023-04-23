@@ -4,9 +4,9 @@ const app = require("../app");
 require("dotenv").config();
 
 //let server;
+beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
 
 describe("GET /routes/admin", () => {
-  beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
   it("Responds with 200\n\tContent Type'\n\tData", (done) => {
     request(app)
     .get("/admin")
@@ -21,7 +21,6 @@ describe("GET /routes/admin", () => {
       return done();
     });
   });
-  afterAll(async () => await mongoose.connection.close());
 });
 
-
+afterAll(async () => await mongoose.connection.close());
