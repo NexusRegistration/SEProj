@@ -1,6 +1,8 @@
+const express = require('express');
 const mongoose = require("mongoose")
 const request = require("supertest");
 const app = require("../app");
+const router = express.Router();
 require("dotenv").config();
 
 //let server;
@@ -17,6 +19,16 @@ describe("GET /routes/teacher", () => {
       //res.body.data.length = 0;
       res.body.data = "True";
     })
+    .end((err, res) => {
+      if (err) return done(err);
+      return done();
+    });
+  });
+
+  it("Test search functionality", (done) => {
+    request(router)
+    .get("/search")
+    .expect(201)
     .end((err, res) => {
       if (err) return done(err);
       return done();
