@@ -78,8 +78,12 @@ app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
 app.get("/students", (req, res) => res.status(200).json({ data: alive }));
 
-//Get Admin status -> admin.test.js
-app.get("/admin", (req, res) => res.status(200).json({ data: alive }));
+//Get MISC route status
+app.get("/admin", (req, res) => res.status(200).json({ data: alive })); //301 html
+app.get("/login", (req, res) => res.status(200).json({ data: alive }));
+app.get("/scripts", (req, res) => res.status(200).json({ data: alive }));
+app.get("/student", (req, res) => res.status(200).json({ data: alive })); //301 html
+app.get("/teacher", (req, res) => res.status(200).json({ data: alive })); //301 html
 
 // Connect to database
 mongoose.set('strictQuery', false);

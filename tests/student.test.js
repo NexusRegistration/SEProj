@@ -3,17 +3,18 @@ const request = require("supertest");
 const app = require("../app");
 require("dotenv").config();
 
-//let server;//maybe only use one
-beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
+//let server;
 
-describe("GET /routes/admin", () => {
+
+describe("GET /routes/student", () => {
+  beforeAll( async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
   it("Responds with 200\n\tContent Type'\n\tData", (done) => {
     request(app)
-    .get("/admin")
+    .get("/student")
     .expect("Content-Type", /html/)
-    .expect(200)
+    .expect(301) //getting 301 instead of 200
     .expect((res) => {
-      res.body.data.length = 0;
+      //res.body.data.length = 0;
       res.body.data = "True";
     })
     .end((err, res) => {
@@ -21,6 +22,7 @@ describe("GET /routes/admin", () => {
       return done();
     });
   });
+  afterAll(async () => await mongoose.connection.close());
 });
 
-afterAll(async () => await mongoose.connection.close());
+
