@@ -73,6 +73,8 @@ class ObjectId {
   // creating all cells
   const mySchedule = buildSchedule(classes1)
 
+  var colors = ['#577590', '#43aa8b', '#90be6d', '#f3722c', '#f94144'];
+
 
   for (let i = 0; i < 28; i++) {
     // creates a table row
@@ -96,7 +98,14 @@ class ObjectId {
         curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
         marginTop = marginTopMath(mySchedule[i][j].start);
 
-        cell.innerHTML = '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"><input id="check" type="checkbox" class="checkbox" /><label for="check"></label>' + mySchedule[i][j].start + '-'+ mySchedule[i][j].end+ ' ' + mySchedule[i][j].name+' </div>'
+        var random_color = colors[Math.floor(Math.random() * colors.length)];
+
+        cell.innerHTML = 
+        '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px; background:'+random_color+';"> <p class="time">' 
+            + mySchedule[i][j].start + '-'+ mySchedule[i][j].end
+        + '</p> <p class="name">' 
+            + mySchedule[i][j].name
+        + '</p> </div>'
         
       }
       

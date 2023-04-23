@@ -1,197 +1,160 @@
 @import url("style.css");
-* 
+ 
 
 
-*{
+/*{
   margin: 0;
   border: 0;
-}
+}*/
 
-body {
+/*body {
   flex-direction: column;
   display: flex;
   /*align-items: center;
   align-content: center;
   justify-content: center;*/
   /*font-family: "DINPro", "Helvetica Neue", sans-serif;
-  */
+  
   margin: 0;
   background: #fafafa;
   box-sizing: border-box;
   height: 100vh;
 
-}
+}*/
 
 
 
-.outer {
+/*.outer {
 
   position: relative;
-}
+}*/
 
 .calendar {
-    margin: 0 auto;
-  max-width: 1280px;
-  min-width: 500px;
-  padding: 100;
-  box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  margin: auto;
+  width: 90%;
+  /*max-width: 1280px;
+  min-width: 500px;*/
+  padding: 1rem 1rem;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--card-border-radius);
+  background: var(--color-white);
 }
-.wrap {
 
+/*.wrap {
   overflow-x: hidden;
   overflow-y: hidden;
     max-width: 1280px;
     background: #fff;
   height: 1300px;
-}
+}*/
 
-thead {
+/*thead {
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
-}
+}*/
 
-thead th {
-
+.calendar thead th {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-dark);
+  padding: 1rem;
   text-align: center;
+  width: 90%;
+}
+
+.calendar thead {
+  border-bottom: 1px solid #ddd;
+}
+
+.calendar table {
+  margin-top: 1rem;
   width: 100%;
-
-}
-
- 
-
-header h1 {
- font-size: 1.25rem;
- text-align: center;
- font-weight: normal;
-
-}
-tbody {
-    position: relative;
-  top: 100px;
-}
-table {
-  margin-top :50;
-  background: #fff;
-  width: 100%;
-  height: 75%;
-  border-collapse: collapse;
+  /*height: 75%;*/
+  /*border-collapse: collapse;*/
   table-layout: fixed;
 
 }
 
-
-
-.headcol {
-  width: 60px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.5);
-  padding: 0.25rem 0;
-  text-align: center;
-  border: 0;
-  position: relative;
-  top: -12px;
-  border-bottom: 1px solid transparent;
-}
-
-thead th {
-  font-size: 1rem;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.9);
-  padding: 1rem;
-}
-
-thead {
-
-    background: white;
-    border-bottom: 2px solid #ddd;
-
-}
-
-tr, tr td {
-  height: 10px;
-}
-td {
+.calendar td {
   text-align: center;
 }
+
 tr:nth-child(odd) td:not(.headcol) {
   border-bottom: 1px solid #e8e8e8;
 }
 
-tr:nth-child(even) td:not(.headcol) {
+.calendar .headcol {
+  width: 45px;
+  font-size: 0.875rem;
+  color: var(--color-dark);
+  text-align: left;
+  position: center;
+  top: -12px;
+  border: 0;
+}
+
+
+.calendar tr:nth-child(even) td:not(.headcol) {
   border-bottom: 1px solid #eee;
 }
 
-tr td {
+.calendar tr td {
   border-right: 1px solid #eee;
   padding: 0;
+  margin: 0 auto;
   white-space: none;
-  word-wrap: nowrap;
+  word-wrap:normal;
 }
 
-tbody tr td {
-  position: relative;
+.calendar tbody tr td {
   vertical-align: top;
   height: 40px;
-  padding: .1rem 0.25rem 0 0.25rem;
   width: auto;
-
-}
-
-.secondary {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-
-.checkbox {
-   display: none;
-}
-
-.checkbox + label {
-    border: 0;
-    outline: 0;
-    width: 100px;
-    height: 100px;
-    background: white;
-    color: transparent;
-    display:block;
-  display: none;
-}
-
-.checkbox:checked + label {
-    border: 0;
-    outline: 0;
-    width: 100%;
-    height: 100%;
-    background: red;
-    color: transparent;
-    display: inline-block;
 }
 
 .event {
   background: var(--color-primary);
   color: white;
-  border-radius: 2px;
+  border-radius: var(--border-radius-1);
+  padding: 0.3rem;
   text-align: left;
-  font-size: 0.875rem;
-  
-
-  
   overflow-x: hidden;
   transition: all 0.2s;
-  cursor: pointer;
 }
 
 .event:hover {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  background:  var(--color-primary-2);
+  background:  var(--color-primary);
 }
 
-.event.double {
-  
+.event p{
+  color: var(--color-white);
+}
+
+.event .time{
+  font-size: 0.65rem;
+  padding-top: 0.2rem;
+}
+
+.event .name{
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.event .double {
   height: 100%;     /*lerp between 0 and 200% for the css script*/
   margin-top: 0px; /*lerp between 0 and 37 for the css script */
 }
+
+/*header h1 {
+ font-size: 1.25rem;
+ text-align: center;
+ font-weight: normal;
+}
+
+tbody {
+    position: relative;
+}
+*/
 
 /**
 thead {
