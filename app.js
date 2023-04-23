@@ -68,17 +68,18 @@ app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
 
 //Get API status -> api.test.js
-app.get("/add-classes", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/add-subjects", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/create-user", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/edit-class", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/register", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/search-audit", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/search-classes", (req, res) => res.status(200).json({ alive: "True" }));
-app.get("/students", (req, res) => res.status(200).json({ alive: "True" }));
+const alive = "True";
+app.get("/add-classes", (req, res) => res.status(200).json({ data: alive }));
+app.get("/add-subjects", (req, res) => res.status(200).json({ data: alive }));
+app.get("/create-user", (req, res) => res.status(200).json({ data: alive }));
+app.get("/edit-class", (req, res) => res.status(200).json({ data: alive }));
+app.get("/register", (req, res) => res.status(200).json({ data: alive }));
+app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
+app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
+app.get("/students", (req, res) => res.status(200).json({ data: alive }));
 
 //Get Admin status -> admin.test.js
-app.get("/admin", (req, res) => res.status(200).json({ alive: "True" }));
+app.get("/admin", (req, res) => res.status(200).json({ data: alive }));
 
 // Connect to database
 mongoose.set('strictQuery', false);
