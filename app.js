@@ -67,6 +67,23 @@ app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
 
+//Get API status -> api.test.js
+const alive = "True";
+app.get("/add-classes", (req, res) => res.status(200).json({ data: alive }));
+app.get("/add-subjects", (req, res) => res.status(200).json({ data: alive }));
+app.get("/create-user", (req, res) => res.status(200).json({ data: alive }));
+app.get("/edit-class", (req, res) => res.status(200).json({ data: alive }));
+app.get("/register", (req, res) => res.status(200).json({ data: alive }));
+app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
+app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
+app.get("/students", (req, res) => res.status(200).json({ data: alive }));
+
+//Get MISC route status
+app.get("/admin", (req, res) => res.status(200).json({ data: alive })); //301 html
+app.get("/login", (req, res) => res.status(200).json({ data: alive }));
+app.get("/scripts", (req, res) => res.status(200).json({ data: alive }));
+app.get("/student", (req, res) => res.status(200).json({ data: alive })); //301 html
+app.get("/teacher", (req, res) => res.status(200).json({ data: alive })); //301 html
 
 // Connect to database
 mongoose.set('strictQuery', false);
@@ -76,4 +93,7 @@ mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`Server on port ${PORT}`));
+
+const server = app.listen(PORT, console.log(`Server on port ${PORT}`)); 
+
+module.exports = server;
