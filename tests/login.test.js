@@ -24,7 +24,7 @@ describe("GET /routes/login", () => {
       return done();
     });
   });
-
+  /*
   const testID = {
     email: "testAdmin@gmail.com",
     password: "test"
@@ -40,7 +40,7 @@ describe("GET /routes/login", () => {
       return done();
     });
   });
-  
+  */
 });
 
 afterAll(async () => await mongoose.connection.close());

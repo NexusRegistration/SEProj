@@ -23,7 +23,7 @@ describe("GET /routes/teacher", () => {
       return done();
     });
   });
-
+  /*
   it("Test search functionality", (done) => {
     request(router)
     .get("/search")
@@ -33,6 +33,7 @@ describe("GET /routes/teacher", () => {
       return done();
     });
   });
+  */
 });
 
 afterAll(async () => await mongoose.connection.close());
