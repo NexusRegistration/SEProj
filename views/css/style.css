@@ -172,11 +172,12 @@ footer{
 
     /* ======================== WELCOME-BAR ======================= */
 
+    /*https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2017/01/ScottBall_Trinity_University_1-2-2017-2.jpg?fit=1200%2C800&ssl=1*/
 .welcome-bar{
     background-image: linear-gradient(
         rgba(28, 28, 65, 0.45), 
         rgba(0, 0, 0, 0.45)
-      ), url(https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2017/01/ScottBall_Trinity_University_1-2-2017-2.jpg?fit=1200%2C800&ssl=1);
+      ), url(https://www.trinity.edu/sites/default/files/styles/rectangle_landscape/public/acquiadam/2022-11/leroy-classroom.jpg?itok=GhYvqAjS);
     margin: auto;
     padding: var(--card-padding);
     width: 96%;
@@ -907,6 +908,82 @@ hr {
     padding: 0.02rem;
     margin: 2rem auto;
     width: 85%;
+}
+
+   /* ======================== Class Pop-Up ======================= */
+
+.modal{
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    transition: 300ms ease-in-out;
+    z-index: 10;
+    background: var(--color-white);
+    width: 50%;
+    max-width: 80%;
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    
+}
+
+.modal.active{
+    transform: translate(-50%,-50%) scale(1);
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .btn-close{
+    background: transparent;
+}
+
+.modal-header .btn-close span{
+    color: var(--color-dark);
+    font-weight: bolder;
+}
+
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    transition: 300ms ease-in-out;
+    pointer-events: none;
+}
+
+#overlay.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal .count{
+    display: block;
+    font-weight: bold;
+    margin: 0 1rem;
+    padding: 0.53rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    box-shadow: var(--btn-shadow);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.modal p{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-dark);
+}
+
+.modal div{
+    margin: 0.5rem 0;
 }
 
 

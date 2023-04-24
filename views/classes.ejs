@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--Header-->
+        <!--Scripts-->
 	    <% if (userRole === 'student') { %>
             <%- include('partials/headers/header-student.ejs') %>
             <script type="text/javascript" src="/public/javascripts/student-class-registration.js"></script>
@@ -19,6 +19,7 @@
         <!--Scripts-->
         <script type="text/javascript" src="/public/javascripts/class-subject-populator.js"></script>
         <script type="text/javascript" src="/public/javascripts/class-populator.js"></script>
+        <!--<script type="text/javascript" src="/public/javascripts/class-modal.js"></script>-->
     </head>
     <body>
 
@@ -100,32 +101,6 @@
                         <option value="6">Capstone</option>
                 </select>
             </div>
-
-            <!--Weekday Selection Checkboxes-->
-            <!--
-            <div class="weekdays">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    M
-                </label>
-                <label class="checkbox-inline"> 
-                    <input type="checkbox" value="">
-                    T
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    W
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    Th
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    F
-                </label>
-            </div>
-        -->
         </div>
             
 
@@ -142,6 +117,8 @@
     <!--Search Results are contained in div below-->
     <div class="search-form-result" id="classEntry-container">
     </div>
+
+    <!--<div id="overlay"></div>-->
 
     </body>
 </html>

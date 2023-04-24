@@ -98,10 +98,10 @@ class ObjectId {
         curr_height =timemath(mySchedule[i][j].start,mySchedule[i][j].end)
         marginTop = marginTopMath(mySchedule[i][j].start);
 
-        var random_color = colors[Math.floor(Math.random() * colors.length)];
+        //var random_color = colors[Math.floor(Math.random() * colors.length)];
 
         cell.innerHTML = 
-        '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px; background:'+random_color+';"> <p class="time">' 
+        '<div class="event double" style ="height:'+curr_height+'%; margin-top:' +marginTop+'px;"> <p class="time">' 
             + mySchedule[i][j].start + '-'+ mySchedule[i][j].end
         + '</p> <p class="name">' 
             + mySchedule[i][j].name

@@ -9,6 +9,7 @@
             <th>Location</th>
             <th>Time</th>
             <th>Capacity</th>
+            <th>View</th>
             <th>Edit</th>
         </tr>
     </thead>
@@ -66,6 +67,129 @@
                         Undetermined
                     <% } %>
                 </td>
+
+                <!--Modal Class View-->
+                <!--<div class="modal" id="0modal<%= i %>">
+                    <div class="modal-header">
+                        <div style="display: flex;">
+                            <h1><%= classes[i].subject.className %></h1>
+                        <p>
+                            <% if(classes[i].subject.pathways.length > 0){ %>
+                                <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
+                                    <div class="count" style="margin-top: 0.2rem;">
+                                        <%=classes[i].subject.pathways[j]%>
+                                    </div>
+                                <% } %>
+                            <% } else{ %>  
+
+                            <% } %>
+                        </p>
+                        </div>
+
+                        <button data-close-button class="btn-edit btn-close">
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.3rem;"><%= classes[i].subject.department %>-<%= classes[i].subject.classID %></h3>
+                    </div>
+                    
+
+                    <div class="edit-entry-row">
+                        <p>
+                            <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                    <%= classes[i].schedule.classTimes[j].day %>
+                                    <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                        &nbsp
+                                    <% } %>
+                                <% } %>
+
+                                &nbsp | &nbsp
+                                <%= classes[i].schedule.classTimes[0].startTime %>
+                                -
+                                <%= classes[i].schedule.classTimes[0].endTime %>
+                                
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+
+                        <p><%= classes[i].semester.season %> <%= classes[i].semester.year %></p>
+                    </div>
+
+                    <div class="edit-entry-row">
+                        <p><b>Teacher: </b>
+                            <% if(classes[i].teacher){ %>
+                                <%= classes[i].teacher.name %>
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+
+                        <p><b>Credits: </b>
+                            <% if(classes[i].subject.credits){ %>
+                                <%= classes[i].subject.credits %>
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+                    </div>
+
+                    <div class="edit-entry-row">
+                        <p><b>Location:</b>
+                            <% if(classes[i].room){ %>
+                                <%= classes[i].room.building %>-<%= classes[i].room.number %>
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+
+                        <p><b>Capacity:</b>
+                            <% if(classes[i].room){ %>
+                                <%= classes[i].room.capacity %>
+                            <% } else{ %>  
+                                Undetermined
+                            <% } %>
+                        </p>
+                    </div>
+
+                    <div>
+                        <p><b>Pathways: </b>
+                            <% if(classes[i].subject.pathways.length > 0){ %>
+                                <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
+                                    <%=classes[i].subject.pathways[j]%>
+                                <% } %>
+                            <% } else{ %>  
+                                No Pathways
+                            <% } %>
+                        </p>
+                    </div>
+
+                    <div>
+                        <p><b>Description: </b>
+                            <% if(classes[i].subject.description){ %>
+                                <%= classes[i].subject.description %>
+                            <% } else{ %>  
+                                There is no description for this class.
+                            <% } %>
+                            </p>
+                    </div>
+
+
+                </div> -->
+
+                <!--View More Info Button-->
+                <!--<td>
+                    <button data-modal-target="#0modal<%= i %>" class="btn-edit" >
+                        <span class="material-symbols-outlined">
+                            open_in_new
+                        </span>
+                    </button>
+                </td> -->
 
                 <!--Edit Button-->
                 <td>

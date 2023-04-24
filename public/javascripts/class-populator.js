@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 success: function(response) {
                     $('#classEntry-container').empty();
                     $('#classEntry-container').append(response);
+                    //$.getScript("../public/javascripts/class-modal.js", function(){
+                    //    alert("Script loaded and executed.");
+                    //  });
                 },
                 error: function(xhr, status, error) {
                     $('#classEntry-container').empty();

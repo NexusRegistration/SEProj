@@ -1,67 +1,96 @@
-<div class="insights">
-<% for (var i=0; i < wishlist.length; i++) { %>
-    <div class="wishlist-classEntry">
-        <!--Displays Class Subject-->
-        <h3>
-            <%= wishlist[i].subject.department %>-<%= wishlist[i].subject.classID %>
-        </h3>
-
-        <!--Displays Class Name-->
-        <h1>
-            <%= wishlist[i].subject.className %>
-        </h1>
-
-        <!--Displays Teacher Name-->
-        <div class="teacher-name">
-            <% if(wishlist[i].teacher){ %>
-                <%= wishlist[i].teacher.name %>
-              <% } else{ %>  
-                Undetermined
-            <% } %>
-        </div>
-
-        <!--Displays Class Building and Room Number-->
-        <div class="class-room">
-            <% if(wishlist[i].room){ %>
-                <%= wishlist[i].room.building %>-<%= wishlist[i].room.number %>
-              <% } else{ %>  
-                Undetermined
-            <% } %>
-        </div>
-
-        <!--Displays Class Schedule-->
-        <div class="schedule">
-            <% if(wishlist[i].schedule && wishlist[i].schedule.classTimes){ %>
-                <% for (var j=0; j < wishlist[i].schedule.classTimes.length; j++) { %>
-                    <%= wishlist[i].schedule.classTimes[j].day %>
-                    [
-                    <%= wishlist[i].schedule.classTimes[j].startTime %>
-                    -
-                    <%= wishlist[i].schedule.classTimes[j].endTime %>
-                    ]
-                    <% if(j < wishlist[i].schedule.classTimes.length - 1) { %>
-                        &nbsp &nbsp
+<div class="student-class-table">
+    <table>
+        <thead>
+            <tr>
+                <!--Table Header Items-->
+                <th>Class ID</th>
+                <th>Name</th>
+                <th>Teacher</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="wishlist-classEntry">
+            <% for (var i=0; i <  wishlist.length; i++) { %>
+            <tr>
+                <!--Displays Class ID-->
+                <td>
+                    <%= wishlist[i].subject.department %>-<%= wishlist[i].subject.classID %>
+                </td>
+    
+                <!--Displays Class Name-->
+                <td>
+                    <%= wishlist[i].subject.className %>
+                </td>
+            
+                <!--Displays Teacher Name-->
+                <td>
+                    <% if(wishlist[i].teacher){ %>
+                        <%= wishlist[i].teacher.name %>
+                    <% } else{ %>  
+                        Undetermined
                     <% } %>
-                <% } %>
-            <% } else{ %>  
-                Undetermined
-            <% } %>    
-        </div>
-
-        <div class="register-button">
-            <button type="button" class="btn-primary" data-class-id="<%= wishlist[i]._id %>" onClick="addToList(this)">
-                Register for Class
-            </button>
-        </div>
-
-        <!--Unregister Button-->
-
-        <div class="removewish-button">
-            <button type="button" class="btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
-                Remove from Waitlist
-            </button>
-        </div>
-
+                </td>
+                
+                <!--Displays Class Building and Room Number-->
+                <td>
+                    <% if(wishlist[i].room){ %>
+                        <%= wishlist[i].room.building %>-<%= wishlist[i].room.number %>
+                      <% } else{ %>  
+                        Undetermined
+                    <% } %>
+                </td>
+    
+                <!--Displays Class Schedule-->
+                <td>
+                    <% if(wishlist[i].schedule && wishlist[i].schedule.classTimes){ %>
+                        <% for (var j=0; j < wishlist[i].schedule.classTimes.length; j++) { %>
+                            <%= wishlist[i].schedule.classTimes[j].day %>
+                        <% } %>
+    
+                        &nbsp| &nbsp
+                        <%= wishlist[i].schedule.classTimes[0].startTime %>
+                        -
+                        <%= wishlist[i].schedule.classTimes[0].endTime %>
+                        
+                    <% } else{ %>  
+                        Undetermined
+                    <% } %>
+                </td>
+                
+                <!--Displays Class Location-->
+                <td>
+                    <% if(wishlist[i].room){ %>
+                        <%= wishlist[i].room.building %>-<%= wishlist[i].room.number %>
+                      <% } else{ %>  
+                        Undetermined
+                    <% } %>
+                </td>
+            
+                <!--Displays Register Button-->
+                <td>                
+                    <div class="register-button">
+                        <button type="button" class="btn-primary" data-class-id="<%= wishlist[i]._id %>" onClick="addToList(this)">
+                            Register
+                        </button>
+                    </div>
+                </td>
+                
+                <!--Remove from Waitlist Button-->
+                <td>
+                    <div class="removewish-button">
+                        <button type="button" class="btn-edit btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
+                            <span class="material-symbols-outlined">
+                                remove
+                            </span>
+                        </button>
+                    </div>
+                </td> 
+            </tr>
+            <% } %>
+        </tbody> 
+    </table>
     </div>
-<% } %>
-</div>
