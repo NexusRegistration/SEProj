@@ -182,7 +182,7 @@ function buildSchedule(classes1){
   for(x of classes1){
     const timeandM = x.start.split(" ");
     t1 = timeandM[0].split(":");
-    if (timeandM[1] == "PM"){
+    if (timeandM[1] == "PM" & t1[0] <12){
       t1[0] = Number(t1[0])+12;
     }
     slot = Number(t1[0])*2-14 ;  //FIXME replace with actual iterator for class start times
@@ -191,8 +191,10 @@ function buildSchedule(classes1){
         (t1[1])>=30){
         slot +=1;
     }
+    console.log(slot);
+    console.log(x.day);
     arr[slot][map1.get(x.day)] = x;
-       
+    console.log("works");
     
     
   } 
