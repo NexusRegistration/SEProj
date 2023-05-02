@@ -44,13 +44,27 @@
                         <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
                             <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
                                 <%= classes[i].schedule.classTimes[j].day %>
-                                [
+                                <!--[
                                 <%= classes[i].schedule.classTimes[j].startTime %>
                                 -
                                 <%= classes[i].schedule.classTimes[j].endTime %>
-                                ]
+                                ] -->
                                 <% if(j < classes[i].schedule.classTimes.length - 1) { %>
                                     &nbsp &nbsp
+                                <% } %>
+                            <% } %>
+                            <br>
+                            <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                <!--<%= classes[i].schedule.classTimes[j].day %>-->
+                                <% if(j == 0) { %>
+                                    
+                                    <%= classes[i].schedule.classTimes[j].startTime %>
+                                    -
+                                    <%= classes[i].schedule.classTimes[j].endTime %>
+                                     
+                                    <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                        &nbsp &nbsp
+                                    <% } %>
                                 <% } %>
                             <% } %>
                         <% } else{ %>  
