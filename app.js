@@ -49,7 +49,9 @@ const subjectAPIRouter = require('./routes/api/add-subjects');
 const searchClassAPIRouter = require('./routes/api/search-classes');
 const registerAPIRouter = require('./routes/api/register');
 const auditAPIRouter = require('./routes/api/search-audits');
+//const helpAPIRouter = require('./routes/api/help');
 const editClassAPIRouter = require('./routes/api/edit-classes');
+
 
 // Use Routes
 app.use('/', loginRouter);
@@ -66,6 +68,7 @@ app.use('/add-subjects', subjectAPIRouter);
 app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
+//app.user('/help', helpAPIRouter);
 
 //Get API status -> api.test.js
 const alive = "True";
@@ -77,6 +80,7 @@ app.get("/register", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
 app.get("/students", (req, res) => res.status(200).json({ data: alive }));
+//app.get("/help", (req, res) => res.status(200).json({ data: alive }));
 
 //Get MISC route status
 app.get("/admin", (req, res) => res.status(200).json({ data: alive })); //301 html
@@ -84,6 +88,7 @@ app.get("/login", (req, res) => res.status(200).json({ data: alive }));
 app.get("/scripts", (req, res) => res.status(200).json({ data: alive }));
 app.get("/student", (req, res) => res.status(200).json({ data: alive })); //301 html
 app.get("/teacher", (req, res) => res.status(200).json({ data: alive })); //301 html
+
 
 // Connect to database
 mongoose.set('strictQuery', false);
