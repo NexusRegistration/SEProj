@@ -49,7 +49,6 @@ const subjectAPIRouter = require('./routes/api/add-subjects');
 const searchClassAPIRouter = require('./routes/api/search-classes');
 const registerAPIRouter = require('./routes/api/register');
 const auditAPIRouter = require('./routes/api/search-audits');
-//const helpAPIRouter = require('./routes/api/help');
 const editClassAPIRouter = require('./routes/api/edit-classes');
 
 
@@ -68,7 +67,6 @@ app.use('/add-subjects', subjectAPIRouter);
 app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
-//app.user('/help', helpAPIRouter);
 
 //Get API status -> api.test.js
 const alive = "True";
@@ -80,7 +78,6 @@ app.get("/register", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
 app.get("/students", (req, res) => res.status(200).json({ data: alive }));
-//app.get("/help", (req, res) => res.status(200).json({ data: alive }));
 
 //Get MISC route status
 app.get("/admin", (req, res) => res.status(200).json({ data: alive })); //301 html
