@@ -28,7 +28,7 @@ router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
             });
         
 
-        console.log("Audits: ", audits);
+        //console.log("Audits: ", audits);
         //const users = await User.find();
         res.render('admin/dashboard', { user: req.session.user, classCount, audits, teacherCount, studentCount});
         
