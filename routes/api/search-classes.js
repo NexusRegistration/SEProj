@@ -7,6 +7,8 @@ const { hasNull } = require('../../functions/searching');
 router.get('/classes', async (req, res, next) => {
     try {
         const query = req.query;
+        //const filtering = req;
+        //console.log("filtering",filtering)
 
         //debug
         console.log("===========QUERY==========");
@@ -20,8 +22,8 @@ router.get('/classes', async (req, res, next) => {
         if (query.classID) {
             filter['classID'] = query.classID;
         } else if (query.inputLevel) {
-            const firstNumMatch = new RegExp(`^${query.inputLevel}`);
-            filter['classID'] = { $regex: firstNumMatch };
+            query.inputLevel = { $regex: '^' +(query.inputLevel)}
+            filter['classID'] = query.inputLevel
         }
         if (query.subject) {
             filter['className'] = { $regex: query.subject, $options: 'i' };
@@ -32,15 +34,15 @@ router.get('/classes', async (req, res, next) => {
         if (query.credits) {
             filter['credits'] = query.credits;
         }
-        // if (query.teacher) {
-        //     filter.teacher = query.teacher;
-        // }
+        //if (query.teacher) {
+         //    filter.teacher = query.teacher;
+        //}
         // if (query.room) {
         //     filter.room = query.room;
         // }
-        // if (query.schedule) {
-        //     filter.schedule = query.schedule;
-        // }
+        if (query.schedule) {
+             filter['schedule'] = query.schedule;
+         }
         // if (query.semester) {
         //     filter.semester = query.semester;
         // }
@@ -55,6 +57,7 @@ router.get('/classes', async (req, res, next) => {
             .populate('teacher')
 
         const filteredClasses = classes.filter(obj => !hasNull(obj));
+        
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
         res.render(classEntryType, {classes: filteredClasses, layout: false}, function(err,html) {
@@ -68,6 +71,7 @@ router.get('/classes', async (req, res, next) => {
 //GET route for getting subjects from department
 router.get('/subjects', async (req, res) => {
     try {
+        console.log("dubjectst")
       const { department } = req.query;
       const subjects = await Subject.find({ department });
       res.json(subjects);
