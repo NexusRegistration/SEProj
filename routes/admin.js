@@ -43,6 +43,10 @@ router.get('/create-user', restrictAccess(roles.ADMIN), (req, res) => {
     res.render('admin/create-user');
 });
 
+router.get('/help', restrictAccess(roles.ADMIN), (req, res) => {
+    res.render('admin/help', { user: req.session.user });
+});
+
 router.get('/create-class', restrictAccess(roles.ADMIN), async (req, res) => {
     try {
         // Fetch all schedules from the database
