@@ -21,7 +21,7 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 
 // parsers
-app.use(favicon(path.join(__dirname+ 'public'+ 'favicon.ico')));
+app.use(favicon(path.join(__dirname+ '/public'+ '/favicon.ico')));
 app.use(expressLayouts)
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
