@@ -1,9 +1,13 @@
 const mongoose = require("mongoose")
 const request = require("supertest");
 const app = require("../app");
+const bcrypt = require('bcrypt');
 require("dotenv").config();
 
-beforeAll(async () => await mongoose.connect(process.env.DB_CONNECTION_URL));
+
+beforeAll(async () => {
+    await mongoose.connect(process.env.DB_CONNECTION_URL);
+});
 
 //admin tests
 describe("GET /routes/admin", () => {
@@ -20,6 +24,27 @@ describe("GET /routes/admin", () => {
                 if (err) return done(err);
                 return done();
             });
+    });
+
+    test('GET /dashboard renders the dashboard with data', async () => {
+        const loginResponse = await request(app)
+            .post('/login')
+            .send({
+                email: 'testAdmin@gmail.com',
+                password: 'test',
+            });
+
+        // Extract the session cookie from the login response
+        const sessionCookie = loginResponse.headers['set-cookie'];
+
+        // Make the dashboard request with the session cookie set
+        const dashboardResponse = await request(app)
+            .get('/admin/dashboard')
+            .set('Cookie', sessionCookie);
+
+        // Check that the response is successful and contains expected content
+        expect(dashboardResponse.status).toEqual(200);
+        expect(dashboardResponse.text).toContain('admin/dashboard');
     });
 });
 
@@ -39,23 +64,46 @@ describe("GET /routes/login", () => {
                 return done();
             });
     });
-    /*
-    const testID = {
-      email: "testAdmin@gmail.com",
-      password: "test"
-    };
-  
-    it("Test login functionality", (done) => {
-      request(router)
-      .post("/login")
-      .send(testID)
-      .expect(201)
-      .end((err, res) => {
-        if (err) return done(err);
-        return done();
-      });
+
+    it('should return an error if the email is invalid', async () => {
+        const response = await request(app)
+            .post('/login')
+            .send({ email: 'invalid-email@example.com', password: 'test-password' });
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ error: 'Invalid email or password' });
     });
-    */
+
+    it('should return an error if the password is invalid', async () => {
+        const response = await request(app)
+            .post('/login')
+            .send({ email: 'test-email@example.com', password: 'invalid-password' });
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ error: 'Invalid email or password' });
+    });
+
+    it('should redirect to the student dashboard with valid credentials', async () => {
+        const response = await request(app)
+            .post('/login')
+            .send({ email: 'testStudent@trinity.edu', password: 'test' });
+        expect(response.status).toBe(302);
+        expect(response.header.location).toBe('/student/dashboard');
+    });
+
+    it('should redirect to the teacher dashboard with valid credentials', async () => {
+        const response = await request(app)
+            .post('/login')
+            .send({ email: 'testTeacher@gmail.com', password: 'test' });
+        expect(response.status).toBe(302);
+        expect(response.header.location).toBe('/teacher/dashboard');
+    });
+
+    it('should redirect to the admin dashboard with valid credentials', async () => {
+        const response = await request(app)
+            .post('/login')
+            .send({ email: 'testAdmin@gmail.com', password: 'test' });
+        expect(response.status).toBe(302);
+        expect(response.header.location).toBe('/admin/dashboard');
+    });
 });
 
 //student tests
@@ -104,7 +152,6 @@ describe("GET /routes/teacher", () => {
     });
     */
 });
-
 
 //scripts test
 describe("GET /routes/scripts", () => {
@@ -263,6 +310,6 @@ describe('api routes', () => {
     });
 });
 
-
-
-afterAll(async () => await mongoose.connection.close());
+afterAll(async () => {
+    await mongoose.connection.close();
+});
