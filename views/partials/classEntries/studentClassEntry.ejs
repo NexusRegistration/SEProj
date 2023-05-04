@@ -78,7 +78,8 @@
         
             <!--Displays Button 1-->
             <td>                
-                <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="addToWishlist(this)">
+                <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" 
+                    data-course-name="<%= classes[i].subject.className %>" onClick="addToWishlist(this)">
                     <span class="material-symbols-outlined">
                         bookmark
                     </span>
