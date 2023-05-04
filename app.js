@@ -2,21 +2,26 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
-const path = require('path');
+
+
 const mime = require('mime');
 const fs = require('fs');
+
 
 //import bootstrap from 'bootstrap'
 //const bootstrap = require('bootstrap');
 
 // Create express app
 const app = express();
+var favicon = require('serve-favicon');
+const path = require('path');
 
 // Import mongoose and environment configuration
 const mongoose = require('mongoose');
 require('dotenv/config');
 
 // parsers
+app.use(favicon(path.join(__dirname+ 'public'+ 'favicon.ico')));
 app.use(expressLayouts)
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
