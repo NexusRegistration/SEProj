@@ -11,24 +11,23 @@ router.get('/', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.render('login', { title: 'Login'});
+    res.render('login', { title: 'Login', message: ''});
 });
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-  
+    let errorMessage = '';
     // Look up the user by email
     const user = await User.findOne({ email });
-  
-    // If the user doesn't exist, return an error
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+
+    // If the user doesn't exist or the password is incorrect, set the error message
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        errorMessage = 'Invalid email or password';
     }
-  
-    // Check the password hash to authenticate the user
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+
+    // If there is an error message, render the login page with the message
+    if (errorMessage) {
+        return res.render('login', { title: 'Login', message: errorMessage });
     }
   
     // Redirect the user to the appropriate dashboard based on their role
