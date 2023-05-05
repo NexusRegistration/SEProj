@@ -61,7 +61,12 @@ router.get('/classes', async (req, res, next) => {
         var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
         res.render(classEntryType, {classes: filteredClasses, layout: false}, function(err,html) {
-            res.send('<div id="classEntry-wrapper">' + html + '</div>');
+            console.log(filteredClasses.length)
+            if (filteredClasses.length > 0) {
+                res.send('<div id="classEntry-wrapper">' + html + '</div>');
+            } else {
+                res.send('No Search Results for the Given Criteria')
+            }
         });
         
     } catch (err) {
