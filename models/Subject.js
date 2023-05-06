@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const subjectSchema = new mongoose.Schema({
     className: String,
-    classID: { type: Number, required: true },
+    classID: { type: String, required: true },
     pathways: [{ type: String, enum: ['WC', 'OVC', 'HP', 'UD', 'FL', 'GA', 'DL', 'NS', 'PE', 'FYE', 'CE', 'QR'] }],
     department: { type: String, enum: ['ACCT', 'AFAM', 'ALE', 'ANTH', 'ARAB', 'ART', 'ARTH', 'BAT', 'BIMA', 'BIOL', 
                                         'BUSN', 'CHEM', 'CHIN', 'CLAC', 'CLAS', 'CMLT', 'COMM', 'CSCI', 'EAST', 'ECON', 

@@ -2,26 +2,31 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
-const path = require('path');
+
+
 const mime = require('mime');
 const fs = require('fs');
+
 
 //import bootstrap from 'bootstrap'
 //const bootstrap = require('bootstrap');
 
 // Create express app
 const app = express();
+var favicon = require('serve-favicon');
+const path = require('path');
 
 // Import mongoose and environment configuration
 const mongoose = require('mongoose');
 require('dotenv/config');
 
 // parsers
+app.use(favicon(path.join(__dirname+ '/public'+ '/favicon.ico')));
 app.use(expressLayouts)
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(__dirname+'/views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/views'));
 
 // authentication
 app.use(session({
@@ -49,7 +54,6 @@ const subjectAPIRouter = require('./routes/api/add-subjects');
 const searchClassAPIRouter = require('./routes/api/search-classes');
 const registerAPIRouter = require('./routes/api/register');
 const auditAPIRouter = require('./routes/api/search-audits');
-//const helpAPIRouter = require('./routes/api/help');
 const editClassAPIRouter = require('./routes/api/edit-classes');
 
 
@@ -68,7 +72,6 @@ app.use('/add-subjects', subjectAPIRouter);
 app.use('/register', registerAPIRouter);
 app.use('/search-audits', auditAPIRouter);
 app.use('/edit-classes', editClassAPIRouter);
-//app.user('/help', helpAPIRouter);
 
 //Get API status -> api.test.js
 const alive = "True";
@@ -80,7 +83,6 @@ app.get("/register", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-audit", (req, res) => res.status(200).json({ data: alive }));
 app.get("/search-classes", (req, res) => res.status(200).json({ data: alive }));
 app.get("/students", (req, res) => res.status(200).json({ data: alive }));
-//app.get("/help", (req, res) => res.status(200).json({ data: alive }));
 
 //Get MISC route status
 app.get("/admin", (req, res) => res.status(200).json({ data: alive })); //301 html
@@ -99,6 +101,6 @@ mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
 // Start server
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, console.log(`Server on port ${PORT}`)); 
+const server = app.listen(PORT);
 
 module.exports = server;

@@ -76,15 +76,19 @@
                                 <% } %>
                 </td>
 
-                <!--Displays Waitlist Length-->
+                <!--Displays Class Capacity-->
                 <td>
-                    <%= classes[i].waitlist.length %>
+                    <% if(classes[i].room){ %>
+                        <%= classes[i].room.capacity %>
+                            <% } else{ %>
+                                Undetermined
+                                <% } %>
                 </td>
 
                 <!--Displays Button 1-->
                 <td>
                     <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>"
-                        onClick="addToWishlist(this)">
+                        data-course-name="<%= classes[i].subject.className %>" onClick="addToWishlist(this)">
                         <span class="material-symbols-outlined">
                             bookmark
                         </span>

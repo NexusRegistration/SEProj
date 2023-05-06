@@ -131,9 +131,7 @@ router.get('/registration', restrictAccess(roles.STUDENT), (req, res) => {
     res.render('student/registration', { user: req.session.user });
 });
 
-router.get('/help', restrictAccess(roles.STUDENT), (req, res) => {
-    res.render('student/help', { user: req.session.user });
-});
+
 
 
 router.get('/search', restrictAccess(roles.STUDENT), async (req, res) => {
