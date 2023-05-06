@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-    
-    /* ======================== ROOT VARIABLES ======================= */
 
-:root{
+/* ======================== ROOT VARIABLES ======================= */
+
+:root {
     --color-primary: #7380ec;
-    --color-primary-focus:#737fec8f;
+    --color-primary-focus: #737fec8f;
     --color-primary-2: #fbc831;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
     --color-info-light: #dce1eb;
     --color-dark: #363949;
-    --color-light: rgba(132,139,200,0.18);
-    --color-light-focus: rgba(132,139,200,0.36);
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-light-focus: rgba(132, 139, 200, 0.36);
     --color-background: #f6f6f9;
     --color-green: green;
     --color-delete: rgb(202, 37, 37);
-    --color-delete-light:rgba(202, 37, 37, 0.562);
+    --color-delete-light: rgba(202, 37, 37, 0.562);
 
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
@@ -46,13 +46,13 @@
     box-sizing: border-box;
 }
 
-html{
+html {
     min-height: 100%;
     margin-top: 80px;
     font-size: 14px;
 }
 
-body{
+body {
     width: 100vw;
     height: 100vh;
     font-family: poppins, sans-serif;
@@ -62,7 +62,7 @@ body{
     overflow-x: hidden;
 }
 
-.container{
+.container {
     display: grid;
     width: 96%;
     margin: 0 auto;
@@ -70,59 +70,59 @@ body{
     gap: 1.8rem;
 }
 
-a{
+a {
     color: var(--color-dark);
 }
 
-img{
+img {
     display: block;
     width: 100%;
 }
 
-h1{
+h1 {
     font-weight: 800;
     font-size: 1.8rem;
     /*text-align: left;*/
 }
 
-h2{
+h2 {
     font-size: 1.4rem;
 }
 
-h3{
+h3 {
     font-size: 0.83rem;
 }
 
-h4{
+h4 {
     font-size: 0.8rem;
 }
 
-small{
+small {
     font-size: 0.75rem;
 }
 
-.profile-photo{
+.profile-photo {
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.text-muted{
+.text-muted {
     color: var(--color-info-dark);
 }
 
-p{
+p {
     color: var(--color-info-dark);
 }
 
-.primary{
+.primary {
     color: var(--color-primary);
 }
 
 
 
-    /* ======================== HEADER ======================= */
+/* ======================== HEADER ======================= */
 
 .fixed-header {
     width: 100%;
@@ -130,11 +130,13 @@ p{
     position: fixed;
     top: 0;
     background: var(--color-white);
-    z-index: 100; /*Jack: I added this in order to properly offset for calendar feel free to remove if another solution is necesary*/
+    z-index: 100;
+    /*Jack: I added this in order to properly offset for calendar feel free to remove if another solution is necesary*/
     overflow: hidden;
     /*box-shadow: var(--box-shadow);*/
 }
-nav a{
+
+nav a {
     color: black;
     font-size: 1rem;
     text-decoration: none;
@@ -144,7 +146,7 @@ nav a{
     transition: all 300ms ease;
 }
 
-nav a:hover{
+nav a:hover {
     padding: 1rem 20px;
     color: var(--color-primary);
     font-size: 1.15rem;
@@ -152,17 +154,17 @@ nav a:hover{
     /*background: rgb(196, 196, 196);*/
 }
 
-nav .logo{
-  padding: 12px 17px;
+nav .logo {
+    padding: 12px 17px;
 }
 
-nav .logo:hover{
-  padding: 12px 17px;
+nav .logo:hover {
+    padding: 12px 17px;
 }
 
-    /* ======================== FOOTER ======================= */
+/* ======================== FOOTER ======================= */
 
-footer{
+footer {
     position: static;
     height: 30px;
     bottom: 0;
@@ -170,14 +172,12 @@ footer{
     margin-top: 5rem;
 }
 
-    /* ======================== WELCOME-BAR ======================= */
+/* ======================== WELCOME-BAR ======================= */
 
-    /*https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2017/01/ScottBall_Trinity_University_1-2-2017-2.jpg?fit=1200%2C800&ssl=1*/
-.welcome-bar{
-    background-image: linear-gradient(
-        rgba(28, 28, 65, 0.45), 
-        rgba(0, 0, 0, 0.45)
-      ), url(https://www.trinity.edu/sites/default/files/styles/rectangle_landscape/public/acquiadam/2022-11/leroy-classroom.jpg?itok=GhYvqAjS);
+/*https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2017/01/ScottBall_Trinity_University_1-2-2017-2.jpg?fit=1200%2C800&ssl=1*/
+.welcome-bar {
+    background-image: linear-gradient(rgba(28, 28, 65, 0.45),
+            rgba(0, 0, 0, 0.45)), url(https://www.trinity.edu/sites/default/files/styles/rectangle_landscape/public/acquiadam/2022-11/leroy-classroom.jpg?itok=GhYvqAjS);
     margin: auto;
     padding: var(--card-padding);
     width: 96%;
@@ -185,29 +185,31 @@ footer{
     border-radius: var(--border-radius-3);
 }
 
-.welcome-bar h1{
+.welcome-bar h1 {
     color: var(--color-white);
     margin-top: 10rem;
 }
 
-    /* ======================== MAIN ======================= */
+/* ======================== MAIN ======================= */
 
-main{
+main {
     margin-top: 2rem;
 }
 
-main h2{
+main h2 {
     margin-left: 1rem;
 }
 
-main .insights, .insights{
+main .insights,
+.insights {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem;
     /*margin-left: 0.8rem;*/
 }
 
-main .insights > div, .insights > div {
+main .insights>div,
+.insights>div {
     background: var(--color-white);
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
@@ -216,35 +218,38 @@ main .insights > div, .insights > div {
     transition: all 300ms ease;
 }
 
-main .insights > div:hover, .insights > div:hover {
+main .insights>div:hover,
+.insights>div:hover {
     box-shadow: none;
 }
 
-main .insights > div .middle{
+main .insights>div .middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main .insights h3, .insights h3{
+main .insights h3,
+.insights h3 {
     margin: 1rem 0 0.6rem;
     font-size: 1rem;
 }
 
-main .insights small{
+main .insights small {
     margin-top: 1rem;
     display: block;
 }
 
-main .recent-activities, main .student-class-table{
+main .recent-activities,
+main .student-class-table {
     margin-top: 2rem;
-}    
+}
 
-main .recent-activities h2{
+main .recent-activities h2 {
     margin-bottom: 0.8rem;
 }
 
-main .recent-activities table{
+main .recent-activities table {
     background: var(--color-white);
     width: 100%;
     border-radius: var(--card-border-radius);
@@ -254,44 +259,45 @@ main .recent-activities table{
     transform: all 300ms ease;
 }
 
-main .recent-activities table:hover, main .student-class-table table:hover{
+main .recent-activities table:hover,
+main .student-class-table table:hover {
     box-shadow: none;
 }
 
-main table tr th{
+main table tr th {
     text-align: left;
 }
 
-main table tbody td{
+main table tbody td {
     text-align: left;
     height: 2.8rem;
     border-bottom: 1px solid var(--color-light);
     color: var(--color-dark);
 }
 
-main table tbody tr:last-child td{
-    border:none
+main table tbody tr:last-child td {
+    border: none
 }
 
-main .recent-activities a{
+main .recent-activities a {
     text-align: center;
     display: block;
     margin: 1rem auto;
     color: var(--color-primary);
 }
 
-    /* ======================== DASHBOARD RIGHT SECTION ======================= */
+/* ======================== DASHBOARD RIGHT SECTION ======================= */
 
-.right{
+.right {
     margin-top: 30px;
     margin-left: 0.5rem;
 }
 
-.right h2{
+.right h2 {
     margin-bottom: 0.8rem;
 }
 
-.right .admin-create-bar{
+.right .admin-create-bar {
     background: var(--color-white);
     display: flex;
     flex-direction: column;
@@ -300,11 +306,11 @@ main .recent-activities a{
     box-shadow: var(--box-shadow);
 }
 
-.right .admin-create-bar h3{
+.right .admin-create-bar h3 {
     font-weight: 500;
 }
 
-.right .admin-create-bar a{
+.right .admin-create-bar a {
     display: flex;
     color: var(--color-dark);
     margin-left: 2rem;
@@ -315,39 +321,39 @@ main .recent-activities a{
     transition: all 300ms ease;
 }
 
-.right .admin-create-bar a span{
+.right .admin-create-bar a span {
     font-size: 1.6rem;
 }
 
-.right .admin-create-bar:hover{
+.right .admin-create-bar:hover {
     box-shadow: none;
 }
 
-.right .admin-create-bar a:hover{
+.right .admin-create-bar a:hover {
     background: var(--color-light);
     color: var(--color-primary);
     margin-left: 0rem;
 }
 
-.right .admin-create-bar a:hover:before{
+.right .admin-create-bar a:hover:before {
     content: "";
     width: 6px;
     height: 100%;
     background: var(--color-primary);
 }
 
-.right .active-classes{
+.right .active-classes {
     margin-top: 2.3rem;
 }
 
-.right .active-classes a{
+.right .active-classes a {
     text-align: center;
     display: block;
     margin: 1rem auto;
     color: var(--color-primary);
 }
 
-.right .class-container{
+.right .class-container {
     background: var(--color-white);
     display: flex;
     flex-direction: column;
@@ -356,29 +362,34 @@ main .recent-activities a{
     padding: var(--card-padding);
 }
 
-.right .class-container:hover{
+.right .class-container:hover {
     box-shadow: none;
 }
 
-.right .class-container h1{
+.right .class-container h1 {
     margin-bottom: 1.6rem;
 }
 
-.right .class-format{
+.right .class-format {
     height: 3.6rem;
     margin-top: 0.8rem;
     border-bottom: 1px solid var(--color-light);
     color: var(--color-dark);
 }
 
-.right .class-format:last-child{
+.right .class-format:last-child {
     border: none;
 }
 
 
-    /* ======================== FORMS ======================= */
+/* ======================== FORMS ======================= */
 
-.create-user, .create-class, .create-subject, .search-form, .login-form, .edit-class {
+.create-user,
+.create-class,
+.create-subject,
+.search-form,
+.login-form,
+.edit-class {
     margin: 5rem 32%;
     display: flex;
     flex-direction: column;
@@ -393,11 +404,12 @@ main .recent-activities a{
     margin: 5rem 10%
 }
 
-.search-form{
+.search-form {
     margin: 5rem 10%;
 }
 
-.create-class label, .create-subject label{
+.create-class label,
+.create-subject label {
     margin-bottom: 0.5rem;
 }
 
@@ -408,7 +420,11 @@ main .recent-activities a{
     border-radius: var(--border-radius-1);
 }*/
 
-input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"]{
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="date"] {
     padding: 0.5rem 1rem;
     width: 100%;
     background: var(--color-light);
@@ -419,11 +435,15 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
     transition: all 500ms ease;
 }
 
-input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="date"]:focus{
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus {
     background: var(--color-light-focus);
 }
 
-select{
+select {
     padding: 0.5rem 1rem;
     background: var(--color-light);
     font-family: poppins, sans-serif;
@@ -434,11 +454,11 @@ select{
     transition: all 500ms ease;
 }
 
-select:focus{
+select:focus {
     background: var(--color-light-focus);
 }
 
-textarea{
+textarea {
     padding: 0.5rem 1rem;
     background: var(--color-light);
     font-family: poppins, sans-serif;
@@ -449,7 +469,7 @@ textarea{
     transition: all 500ms ease;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     appearance: checkbox;
     width: 1.2rem;
     height: 1.2rem;
@@ -457,65 +477,72 @@ input[type="checkbox"]{
     /*To actually change appearence of checkboxes, you have to make your own custom ones and hiden the current ones*/
 }
 
-label{
+label {
     margin-left: 0.5rem;
 }
 
-textarea:focus{
+textarea:focus {
     background: var(--color-light-focus);
 }
 
-.create-user .btn-primary, .create-class .btn-primary, .create-subject .btn-primary, .search-form .btn-primary, .login-form .btn-primary{
+.create-user .btn-primary,
+.create-class .btn-primary,
+.create-subject .btn-primary,
+.search-form .btn-primary,
+.login-form .btn-primary {
     text-align: center;
     display: block;
     margin: 2rem auto;
 }
 
-.create-user h1, .create-class h1, .create-subject h1{
+.create-user h1,
+.create-class h1,
+.create-subject h1 {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.search-grid{
+.search-grid {
     display: grid;
     grid-template-columns: auto auto;
     gap: 0rem 1rem;
 }
 
-.search-form h1{
+.search-form h1 {
     margin-bottom: 1.2rem;
 }
 
-.search-form .weekdays{
+.search-form .weekdays {
     margin-top: 1rem;
     align-items: center;
 }
 
-.search-form .date-input{
+.search-form .date-input {
     display: grid;
     grid-template-columns: 15% auto 3% auto;
     gap: 0.5rem;
 }
 
-.search-form .date-addon{
+.search-form .date-addon {
     margin: 0.7rem auto;
 }
 
-.search-form .class-field-input{
+.search-form .class-field-input {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
-    /* ======================== BUTTONS ======================= */
+/* ======================== BUTTONS ======================= */
 
-button{
+button {
     font-family: poppins, sans-serif;
 }
 
 
 
-.btn-primary, .btn-search{
+.btn-primary,
+.btn-search {
     padding: var(--button-padding);
     border-radius: var(--border-radius-2);
     color: var(--color-white);
@@ -523,14 +550,15 @@ button{
     transition: all 300ms ease;
 }
 
-.btn-primary:hover, .btn-search:hover{
+.btn-primary:hover,
+.btn-search:hover {
     background: var(--color-primary-focus);
     color: black;
     box-shadow: var(--btn-shadow);
 }
 
 /*Fix search btton*/
-.btn-search{
+.btn-search {
     display: flex;
     width: 97px;
     align-items: center;
@@ -538,56 +566,57 @@ button{
     margin: 2rem auto 0rem auto;
 }
 
-.btn-search span{
+.btn-search span {
     font-size: 1.2rem;
     margin-right: 0.5rem;
 }
 
-.btn-edit{
+.btn-edit {
     padding: 0.7rem;
     border-radius: 50%;
     background: var(--color-light-focus);
-    
+
     transition: all 300ms ease;
 }
 
-.btn-edit:hover{
+.btn-edit:hover {
     background: var(--color-primary);
 }
 
-.btn-edit:focus{
+.btn-edit:focus {
     background: var(--color-primary);
     box-shadow: var(--btn-shadow);
 }
 
-.btn-edit span, .btn-delete span{
+.btn-edit span,
+.btn-delete span {
     font-size: 1.3rem;
     color: var(--color-white);
     display: block;
     transition: all 300ms ease;
 }
 
-.btn-edit span:hover{
+.btn-edit span:hover {
     color: var(--color-white);
 }
 
-.btn-delete{
+.btn-delete {
     padding: 0.4rem;
     background: var(--color-delete);
     color: var(--color-white);
 }
 
-.btn-delete:hover{
+.btn-delete:hover {
     background: var(--color-delete-light);
     color: var(--color-delete);
     box-shadow: var(--btn-shadow);
 }
 
-.btn-trash{
+.btn-trash {
     padding: 0.8rem;
 }
 
-.btn-trash span{
+.btn-trash span {
     font-size: 1.6rem;
 }
 
@@ -597,13 +626,13 @@ button{
     justify-content: space-between;
 }
 
-.btn-group{
+.btn-group {
     display: flex;
     justify-content: space-between;
 }
 
 
-    /* ======================== SEARCH RESULTS ======================= */
+/* ======================== SEARCH RESULTS ======================= */
 
 .search-form-result table {
     background: var(--color-white);
@@ -615,13 +644,13 @@ button{
     transform: all 300ms ease;
 }
 
-.search-form-result table thead th{
+.search-form-result table thead th {
     height: 3rem;
     text-align: left;
     padding: var(--table-padding);
 }
 
-.search-form-result table tbody td{
+.search-form-result table tbody td {
     height: 4rem;
     text-align: left;
     border-bottom: 1px solid var(--color-light);
@@ -631,34 +660,35 @@ button{
     transition: all 300ms ease;
 }
 
-.search-form-result table tbody tr{
+.search-form-result table tbody tr {
     transition: all 300ms ease;
 }
 
-.search-form-result table tbody tr:hover > td{
+.search-form-result table tbody tr:hover>td {
     color: var(--color-primary);
 }
-    
-.search-form-result table tbody tr:last-child td{
+
+.search-form-result table tbody tr:last-child td {
     border: none;
 }
 
-span{
+span {
     align-items: center;
 }
 
-    /* ======================== Class Container ======================= */
+/* ======================== Class Container ======================= */
 
-.class-container{
+.class-container {
     width: 92%;
     margin: auto;
 }
 
-.class-container .title{
+.class-container .title {
     margin: 2rem 1rem;
 }
 
-.wishlist-classEntry > div, .register-classEntry > div{
+.wishlist-classEntry>div,
+.register-classEntry>div {
     padding: 1rem 0;
 }
 
@@ -666,7 +696,7 @@ span{
 /* ======================== Student Class Table Display ======================= */
 
 
-.student-class-table table{
+.student-class-table table {
     background: var(--color-white);
     width: 100%;
     border-radius: var(--card-border-radius);
@@ -676,25 +706,25 @@ span{
     transform: all 300ms ease;
 }
 
- .student-class-table table:hover{
+.student-class-table table:hover {
     box-shadow: none;
 }
 
-.student-class-table table thead th{
+.student-class-table table thead th {
     padding: var(--padding-1);
 }
 
-.student-class-table table tbody td{
+.student-class-table table tbody td {
     color: var(--color-dark);
     padding: var(--padding-1);
     transition: all 300ms ease;
 }
 
-.student-class-title{
+.student-class-title {
     display: flex;
 }
 
-.student-class-title .count{
+.student-class-title .count {
     display: block;
     font-weight: bold;
     font-size: medium;
@@ -707,38 +737,38 @@ span{
     color: var(--color-white);
 }
 
-.none-comment{
+.none-comment {
     width: 98%;
     margin: auto;
     text-align: center;
     font-size: large;
     padding: var(--padding-1);
     background: var(--color-white);
-    color:var(--color-dark);
+    color: var(--color-dark);
     border-radius: var(--border-radius-3);
     box-shadow: var(--box-shadow);
 }
 
-.none-comment:hover{
+.none-comment:hover {
     box-shadow: none;
 }
 
-.view-select-bar{
+.view-select-bar {
     display: block;
     margin: 1rem 1rem;
     color: var(--color-primary);
 }
 
-.view-select-bar a{
+.view-select-bar a {
     font-size: medium;
     color: var(--color-info-dark);
 }
 
-.view-select-bar a:hover{
+.view-select-bar a:hover {
     color: var(--color-primary);
 }
 
-.view-select-bar a:focus{
+.view-select-bar a:focus {
     color: var(--color-primary);
 }
 
@@ -746,22 +776,22 @@ span{
     display:none;
 }*/
 
-#student-class-table:target{
-    display:flex;
+#student-class-table:target {
+    display: flex;
 }
 
-#student-class-calendar{
-    display:none;
+#student-class-calendar {
+    display: none;
 }
 
-#student-class-calendar:target{
-    display:flex;
+#student-class-calendar:target {
+    display: flex;
 }
 
 
 
 
-    /* ======================== Class Editing ======================= */
+/* ======================== Class Editing ======================= */
 
 .class-edit-titles {
     display: flex;
@@ -780,7 +810,8 @@ span{
     margin-right: auto;
 }
 
-.class-subject-table td, .class-subject-table tr {
+.class-subject-table td,
+.class-subject-table tr {
     text-align: center;
 }
 
@@ -798,20 +829,20 @@ span{
     /*border: 1px solid rgba(0, 0, 0, 0.8);*/
     border-radius: var(--border-radius-3);
     margin: 2rem 2rem;
-    
+
 }
 
-.class-edit-container .btn-group{
+.class-edit-container .btn-group {
     margin-top: 2rem;
 }
 
-.class-edit-container h1{
+.class-edit-container h1 {
     margin-bottom: 2rem;
 }
 
 .class-edit-buttons {
-    grid-column-start:2;
-    grid-column-end:3;
+    grid-column-start: 2;
+    grid-column-end: 3;
     text-align: center;
     display: inline-block;
 
@@ -828,7 +859,7 @@ span{
     padding: 10px;
 }
 
-.btn-capacity{
+.btn-capacity {
     margin: 0 0.2rem 1rem;
     display: flex;
     padding: 0.5rem;
@@ -836,11 +867,11 @@ span{
     color: white;
 }
 
-.btn-capacity span{
+.btn-capacity span {
     font-size: 1.5rem;
 }
 
-.btn-capacity:hover{
+.btn-capacity:hover {
     background: var(--color-info-dark);
 }
 
@@ -866,31 +897,31 @@ span{
 hr {
     width: 70%;
     height: 10px;
-    color:#7380ec;
+    color: #7380ec;
     margin-left: auto;
     margin-right: auto;
 }
 
-.edit-entry{
-    display: flex; 
-    margin-top: 0.5rem; 
+.edit-entry {
+    display: flex;
+    margin-top: 0.5rem;
 }
 
-.edit-entry h3{
+.edit-entry h3 {
     font-size: 1.2rem;
     display: block;
     padding: 0.2rem 1rem;
 }
 
-.class-edit-container h2{
+.class-edit-container h2 {
     margin-bottom: 1.5rem;
 }
 
-.edit-entry button{
+.edit-entry button {
     margin-left: 1rem;
 }
 
-.edit-entry p{
+.edit-entry p {
     color: var(--color-dark);
     font-size: 1.2rem;
     display: block;
@@ -898,25 +929,25 @@ hr {
     padding-right: 1.5rem;
 }
 
-.edit-entry-row{
+.edit-entry-row {
     display: flex;
     justify-content: space-between;
 }
 
-.line{
+.line {
     background: var(--color-dark);
     padding: 0.02rem;
     margin: 2rem auto;
     width: 85%;
 }
 
-   /* ======================== Class Pop-Up ======================= */
+/* ======================== Class Pop-Up ======================= */
 
-.modal{
+.modal {
     position: fixed;
     top: 45%;
     left: 50%;
-    transform: translate(-50%,-50%) scale(0);
+    transform: translate(-50%, -50%) scale(0);
     transition: 300ms ease-in-out;
     z-index: 10;
     background: var(--color-white);
@@ -924,29 +955,29 @@ hr {
     max-width: 80%;
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
-    
+
 }
 
-.modal.active{
-    transform: translate(-50%,-50%) scale(1);
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-header{
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-header .btn-close{
+.modal-header .btn-close {
     background: transparent;
 }
 
-.modal-header .btn-close span{
+.modal-header .btn-close span {
     color: var(--color-dark);
     font-weight: bolder;
 }
 
-#overlay{
+#overlay {
     position: fixed;
     opacity: 0;
     top: 0;
@@ -958,12 +989,29 @@ hr {
     pointer-events: none;
 }
 
-#overlay.active{
+#overlay.active {
     opacity: 1;
     pointer-events: all;
 }
 
-.modal .count{
+#adminoverlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    transition: 300ms ease-in-out;
+    pointer-events: none;
+}
+
+#adminoverlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal .count {
     display: block;
     font-weight: bold;
     margin: 0 1rem;
@@ -976,13 +1024,13 @@ hr {
     color: var(--color-white);
 }
 
-.modal p{
+.modal p {
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-dark);
 }
 
-.modal div{
+.modal div {
     margin: 0.5rem 0;
 }
 
@@ -994,4 +1042,3 @@ what I had
 */
 /*.class-subject-edit-button-container {
 }*/
-
