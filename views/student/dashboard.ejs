@@ -6,8 +6,7 @@
     <%- include('../partials/headers/header-student.ejs')%>
 
         <link rel="stylesheet" href="/css/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-            rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
         <script type="text/javascript" src="/public/javascripts/class-modal.js"></script>
 
@@ -42,8 +41,7 @@
                             <tr>
                                 <!--Displays Class Subject-->
                                 <td>
-                                    <%= classes[i].subject.department %>-<%=
-                                            classes[i].subject.classID %>
+                                    <%= classes[i].subject.department %>-<%= classes[i].subject.classID %>
                                 </td>
                                 <!--Displays Class Name-->
                                 <td>
@@ -60,21 +58,17 @@
                                 <!--Displays Class Schedule-->
                                 <td>
                                     <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
-                                        <% for (var j=0; j < classes[i].schedule.classTimes.length;
-                                            j++) { %>
+                                        <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
                                             <%= classes[i].schedule.classTimes[j].day %>
-                                                <% if(j < classes[i].schedule.classTimes.length - 1)
-                                                    { %>
+                                                <% if(j < classes[i].schedule.classTimes.length - 1) { %>
                                                     &nbsp
                                                     <% } %>
                                                         <% } %>
 
                                                             &nbsp | &nbsp
-                                                            <%= classes[i].schedule.classTimes[0].startTime
-                                                                %>
+                                                            <%= classes[i].schedule.classTimes[0].startTime %>
                                                                 -
-                                                                <%= classes[i].schedule.classTimes[0].endTime
-                                                                    %>
+                                                                <%= classes[i].schedule.classTimes[0].endTime %>
 
                                                                     <% } else{ %>
                                                                         Undetermined
@@ -89,11 +83,8 @@
                                             </h1>
                                             <p>
                                                 <% if(classes[i].subject.pathways.length> 0){ %>
-                                                    <% for (var j=0; j <
-                                                        classes[i].subject.pathways.length; j++) {
-                                                        %>
-                                                        <div class="count"
-                                                            style="margin-top: 0.2rem;">
+                                                    <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
+                                                        <div class="count" style="margin-top: 0.2rem;">
                                                             <%=classes[i].subject.pathways[j]%>
                                                         </div>
                                                         <% } %>
@@ -112,32 +103,25 @@
 
                                     <div>
                                         <h3 style="font-size: 1.3rem;">
-                                            <%= classes[i].subject.department %>-<%=
-                                                    classes[i].subject.classID %>
+                                            <%= classes[i].subject.department %>-<%= classes[i].subject.classID %>
                                         </h3>
                                     </div>
 
 
                                     <div class="edit-entry-row">
                                         <p>
-                                            <% if(classes[i].schedule &&
-                                                classes[i].schedule.classTimes){ %>
-                                                <% for (var j=0; j <
-                                                    classes[i].schedule.classTimes.length; j++) { %>
+                                            <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                                                <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
                                                     <%= classes[i].schedule.classTimes[j].day %>
-                                                        <% if(j <
-                                                            classes[i].schedule.classTimes.length -
-                                                            1) { %>
+                                                        <% if(j < classes[i].schedule.classTimes.length - 1) { %>
                                                             &nbsp
                                                             <% } %>
                                                                 <% } %>
 
                                                                     &nbsp | &nbsp
-                                                                    <%= classes[i].schedule.classTimes[0].startTime
-                                                                        %>
+                                                                    <%= classes[i].schedule.classTimes[0].startTime %>
                                                                         -
-                                                                        <%= classes[i].schedule.classTimes[0].endTime
-                                                                            %>
+                                                                        <%= classes[i].schedule.classTimes[0].endTime %>
 
                                                                             <% } else{ %>
                                                                                 Undetermined
@@ -171,8 +155,7 @@
                                     <div class="edit-entry-row">
                                         <p><b>Location:</b>
                                             <% if(classes[i].room){ %>
-                                                <%= classes[i].room.building %>-<%=
-                                                        classes[i].room.number %>
+                                                <%= classes[i].room.building %>-<%= classes[i].room.number %>
                                                         <% } else{ %>
                                                             Undetermined
                                                             <% } %>
@@ -190,8 +173,7 @@
                                     <div>
                                         <p><b>Pathways: </b>
                                             <% if(classes[i].subject.pathways.length> 0){ %>
-                                                <% for (var j=0; j <
-                                                    classes[i].subject.pathways.length; j++) { %>
+                                                <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
                                                     <%=classes[i].subject.pathways[j]%>
                                                         <% } %>
                                                             <% } else{ %>
@@ -244,9 +226,9 @@
             <div class="active-classes">
                 <h2>Today's Classes</h2>
                 <div class="class-container">
-                    <% let hr=new Date().getHours(); let min=new Date().getMinutes(); let
-                        period=["AM", "PM" ]; let displayHour, displayMinute, displayPeriod; if
-                        (hr===0) { displayHour=12; displayPeriod=period[0]; } else if (hr>12) {
+                    <% let hr=new Date().getHours(); let min=new Date().getMinutes(); let period=["AM", "PM" ]; let
+                        displayHour, displayMinute, displayPeriod; if (hr===0) { displayHour=12;
+                        displayPeriod=period[0]; } else if (hr>12) {
                         displayHour = hr % 12;
                         displayPeriod = period[1];
                         } else {
@@ -258,17 +240,14 @@
                                 <%= `${displayHour} : ${displayMinute} ${displayPeriod}` %>
                             </h3>
                             <h1>
-                                <% let months=["January", "February" , "March" , "April" , "May"
-                                    , "June" , "July" , "August" , "September" , "October"
-                                    , "November" , "December" ]; let currentDate=new Date(); let
-                                    displayMonth=months[currentDate.getMonth()]; let
-                                    displayDate=currentDate.getDate(); let
-                                    displayYear=currentDate.getFullYear(); %>
+                                <% let months=["January", "February" , "March" , "April" , "May" , "June" , "July"
+                                    , "August" , "September" , "October" , "November" , "December" ]; let
+                                    currentDate=new Date(); let displayMonth=months[currentDate.getMonth()]; let
+                                    displayDate=currentDate.getDate(); let displayYear=currentDate.getFullYear(); %>
                                     <%= `${displayMonth} ${displayDate}, ${displayYear}` %>
                             </h1>
-                            <% let weekDay=new Date().getDay(); let dayToLetter={1: "M" , 2: "T" ,
-                                3: "W" , 4: "Th" , 5: "F" }; let currentLetter=dayToLetter[weekDay];
-                                %>
+                            <% let weekDay=new Date().getDay(); let dayToLetter={1: "M" , 2: "T" , 3: "W" , 4: "Th" ,
+                                5: "F" }; let currentLetter=dayToLetter[weekDay]; %>
                                 <% if (weekDay>= 1 && weekDay <= 5) { %>
                                         <% classes.forEach((classItem)=> {
                                             if (classItem.schedule && classItem.schedule.classTimes)
@@ -283,8 +262,7 @@
                                                     <%= classItem.subject.className %>
                                                 </h4>
                                                 <small>
-                                                    <%= `${classTime.startTime} -
-                                                        ${classTime.endTime}` %>
+                                                    <%= `${classTime.startTime} - ${classTime.endTime}` %>
                                                 </small>
                                             </div>
                                             <% return true; } }); } else { %>

@@ -1,6 +1,7 @@
 const express = require('express');
 var router = express.Router();
 const Class = require('../../models/Class');
+const User = require('../../models/User');
 const mongoose = require('mongoose');
 const { hasNull } = require('../../functions/searching');
 
@@ -22,7 +23,7 @@ router.get('/classes', async (req, res, next) => {
         if (query.classID) {
             filter['classID'] = query.classID;
         } else if (query.inputLevel) {
-            query.inputLevel = { $regex: '^' +(query.inputLevel)}
+            query.inputLevel = { $regex: '^' + (query.inputLevel) }
             filter['classID'] = query.inputLevel
         }
         if (query.subject) {
@@ -35,14 +36,14 @@ router.get('/classes', async (req, res, next) => {
             filter['credits'] = query.credits;
         }
         //if (query.teacher) {
-         //    filter.teacher = query.teacher;
+        //    filter.teacher = query.teacher;
         //}
         // if (query.room) {
         //     filter.room = query.room;
         // }
         if (query.schedule) {
-             filter['schedule'] = query.schedule;
-         }
+            filter['schedule'] = query.schedule;
+        }
         // if (query.semester) {
         //     filter.semester = query.semester;
         // }
@@ -57,32 +58,42 @@ router.get('/classes', async (req, res, next) => {
             .populate('teacher')
 
         const filteredClasses = classes.filter(obj => !hasNull(obj));
-        
-        var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
 
-        res.render(classEntryType, {classes: filteredClasses, layout: false}, function(err,html) {
-            console.log(filteredClasses.length)
+        var classEntryType = 'partials/classEntries/' + req.session.user.role + 'ClassEntry'
+        let students = {}
+        for (let c of filteredClasses) {
+            for (s of c.students) {
+                students[s] = await User.findOne({ _id: s })
+            }
+        }
+        let waitlist = {}
+        for (let c of filteredClasses) {
+            for (s of c.waitlist) {
+                waitlist[s] = await User.findOne({ _id: s })
+            }
+        }
+
+        res.render(classEntryType, { classes: filteredClasses, students: students, waitlist: waitlist, layout: false }, function (err, html) {
             if (filteredClasses.length > 0) {
                 res.send('<div id="classEntry-wrapper">' + html + '</div>');
             } else {
                 res.send('No Search Results for the Given Criteria')
             }
         });
-        
+
     } catch (err) {
-      next(err);
+        next(err);
     }
 });
 //GET route for getting subjects from department
 router.get('/subjects', async (req, res) => {
     try {
-        console.log("dubjectst")
-      const { department } = req.query;
-      const subjects = await Subject.find({ department });
-      res.json(subjects);
+        const { department } = req.query;
+        const subjects = await Subject.find({ department });
+        res.json(subjects);
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal server error' });
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
