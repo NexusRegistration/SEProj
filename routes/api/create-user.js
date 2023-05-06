@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         // Get user input from registration form
         const { name, ID, email, password, role } = req.body;
         
-        //hash password
+        //hash password 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -20,10 +20,10 @@ router.post('/', async (req, res) => {
         const savedUser = await addUser(name, ID, email, hashedPassword, role);
     
         // Redirect to login page
-        res.redirect('/');
+        res.redirect('/admin/dashboard')
     } catch (err) {
         // Handle errors
-        console.error(err);
+        console.log(err);
         res.status(500).send('Internal Server Error');
     }
 });
