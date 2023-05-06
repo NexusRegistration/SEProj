@@ -1,12 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
-    $(document).ready(function() { 
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("dom content loaded")
+    $(document).ready(function () {
         const openModalButtons = document.querySelectorAll('[data-modal-target]')
         const closeModalButtons = document.querySelectorAll('[data-close-button]')
         const overlay = document.getElementById('overlay')
+        console.log(openModalButtons, closeModalButtons, overlay)
 
         openModalButtons.forEach(button => {
             console.log("button recognized")
-            if(button){
+            if (button) {
                 button.addEventListener('click', () => {
                     const modal = document.querySelector(button.dataset.modalTarget)
                     openModal(modal)
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
 
-        if(overlay){
+        if (overlay) {
             overlay.addEventListener('click', () => {
                 const modals = document.querySelectorAll('.modal.active')
                 modals.forEach(modal => {
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         closeModalButtons.forEach(button => {
-            if(button){
+            if (button) {
                 button.addEventListener('click', () => {
                     const modal = button.closest('.modal')
                     closeModal(modal)
@@ -39,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
             overlay.classList.add('active')
         }
 
-        function closeModal(modal){
+        function closeModal(modal) {
             if (modal == null) return
             modal.classList.remove('active')
             overlay.classList.remove('active')

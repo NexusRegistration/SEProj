@@ -27,7 +27,6 @@ router.get('/dashboard', restrictAccess(roles.ADMIN), async (req, res) => {
                 }
             });
 
-
         //const users = await User.find();
         res.render('admin/dashboard', { user: req.session.user, classCount, audits, teacherCount, studentCount });
 
@@ -42,9 +41,7 @@ router.get('/create-user', restrictAccess(roles.ADMIN), (req, res) => {
     res.render('admin/create-user');
 });
 
-router.get('/help', restrictAccess(roles.ADMIN), (req, res) => {
-    res.render('admin/help', { user: req.session.user });
-});
+
 
 router.get('/create-class', restrictAccess(roles.ADMIN), async (req, res) => {
     try {

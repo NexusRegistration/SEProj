@@ -90,8 +90,12 @@ router.get('/audits', async (req, res, next) => {
         */
 
         res.render('partials/auditEntry', {audits, layout: false}, function(err,html) {
-            res.send('<div id="auditEntry-wrapper">' + html + '</div>');
-        });
+            if (audits.length > 0) {
+                res.send('<div id="auditEntry-wrapper">' + html + '</div>');
+            } else {
+                res.send('No Search Results for the Given Criteria')
+            }
+            });
         
     } catch (err) {
       next(err);

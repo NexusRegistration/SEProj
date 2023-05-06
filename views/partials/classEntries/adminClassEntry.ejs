@@ -1,4 +1,10 @@
-
+<script type="text/javascript" src="/public/javascripts/class-modal.js"></script>
+<script>
+    window.document.dispatchEvent(new Event("DOMContentLoaded", {
+        bubbles: true,
+        cancelable: true
+    }));
+</script>
 <table>
     <thead>
         <tr>
@@ -7,9 +13,9 @@
             <th>Name</th>
             <th>Teacher</th>
             <th>Location</th>
-            <th style="width: 250px";>Time</th>
+            <th style="width: 250px" ;>Time</th>
             <th>Capacity</th>
-            <th>View</th>
+            <th>Students</th>
             <th>Edit</th>
         </tr>
     </thead>
@@ -17,27 +23,31 @@
         <% for (var i=0; i < classes.length; i++) { %>
             <tr>
                 <!--Class ID-->
-                <td><%= classes[i].subject.classID %>-<%= classes[i].subject.department %></td>
+                <td>
+                    <%= classes[i].subject.classID %>-<%= classes[i].subject.department %>
+                </td>
 
                 <!--Class Name-->
-                <td><%= classes[i].subject.className %></td>
+                <td>
+                    <%= classes[i].subject.className %>
+                </td>
 
                 <!--Teacher Name-->
                 <td>
                     <% if(classes[i].teacher){ %>
                         <%= classes[i].teacher.name %>
-                    <% } else{ %>  
-                        Undetermined
-                    <% } %>
+                            <% } else{ %>
+                                Undetermined
+                                <% } %>
                 </td>
 
                 <!--Room Name-->
                 <td>
-                        <% if(classes[i].room){ %>
-                            <%= classes[i].room.building %>-<%= classes[i].room.number %>
-                        <% } else{ %>  
-                            Undetermined
-                        <% } %>
+                    <% if(classes[i].room){ %>
+                        <%= classes[i].room.building %>-<%= classes[i].room.number %>
+                                <% } else{ %>
+                                    Undetermined
+                                    <% } %>
                 </td>
 
                 <!--Schedule-->
@@ -45,51 +55,53 @@
                     <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
                         <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
                             <%= classes[i].schedule.classTimes[j].day %>
-                            <% if(j < classes[i].schedule.classTimes.length - 1) { %>
-                                &nbsp &nbsp
-                            <% } %>
-                        <% } %>
-                        <br>
-                        <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
-                            <% if(j == 0) { %>
-                                <%= classes[i].schedule.classTimes[j].startTime %>
-                                -
-                                <%= classes[i].schedule.classTimes[j].endTime %>
                                 <% if(j < classes[i].schedule.classTimes.length - 1) { %>
                                     &nbsp &nbsp
-                                <% } %>
-                            <% } %>
-                        <% } %>
-                    <% } else{ %>  
-                        Undetermined
-                    <% } %>
-            </td>
+                                    <% } %>
+                                        <% } %>
+                                            <br>
+                                            <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                                                <% if(j==0) { %>
+                                                    <%= classes[i].schedule.classTimes[j].startTime %>
+                                                        -
+                                                        <%= classes[i].schedule.classTimes[j].endTime %>
+                                                            <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                                                &nbsp &nbsp
+                                                                <% } %>
+                                                                    <% } %>
+                                                                        <% } %>
+                                                                            <% } else{ %>
+                                                                                Undetermined
+                                                                                <% } %>
+                </td>
 
                 <!--Capacity-->
                 <td>
                     <% if(classes[i].room){ %>
                         <%= classes[i].room.capacity %>
-                    <% } else{ %>  
-                        Undetermined
-                    <% } %>
+                            <% } else{ %>
+                                Undetermined
+                                <% } %>
                 </td>
 
                 <!--Modal Class View-->
-                <!--<div class="modal" id="0modal<%= i %>">
+                <div class="modal" id="modal<%= i %>">
                     <div class="modal-header">
                         <div style="display: flex;">
-                            <h1><%= classes[i].subject.className %></h1>
-                        <p>
-                            <% if(classes[i].subject.pathways.length > 0){ %>
-                                <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
-                                    <div class="count" style="margin-top: 0.2rem;">
-                                        <%=classes[i].subject.pathways[j]%>
-                                    </div>
-                                <% } %>
-                            <% } else{ %>  
+                            <h1>
+                                <%= classes[i].subject.className %>
+                            </h1>
+                            <p>
+                                <% if(classes[i].subject.pathways.length> 0){ %>
+                                    <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
+                                        <div class="count" style="margin-top: 0.2rem;">
+                                            <%=classes[i].subject.pathways[j]%>
+                                        </div>
+                                        <% } %>
+                                            <% } else{ %>
 
-                            <% } %>
-                        </p>
+                                                <% } %>
+                            </p>
                         </div>
 
                         <button data-close-button class="btn-edit btn-close">
@@ -100,112 +112,61 @@
                     </div>
 
                     <div>
-                        <h3 style="font-size: 1.3rem;"><%= classes[i].subject.department %>-<%= classes[i].subject.classID %></h3>
-                    </div>
-                    
-
-                    <div class="edit-entry-row">
-                        <p>
-                            <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
-                                <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
-                                    <%= classes[i].schedule.classTimes[j].day %>
-                                    <% if(j < classes[i].schedule.classTimes.length - 1) { %>
-                                        &nbsp
-                                    <% } %>
-                                <% } %>
-
-                                &nbsp | &nbsp
-                                <%= classes[i].schedule.classTimes[0].startTime %>
-                                -
-                                <%= classes[i].schedule.classTimes[0].endTime %>
-                                
-                            <% } else{ %>  
-                                Undetermined
-                            <% } %>
-                        </p>
-
-                        <p><%= classes[i].semester.season %> <%= classes[i].semester.year %></p>
-                    </div>
-
-                    <div class="edit-entry-row">
-                        <p><b>Teacher: </b>
-                            <% if(classes[i].teacher){ %>
-                                <%= classes[i].teacher.name %>
-                            <% } else{ %>  
-                                Undetermined
-                            <% } %>
-                        </p>
-
-                        <p><b>Credits: </b>
-                            <% if(classes[i].subject.credits){ %>
-                                <%= classes[i].subject.credits %>
-                            <% } else{ %>  
-                                Undetermined
-                            <% } %>
-                        </p>
-                    </div>
-
-                    <div class="edit-entry-row">
-                        <p><b>Location:</b>
-                            <% if(classes[i].room){ %>
-                                <%= classes[i].room.building %>-<%= classes[i].room.number %>
-                            <% } else{ %>  
-                                Undetermined
-                            <% } %>
-                        </p>
-
-                        <p><b>Capacity:</b>
-                            <% if(classes[i].room){ %>
-                                <%= classes[i].room.capacity %>
-                            <% } else{ %>  
-                                Undetermined
-                            <% } %>
-                        </p>
+                        <h3 style="font-size: 1.3rem;">
+                            <%= classes[i].subject.department %>-<%= classes[i].subject.classID %>
+                        </h3>
                     </div>
 
                     <div>
-                        <p><b>Pathways: </b>
-                            <% if(classes[i].subject.pathways.length > 0){ %>
-                                <% for (var j=0; j < classes[i].subject.pathways.length; j++) { %>
-                                    <%=classes[i].subject.pathways[j]%>
+                        <h3 style="font-size: 1.3rem;">Enrolled:</h3>
+                        <% if (classes[i].students.length> 0) { %>
+                            <% for (let p=0; p < classes[i].students.length; p++) { %>
+                                <h3>
+                                    <%=students[classes[i].students[p]].name %>
+                                </h3>
                                 <% } %>
-                            <% } else{ %>  
-                                No Pathways
-                            <% } %>
-                        </p>
+                                    <% } else { %>
+                                        <h3>
+                                            No Students Enrolled
+                                        </h3>
+                                        <% } %>
                     </div>
 
                     <div>
-                        <p><b>Description: </b>
-                            <% if(classes[i].subject.description){ %>
-                                <%= classes[i].subject.description %>
-                            <% } else{ %>  
-                                There is no description for this class.
-                            <% } %>
-                            </p>
+                        <h3 style="font-size: 1.3rem;">Waitlisted:</h3>
+                        <% if (classes[i].waitlist.length> 0) { %>
+                            <% for (let p=0; p < classes[i].waitlist.length; p++) { %>
+                                <h3>
+                                    <%= waitlist[classes[i].waitlist[p]].name %>
+                                </h3>
+                                <% } %>
+                                    <% } else { %>
+                                        <h3>
+                                            No Students On Waitlist
+                                        </h3>
+                                        <% } %>
                     </div>
 
+                    <!--View More Info Button-->
+                    <td>
+                        <button data-modal-target=" #modal<%=i %>" class="btn-edit">
+                            <span class="material-symbols-outlined">
+                                open_in_new
+                            </span>
+                        </button>
+                    </td>
 
-                </div> -->
-
-                <!--View More Info Button-->
-                <!--<td>
-                    <button data-modal-target="#0modal<%= i %>" class="btn-edit" >
-                        <span class="material-symbols-outlined">
-                            open_in_new
-                        </span>
-                    </button>
-                </td> -->
-
-                <!--Edit Button-->
-                <td>
-                    <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="openEditPage(this)">
-                        <span class="material-symbols-outlined">
-                            Edit
-                        </span>
-                    </button>
-                </td>
+                    <!--Edit Button-->
+                    <td>
+                        <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>"
+                            onClick="openEditPage(this)">
+                            <span class="material-symbols-outlined">
+                                Edit
+                            </span>
+                        </button>
+                    </td>
             </tr>
-        <% } %>
+            <% } %>
     </tbody>
 </table>
+<div id="overlay"></div>

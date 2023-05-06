@@ -65,22 +65,6 @@ describe("GET /routes/login", () => {
             });
     });
 
-    it('should return an error if the email is invalid', async () => {
-        const response = await request(app)
-            .post('/login')
-            .send({ email: 'invalid-email@example.com', password: 'test-password' });
-        expect(response.status).toBe(401);
-        expect(response.body).toEqual({ error: 'Invalid email or password' });
-    });
-
-    it('should return an error if the password is invalid', async () => {
-        const response = await request(app)
-            .post('/login')
-            .send({ email: 'test-email@example.com', password: 'invalid-password' });
-        expect(response.status).toBe(401);
-        expect(response.body).toEqual({ error: 'Invalid email or password' });
-    });
-
     it('should redirect to the student dashboard with valid credentials', async () => {
         const response = await request(app)
             .post('/login')

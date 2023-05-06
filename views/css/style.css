@@ -687,10 +687,8 @@ span {
     margin: 2rem 1rem;
 }
 
-.wishlist-classEntry>div {
-    padding: 1rem 0;
-}
 
+.wishlist-classEntry>div,
 .register-classEntry>div {
     padding: 1rem 0;
 }
@@ -981,6 +979,7 @@ hr {
 }
 
 #overlay {
+
     position: fixed;
     opacity: 0;
     top: 0;
@@ -993,6 +992,23 @@ hr {
 }
 
 #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#adminoverlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    transition: 300ms ease-in-out;
+    pointer-events: none;
+}
+
+#adminoverlay.active {
     opacity: 1;
     pointer-events: all;
 }
@@ -1020,7 +1036,12 @@ hr {
     margin: 0.5rem 0;
 }
 
-
+#response-message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
 
 /* do something with this or something - I think it looks dumb but 
 I was messing around with it and it didn't look right. I just deleted 
