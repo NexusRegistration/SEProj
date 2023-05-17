@@ -2,26 +2,31 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
-const path = require('path');
+
+
 const mime = require('mime');
 const fs = require('fs');
+
 
 //import bootstrap from 'bootstrap'
 //const bootstrap = require('bootstrap');
 
 // Create express app
 const app = express();
+var favicon = require('serve-favicon');
+const path = require('path');
 
 // Import mongoose and environment configuration
 const mongoose = require('mongoose');
 require('dotenv/config');
 
 // parsers
+app.use(favicon(path.join(__dirname+ '/public'+ '/favicon.ico')));
 app.use(expressLayouts)
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(__dirname+'/views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/views'));
 
 // authentication
 app.use(session({
@@ -50,6 +55,7 @@ const searchClassAPIRouter = require('./routes/api/search-classes');
 const registerAPIRouter = require('./routes/api/register');
 const auditAPIRouter = require('./routes/api/search-audits');
 const editClassAPIRouter = require('./routes/api/edit-classes');
+
 
 // Use Routes
 app.use('/', loginRouter);
@@ -85,6 +91,7 @@ app.get("/scripts", (req, res) => res.status(200).json({ data: alive }));
 app.get("/student", (req, res) => res.status(200).json({ data: alive })); //301 html
 app.get("/teacher", (req, res) => res.status(200).json({ data: alive })); //301 html
 
+
 // Connect to database
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
@@ -94,6 +101,6 @@ mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true })
 // Start server
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, console.log(`Server on port ${PORT}`)); 
+const server = app.listen(PORT);
 
 module.exports = server;

@@ -986,7 +986,12 @@ hr {
     margin: 0.5rem 0;
 }
 
-
+#response-message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
 
 /* do something with this or something - I think it looks dumb but 
 I was messing around with it and it didn't look right. I just deleted 

@@ -59,7 +59,8 @@
             <!--Unregister Button-->
     
             <div class="removewish-button">
-                <button type="button" class="btn-edit btn-delete" data-class-id="<%= wishlist[i]._id %>" onClick="removeFromWishlist(this)">
+                <button type="button" class="btn-edit btn-delete" data-class-id="<%= wishlist[i]._id %>" 
+                    data-course-name = "<%= wishlist[i].subject.className %>" onClick="removeFromWishlist(this)">
                     <span class="material-symbols-outlined">
                         remove
                     </span>

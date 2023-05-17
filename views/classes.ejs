@@ -71,10 +71,10 @@
 
             <!--Time Dropdown Menu-->
             <div class="form-input">
-                <select class="form-control" id="schedule" name="schedule" required>
-                    <option selected>Time...</option>
+                <select class="form-control" id="schedule" name="schedule">
+                    <option selected value="">Time...</option>
                     <% schedules.forEach(function(schedule) { %>
-                        <option value="<%= schedule._id %>"><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
+                        <option value="<%= schedule._id %> "><%= schedule.classTimes[0].day %> <%= schedule.classTimes[1].day %> <%= schedule.classTimes[0].startTime %> - <%= schedule.classTimes[0].endTime %></option>
                     <% }); %>
                 </select>
             </div>
@@ -94,7 +94,7 @@
                 <select id="inputLevel" name="inputLevel" class="form-control">
                     <option selected value="">Course Level...</option>
                         <option value="1">1000</option>
-                        <option value="2">2000</option>
+                        <option value='2'>2000</option>
                         <option value="3">3000</option>
                         <option value="4">4000</option>
                         <option value="5">5000</option>
@@ -115,7 +115,9 @@
     </form>
 
     <!--Search Results are contained in div below-->
-    <div class="search-form-result" id="classEntry-container">
+
+    <div >
+        <div class="search-form-result" id="classEntry-container" style = "text-align: center;">
     </div>
 
     <!--<div id="overlay"></div>-->

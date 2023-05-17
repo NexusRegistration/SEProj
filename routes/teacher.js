@@ -31,6 +31,7 @@ router.get('/classes', restrictAccess(roles.TEACHER), async (req, res) => {
     }
 });
 
+
 router.get('/registration', restrictAccess(roles.TEACHER), (req, res) => {
     res.render('teacher/registration');
 });

@@ -7,9 +7,8 @@
             <th>Name</th>
             <th>Teacher</th>
             <th>Location</th>
-            <th>Time</th>
+            <th style="width: 250px";>Time</th>
             <th>Capacity</th>
-            <th>Save</th>
         </tr>
     </thead>
     <tbody id="classEntry-container">
@@ -44,22 +43,28 @@
             </td>
 
             <!--Displays Class Schedule-->
-            <td>
-                <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
-                    <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
-                        <%= classes[i].schedule.classTimes[j].day %>
-                        [
-                        <%= classes[i].schedule.classTimes[j].startTime %>
-                        -
-                        <%= classes[i].schedule.classTimes[j].endTime %>
-                        ]
-                        <% if(j < classes[i].schedule.classTimes.length - 1) { %>
-                            &nbsp &nbsp
+                <td>
+                    <% if(classes[i].schedule && classes[i].schedule.classTimes){ %>
+                        <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                            <%= classes[i].schedule.classTimes[j].day %>
+                            <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                &nbsp &nbsp
+                            <% } %>
                         <% } %>
+                        <br>
+                        <% for (var j=0; j < classes[i].schedule.classTimes.length; j++) { %>
+                            <% if(j == 0) { %>
+                                <%= classes[i].schedule.classTimes[j].startTime %>
+                                -
+                                <%= classes[i].schedule.classTimes[j].endTime %>
+                                <% if(j < classes[i].schedule.classTimes.length - 1) { %>
+                                    &nbsp &nbsp
+                                <% } %>
+                            <% } %>
+                        <% } %>
+                    <% } else{ %>  
+                        Undetermined
                     <% } %>
-                <% } else{ %>  
-                    Undetermined
-                <% } %>
             </td>
             
             <!--Displays Class Capacity-->
@@ -73,7 +78,8 @@
         
             <!--Displays Button 1-->
             <td>                
-                <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" onClick="addToWishlist(this)">
+                <button type="button" class="btn-edit" data-class-id="<%= classes[i]._id %>" 
+                    data-course-name="<%= classes[i].subject.className %>" onClick="addToWishlist(this)">
                     <span class="material-symbols-outlined">
                         bookmark
                     </span>
